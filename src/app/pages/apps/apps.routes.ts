@@ -20,12 +20,23 @@ import { AppAddInvoiceComponent } from './invoice/add-invoice/add-invoice.compon
 import { AppInvoiceViewComponent } from './invoice/invoice-view/invoice-view.component';
 import { AppEditInvoiceComponent } from './invoice/edit-invoice/edit-invoice.component';
 import { AppContactListComponent } from './contact-list/contact-list.component';
+import {AppCatalogComponent} from "./catalog/catalog.component";
 
 
 export const AppsRoutes: Routes = [
   {
     path: '',
     children: [
+      {
+        path: 'catalog',
+        component: AppCatalogComponent,
+        data: {
+          title: 'Catálogo de asesores',
+          urls: [
+            { title: 'Catalog' },
+          ],
+        },
+      },
       {
         path: 'chat',
         component: AppChatComponent,
