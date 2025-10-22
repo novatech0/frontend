@@ -177,23 +177,16 @@ export class HeaderComponent {
     {
       id: 1,
       img: '/assets/images/svgs/icon-account.svg',
-      title: 'My Profile',
-      subtitle: 'Account Settings',
+      title: 'Mi Perfil',
+      subtitle: 'Configuración de la cuenta',
       link: '/',
     },
     {
       id: 2,
       img: '/assets/images/svgs/icon-inbox.svg',
-      title: 'My Inbox',
-      subtitle: 'Messages & Email',
+      title: 'Mi Inbox',
+      subtitle: 'Notificaciones',
       link: '/apps/email/inbox',
-    },
-    {
-      id: 3,
-      img: '/assets/images/svgs/icon-tasks.svg',
-      title: 'My Tasks',
-      subtitle: 'To-do and Daily Tasks',
-      link: '/apps/taskboard',
     },
   ];
 

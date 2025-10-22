@@ -26,7 +26,7 @@ export const navItemsFarmer: NavItem[] = [
     navCap: 'Posts',
   },
   {
-    displayName: 'Ver Posts',
+    displayName: 'Publicaciones',
     iconName: 'news',
     route: '/apps/posts',
   }
