@@ -21,7 +21,7 @@ export class AppSideLoginComponent {
               private router: Router) { }
 
   form = new FormGroup({
-    uname: new FormControl('', [Validators.required, Validators.minLength(6)]),
+    uname: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required]),
   });
 

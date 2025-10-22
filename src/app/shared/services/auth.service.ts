@@ -62,8 +62,8 @@ export class AuthService {
     let payload = this.getPayloadToken(token);
 
     this._user = new User(0,'','',[]);
-    this._user.username = payload.user.username;
-    this._user.roles = payload.user.roles;
+    this._user.username = payload.sub;
+    this._user.roles = payload.roles;
 
     localStorage.setItem("user", JSON.stringify(this._user));
   }
@@ -83,7 +83,7 @@ export class AuthService {
 
   isAuthenticated(): boolean {
     let payload = this.getPayloadToken(this.token);
-    if (payload != null && payload.user.username && payload.user.username.length > 0) {
+    if (payload != null && payload.sub && payload.sub.length > 0) {
       return true;
     }
     return false;
