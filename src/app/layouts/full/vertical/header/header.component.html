@@ -110,9 +110,6 @@
         </div>
       </div>
     </mat-menu>
-    <a mat-button [routerLink]="['/apps/chat']">Chat</a>
-    <a mat-button [routerLink]="['/apps/calendar']">Calendar</a>
-    <a mat-button [routerLink]="['/apps/email/inbox']">Email</a>
   </div>
 
   <span class="flex-1-auto"></span>
@@ -126,15 +123,6 @@
     <i-tabler name="grid-dots" class="icon-20 d-flex"></i-tabler>
   </button>
 
-  <!-- --------------------------------------------------------------- -->
-  <!-- langugage Dropdown -->
-  <!-- --------------------------------------------------------------- -->
-  <button [matMenuTriggerFor]="flags" mat-icon-button class="m-r-5">
-    <img
-      [src]="selectedLanguage.icon"
-      class="rounded-circle object-cover icon-20"
-    />
-  </button>
   <mat-menu #flags="matMenu" class="cardWithShadow">
     @for(lang of languages; track lang.icon) {
     <button mat-menu-item (click)="changeLanguage(lang)">

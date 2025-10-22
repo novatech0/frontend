@@ -3,12 +3,12 @@ import { CoreService } from 'src/app/services/core.service';
 import { FormGroup, FormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { MaterialModule } from '../../../material.module';
-import { BrandingComponent } from '../../../layouts/full/vertical/sidebar/branding.component';
 
 @Component({
     selector: 'app-side-login',
-    imports: [RouterModule, MaterialModule, FormsModule, ReactiveFormsModule, BrandingComponent],
-    templateUrl: './side-login.component.html'
+    imports: [RouterModule, MaterialModule, FormsModule, ReactiveFormsModule],
+    templateUrl: './side-login.component.html',
+    styleUrls: ['./side-login.component.scss']
 })
 export class AppSideLoginComponent {
   options = this.settings.getOptions();
