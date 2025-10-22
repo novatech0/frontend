@@ -5,6 +5,7 @@ import { Router, RouterModule } from '@angular/router';
 import { MaterialModule } from '../../../material.module';
 import { AuthService } from "../../../shared/services/auth.service";
 import {User} from "../../../shared/model/user";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
     selector: 'app-side-login',
@@ -18,7 +19,8 @@ export class AppSideLoginComponent {
 
   constructor(private settings: CoreService,
               private authService: AuthService,
-              private router: Router) { }
+              private router: Router,
+              private toastr: ToastrService) { }
 
   form = new FormGroup({
     uname: new FormControl('', [Validators.required, Validators.email]),
@@ -36,6 +38,9 @@ export class AppSideLoginComponent {
       this.authService.saveUser(response.token);
       this.authService.saveToken(response.token);
       this.router.navigate(['']);
-    })
+    },
+      _error => {
+        this.toastr.error('Usuario o contraseña incorrecta', 'Error de autenticación');
+      })
   }
 }
