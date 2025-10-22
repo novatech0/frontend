@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { CoreService } from 'src/app/services/core.service';
 import { FormGroup, FormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { MaterialModule } from '../../../material.module';
+import {AuthService} from "../../../shared/services/auth.service";
+import {User} from "../../../shared/model/user";
 
 @Component({
     selector: 'app-side-register',
@@ -12,13 +14,16 @@ import { MaterialModule } from '../../../material.module';
 })
 export class AppSideRegisterComponent {
   options = this.settings.getOptions();
+  user: User = new User(null,'', '', null);
 
-  constructor(private settings: CoreService, private router: Router) { }
+  constructor(private settings: CoreService,
+              private authService: AuthService,
+              private router: Router) { }
 
   form = new FormGroup({
-    uname: new FormControl('', [Validators.required, Validators.minLength(6)]),
-    email: new FormControl('', [Validators.required]),
+    uname: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required]),
+    role: new FormControl('ROLE_FARMER', [Validators.required])
   });
 
   get f() {
@@ -26,7 +31,12 @@ export class AppSideRegisterComponent {
   }
 
   submit() {
-    // console.log(this.form.value);
-    this.router.navigate(['/dashboards/dashboard1']);
+    if (this.form.invalid) { return }
+    const roles = ['ROLE_USER', this.form.value.role!];
+    this.user = new User(null, this.form.value.uname!, this.form.value.password!, roles);
+    this.authService.signup(this.user).subscribe(response => {
+      // TODO: Debe llevar a la página de crear perfil
+      this.router.navigate(['/dashboards/dashboard1']);
+    })
   }
 }
