@@ -4,6 +4,7 @@ import {
   importProvidersFrom,
 } from '@angular/core';
 import {
+  HTTP_INTERCEPTORS,
   HttpClient,
   provideHttpClient,
   withInterceptorsFromDi,
@@ -38,6 +39,7 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 // code view
 import { provideHighlightOptions } from 'ngx-highlightjs';
 import 'highlight.js/styles/atom-one-dark.min.css';
+import {TokenInterceptor} from "./shared/interceptors/token.interceptor";
 
 export function HttpLoaderFactory(http: HttpClient): any {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -88,5 +90,6 @@ export const appConfig: ApplicationConfig = {
         },
       })
     ),
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
   ],
 };

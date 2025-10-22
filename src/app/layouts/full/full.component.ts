@@ -20,6 +20,9 @@ import { AppHorizontalHeaderComponent } from './horizontal/header/header.compone
 import { AppHorizontalSidebarComponent } from './horizontal/sidebar/sidebar.component';
 import { AppBreadcrumbComponent } from './shared/breadcrumb/breadcrumb.component';
 import { CustomizerComponent } from './shared/customizer/customizer.component';
+import {AuthService} from "../../shared/services/auth.service";
+import {navItemsFarmer} from "./vertical/sidebar/sidebar-data-farmer";
+import {navItemsAdvisor} from "./vertical/sidebar/sidebar-data-advisor";
 
 const MOBILE_VIEW = 'screen and (max-width: 768px)';
 const TABLET_VIEW = 'screen and (min-width: 769px) and (max-width: 1024px)';
@@ -192,7 +195,8 @@ export class FullComponent implements OnInit {
     private mediaMatcher: MediaMatcher,
     private router: Router,
     private breakpointObserver: BreakpointObserver,
-    private navService: NavService
+    private navService: NavService,
+    private authService: AuthService,
   ) {
     this.htmlElement = document.querySelector('html')!;
     this.layoutChangesSubscription = this.breakpointObserver
@@ -219,7 +223,18 @@ export class FullComponent implements OnInit {
       });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    const user = this.authService.user;
+    const roles = user.roles || [];
+
+    if (roles.includes('ROLE_FARMER')) {
+      this.navItems = navItemsFarmer;
+    }
+
+    if (roles.includes('ROLE_ADVISOR')) {
+      this.navItems = navItemsAdvisor;
+    }
+  }
 
   ngOnDestroy() {
     this.layoutChangesSubscription.unsubscribe();
@@ -271,5 +286,10 @@ export class FullComponent implements OnInit {
 
     // Add the selected theme class
     this.htmlElement.classList.add(options.activeTheme);
+  }
+
+  logout() {
+    this.authService.logout();
+    this.router.navigate(['/authentication/login']);
   }
 }

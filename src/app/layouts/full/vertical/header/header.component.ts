@@ -11,11 +11,12 @@ import { navItems } from '../sidebar/sidebar-data';
 import { TranslateService } from '@ngx-translate/core';
 import { TablerIconsModule } from 'angular-tabler-icons';
 import { MaterialModule } from 'src/app/material.module';
-import { RouterModule } from '@angular/router';
+import {Router, RouterModule} from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NgScrollbarModule } from 'ngx-scrollbar';
 import { AppSettings } from 'src/app/config';
+import {AuthService} from "../../../../shared/services/auth.service";
 
 interface notifications {
   id: number;
@@ -102,9 +103,10 @@ export class HeaderComponent {
 
   constructor(
     private settings: CoreService,
-    private vsidenav: CoreService,
+    private authService: AuthService,
     public dialog: MatDialog,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private router: Router
   ) {
     translate.setDefaultLang('en');
   }
@@ -131,6 +133,11 @@ export class HeaderComponent {
   changeLanguage(lang: any): void {
     this.translate.use(lang.code);
     this.selectedLanguage = lang;
+  }
+
+  logout() {
+    this.authService.logout();
+    this.router.navigate(['/authentication/login']);
   }
 
   notifications: notifications[] = [
@@ -170,23 +177,16 @@ export class HeaderComponent {
     {
       id: 1,
       img: '/assets/images/svgs/icon-account.svg',
-      title: 'My Profile',
-      subtitle: 'Account Settings',
+      title: 'Mi Perfil',
+      subtitle: 'Configuración de la cuenta',
       link: '/',
     },
     {
       id: 2,
       img: '/assets/images/svgs/icon-inbox.svg',
-      title: 'My Inbox',
-      subtitle: 'Messages & Email',
+      title: 'Mi Inbox',
+      subtitle: 'Notificaciones',
       link: '/apps/email/inbox',
-    },
-    {
-      id: 3,
-      img: '/assets/images/svgs/icon-tasks.svg',
-      title: 'My Tasks',
-      subtitle: 'To-do and Daily Tasks',
-      link: '/apps/taskboard',
     },
   ];
 

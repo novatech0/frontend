@@ -25,11 +25,11 @@
           <div class="bg-light-secondary d-flex align-items-center rounded p-16">
             <img src="/assets/images/profile/user-1.jpg" class="rounded-circle" width="40" />
             <div class="m-l-16">
-              <h4 class="f-w-600">Mathew</h4>
-            <span class="f-s-12">Designer</span>
+              <h4 class="f-w-600">Jhon</h4>
+            <span class="f-s-12">Usuario</span>
             </div>
             <div class="m-l-auto">
-              <a mat-icon-button [routerLink]="['/authentication/login']" class="d-flex justify-content-center">
+              <a mat-icon-button (click)="logout()" class="d-flex justify-content-center">
                 <i-tabler name="power" class="text-primary icon-18 d-flex"></i-tabler>
               </a>
             </div>
@@ -61,7 +61,7 @@
             <span class="f-s-12">Designer</span>
           </div>
           <div class="m-l-auto">
-            <a mat-icon-button [routerLink]="['/authentication/login']" class="d-flex justify-content-center">
+            <a mat-icon-button (click)="logout()" class="d-flex justify-content-center">
               <i-tabler name="power" class="text-primary icon-18 d-flex"></i-tabler>
             </a>
           </div>
@@ -96,11 +96,13 @@
         <!-- Outlet -->
         <!-- ============================================================== -->
         <router-outlet></router-outlet>
+        <!-- TODO: Evaluar si eliminar este boton de customizer
         <div class="customizerBtn">
           <button mat-fab class="bg-primary text-white" (click)="customizerRight.toggle()">
             <mat-icon>settings</mat-icon>
           </button>
         </div>
+        -->
       </main>
     </mat-sidenav-content>
 
