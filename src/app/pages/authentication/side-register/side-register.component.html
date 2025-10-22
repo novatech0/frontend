@@ -12,8 +12,9 @@
             <h4 class="f-w-700 f-s-24 m-0">Bienvenido a AgroTech</h4>
 
             <form class="m-t-30" [formGroup]="form" (ngSubmit)="submit()">
+              <!-- usuario -->
               <mat-label class="f-s-14 f-w-600 m-b-12 d-block"
-                >Nombre</mat-label
+                >Usuario</mat-label
               >
               <mat-form-field
                 appearance="outline"
@@ -24,27 +25,9 @@
                 @if(f['uname'].touched && f['uname'].invalid) {
                 <mat-hint class="m-b-16 error-msg">
                   @if(f['uname'].errors && f['uname'].errors['required']) {
-                  <div class="text-error">Name is required.</div>
-                  } @if(f['uname'].errors && f['uname'].errors['minlength']) {
-                  <div class="text-error">Name should be 6 character.</div>
-                  }
-                </mat-hint>
-                }
-              </mat-form-field>
-              <!-- email -->
-              <mat-label class="f-s-14 f-w-600 m-b-12 d-block"
-                >Correo electrónico</mat-label
-              >
-              <mat-form-field
-                appearance="outline"
-                class="w-100"
-                color="primary"
-              >
-                <input matInput type="email" formControlName="email" />
-                @if(f['email'].touched && f['email'].invalid) {
-                <mat-hint class="m-b-16 error-msg">
-                  @if(f['email'].errors && f['email'].errors['required']) {
-                  <div class="text-error">Email is required.</div>
+                  <div class="text-error">Usuario es requerido.</div>
+                  } @if(f['uname'].errors && f['uname'].errors['email']) {
+                  <div class="text-error">Usuario debe ser un email válido.</div>
                   }
                 </mat-hint>
                 }
@@ -68,11 +51,17 @@
                 </mat-hint>
                 }
               </mat-form-field>
+              <!-- roles -->
+              <mat-label class="f-s-14 f-w-600 m-b-12 d-block">Rol</mat-label>
+              <mat-button-toggle-group formControlName="role">
+                <mat-button-toggle value="ROLE_FARMER">Productor Agrícola</mat-button-toggle>
+                <mat-button-toggle value="ROLE_ADVISOR">Asesor Especializado</mat-button-toggle>
+              </mat-button-toggle-group>
 
               <button
                 mat-flat-button
                 color="primary"
-                class="w-100"
+                class="w-100 m-t-24"
                 [disabled]="!form.valid"
               >
                 Registrarse
