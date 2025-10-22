@@ -37,7 +37,7 @@ export class AuthService {
   }
 
   login(user: User): Observable<any> {
-    const urlEndpoint = `${this.environmentUrl}/login`;
+    const urlEndpoint = `${this.environmentUrl}/sign-in`;
     let data = JSON.stringify({ "username": user.username, "password": user.password })
     return this.httpClient.post<any>(urlEndpoint, data, {
       headers: new HttpHeaders({
@@ -58,7 +58,7 @@ export class AuthService {
     });
   }
 
-  saveUser(token: any, ipAddress: string): void {
+  saveUser(token: any): void {
     let payload = this.getPayloadToken(token);
 
     this._user = new User(0,'','',[]);
@@ -105,10 +105,10 @@ export class AuthService {
   }
 
   hasRole(role: string): boolean {
-    if (this.user.roles.includes(role)) {
-      return true;
+    if (this.user.roles == null) {
+      return false;
     }
-    return false;
+    return this.user.roles.includes(role);
   }
 
 }
