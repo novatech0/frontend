@@ -29,7 +29,7 @@
             <span class="f-s-12">Designer</span>
             </div>
             <div class="m-l-auto">
-              <a mat-icon-button [routerLink]="['/authentication/login']" class="d-flex justify-content-center">
+              <a mat-icon-button (click)="logout()" class="d-flex justify-content-center">
                 <i-tabler name="power" class="text-primary icon-18 d-flex"></i-tabler>
               </a>
             </div>
@@ -61,7 +61,7 @@
             <span class="f-s-12">Designer</span>
           </div>
           <div class="m-l-auto">
-            <a mat-icon-button [routerLink]="['/authentication/login']" class="d-flex justify-content-center">
+            <a mat-icon-button (click)="logout()" class="d-flex justify-content-center">
               <i-tabler name="power" class="text-primary icon-18 d-flex"></i-tabler>
             </a>
           </div>

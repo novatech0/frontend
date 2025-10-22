@@ -35,7 +35,7 @@ export class AppSideLoginComponent {
     this.authService.login(this.user).subscribe(response => {
       this.authService.saveUser(response.token);
       this.authService.saveToken(response.token);
-      this.router.navigate(['/dashboards/dashboard1']);
+      this.router.navigate(['']);
     })
   }
 }

@@ -287,4 +287,9 @@ export class FullComponent implements OnInit {
     // Add the selected theme class
     this.htmlElement.classList.add(options.activeTheme);
   }
+
+  logout() {
+    this.authService.logout();
+    this.router.navigate(['/authentication/login']);
+  }
 }
