@@ -478,7 +478,7 @@ export const navItems: NavItem[] = [
       {
         displayName: 'Side Register',
         iconName: 'point',
-        route: '/authentication/side-register',
+        route: '/authentication/signup',
       },
     ],
   },

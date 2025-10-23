@@ -1,15 +1,15 @@
 export class Profile {
   constructor(
-    public profileId: number | null,
+    public id: number | null,
     public userId: number | null,
-    public profileFirstName: string,
-    public profileLastName: string,
-    public profileCity: string | null,
-    public profileCountry: string | null,
-    public profileBirthDate: Date | null,
-    public profileDescription: string | null,
-    public profilePhoto: string | null,
-    public profileOccupation: string | null,
-    public profileExperience: number | null,
+    public firstName: string,
+    public lastName: string,
+    public city: string | null,
+    public country: string | null,
+    public birthDate: Date | null,
+    public description: string | null,
+    public photo: string | null,
+    public occupation: string | null | undefined,
+    public experience: number | null | undefined,
   ) {}
 }

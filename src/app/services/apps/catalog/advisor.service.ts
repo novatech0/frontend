@@ -4,7 +4,7 @@ import {Advisor} from "src/app/pages/apps/catalog/advisor";
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../../../environments/environment";
 import {map, switchMap} from "rxjs/operators";
-import {ProfileService} from "./profile.service";
+import {ProfileService} from "src/app/shared/services/profile.service";
 import {Observable} from "rxjs";
 
 @Injectable({
@@ -28,12 +28,12 @@ export class AdvisorService {
               return new Advisor(
                 advisor.id,
                 advisor.userId,
-                `${profile?.profileFirstName ?? ''} ${profile?.profileLastName ?? ''}`.trim(),
-                profile?.profileOccupation ?? '',
-                profile?.profileCity ?? '',
-                profile?.profileCountry ?? '',
+                `${profile?.firstName ?? ''} ${profile?.lastName ?? ''}`.trim(),
+                profile?.occupation ?? '',
+                profile?.city ?? '',
+                profile?.country ?? '',
                 advisor.rating,
-                profile?.profilePhoto ?? '',
+                profile?.photo ?? '',
               )
             })
           )
