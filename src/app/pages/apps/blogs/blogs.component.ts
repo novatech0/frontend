@@ -1,25 +1,30 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { Router } from '@angular/router';
-import { blogService } from 'src/app/services/apps/blog/blog.service';
+import { PostService } from 'src/app/services/apps/blog/post.service';
 import { MatCardModule } from '@angular/material/card';
 import { TablerIconsModule } from 'angular-tabler-icons';
 import { MatChipsModule } from '@angular/material/chips';
+import { CommonModule } from '@angular/common';
 
 @Component({
-    selector: 'app-blogs',
-    imports: [MatCardModule, TablerIconsModule, MatChipsModule],
-    templateUrl: './blogs.component.html'
-}) 
+  selector: 'app-blogs',
+  imports: [MatCardModule, TablerIconsModule, MatChipsModule, CommonModule],
+  templateUrl: './blogs.component.html',
+  standalone: true,
+})
 export class AppBlogsComponent implements OnInit {
-  posts = this.blogService.getBlog();
+  posts = signal<any[]>([]);
 
-  constructor(public router: Router, public blogService: blogService) {}
+  constructor(public router: Router, private postService: PostService) {}
 
-  selectBlog(title: string) {
-    this.blogService.selectBlogPost(title);
-    this.router.navigate(['apps/blog/detail', title]);
-  }
   ngOnInit(): void {
-    console.log('Blog posts loaded:', this.posts);
+    this.postService.getPosts().subscribe((data) => {
+      this.posts.set(data);
+      console.log('Posts obtenidos del backend:', data);
+    });
+  }
+
+  selectBlog(id: number) {
+    this.router.navigate(['apps/blog/detail', id]);
   }
 }
