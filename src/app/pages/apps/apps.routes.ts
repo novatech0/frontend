@@ -7,7 +7,6 @@ import { AppCoursesComponent } from './courses/courses.component';
 import { AppCourseDetailComponent } from './courses/course-detail/course-detail.component';
 import { AppEmployeeComponent } from './employee/employee.component';
 import { AppBlogsComponent } from './blogs/blogs.component';
-import { AppBlogDetailsComponent } from './blogs/details/details.component';
 import { AppContactComponent } from './contact/contact.component';
 import { AppNotesComponent } from './notes/notes.component';
 import { AppTodoComponent } from './todo/todo.component';
@@ -191,17 +190,6 @@ export const AppsRoutes: Routes = [
           urls: [
             { title: 'Dashboard', url: '/dashboards/dashboard1' },
             { title: 'Posts' },
-          ],
-        },
-      },
-      {
-        path: 'blog/detail/:id',
-        component: AppBlogDetailsComponent,
-        data: {
-          title: 'Blog Detail',
-          urls: [
-            { title: 'Dashboard', url: '/dashboards/dashboard1' },
-            { title: 'Blog Detail' },
           ],
         },
       },
