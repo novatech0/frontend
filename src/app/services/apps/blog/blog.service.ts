@@ -1,5 +1,5 @@
 import { Injectable, signal } from '@angular/core';
-import { blogPosts } from 'src/app/pages/apps/blogs/blogData';
+import { blogPosts } from 'src/app/pages/apps/posts/blogData';
 
 @Injectable({
   providedIn: 'root',
