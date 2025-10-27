@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {environment} from "../../../../environments/environment";
-import {Profile} from "../../../shared/model/profile";
 import {map} from "rxjs/operators";
 import {Observable} from "rxjs";
+import {environment} from "src/environments/environment";
+import { Profile } from 'src/app/shared/model/profile';
 
 @Injectable({
   providedIn: 'root',
@@ -52,5 +52,27 @@ export class ProfileService {
       profile['occupation'],
       profile['experience']
     );
+  }
+
+  public create(profile: Profile): Observable<Profile> {
+    const urlEndpoint = `${this.environmentUrl}`;
+    let data = JSON.stringify({
+      "userId": profile.userId,
+      "firstName": profile.firstName,
+      "lastName": profile.lastName,
+      "city": profile.city,
+      "country": profile.country,
+      "birthDate": profile.birthDate,
+      "description": profile.description,
+      "photo": profile.photo,
+      "occupation": profile.occupation,
+      "experience": profile.experience
+    });
+    return this.httpClient.post<any>(urlEndpoint, data, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      })
+    }).pipe(map(profile => this.mapToProfile(profile)));
   }
 }

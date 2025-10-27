@@ -249,7 +249,7 @@ export class AppHorizontalHeaderComponent {
     {
       id: 3,
       title: 'Register Now',
-      link: '/authentication/side-register',
+      link: '/authentication/signup',
     },
     {
       id: 4,

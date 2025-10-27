@@ -1,7 +1,9 @@
 <div class="blank-layout-container justify-content-center">
   <div class="position-relative row w-100 h-100">
     <div class="col-lg-7 col-xl-8 bg-gredient p-0">
-
+      <div class="p-24 h-100">
+        <app-branding></app-branding>
+      </div>
     </div>
     <div class="col-lg-5 col-xl-4 p-0">
       <div
@@ -14,7 +16,7 @@
             <form class="m-t-30" [formGroup]="form" (ngSubmit)="submit()">
               <!-- usuario -->
               <mat-label class="f-s-14 f-w-600 m-b-12 d-block"
-                >Usuario</mat-label
+                >Correo electrónico</mat-label
               >
               <mat-form-field
                 appearance="outline"
@@ -25,9 +27,9 @@
                 @if(f['uname'].touched && f['uname'].invalid) {
                 <mat-hint class="m-b-16 error-msg">
                   @if(f['uname'].errors && f['uname'].errors['required']) {
-                  <div class="text-error">Usuario es requerido.</div>
+                  <div class="text-error">Correo es requerido.</div>
                   } @if(f['uname'].errors && f['uname'].errors['email']) {
-                  <div class="text-error">Usuario debe ser un email válido.</div>
+                  <div class="text-error">Debe ser un email válido.</div>
                   }
                 </mat-hint>
                 }
@@ -46,17 +48,188 @@
                 <mat-hint class="m-b-16 error-msg">
                   @if( f['password'].errors && f['password'].errors['required'])
                   {
-                  <div class="text-error">Password is required.</div>
+                  <div class="text-error">Contraseña es requerida.</div>
                   }
                 </mat-hint>
                 }
               </mat-form-field>
               <!-- roles -->
               <mat-label class="f-s-14 f-w-600 m-b-12 d-block">Rol</mat-label>
-              <mat-button-toggle-group formControlName="role">
+              <mat-button-toggle-group formControlName="role" style="margin-bottom: 10px;">
                 <mat-button-toggle value="ROLE_FARMER">Productor Agrícola</mat-button-toggle>
                 <mat-button-toggle value="ROLE_ADVISOR">Asesor Especializado</mat-button-toggle>
               </mat-button-toggle-group>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <mat-label class="f-s-14 f-w-600 m-b-12 d-block">Nombre</mat-label>
+                  <mat-form-field
+                    appearance="outline"
+                    class="w-100"
+                    color="primary"
+                  >
+                    <input matInput formControlName="firstName" />
+                    @if(f['firstName'].touched && f['firstName'].invalid) {
+                      <mat-hint class="m-b-16 error-msg">
+                        @if(f['firstName'].errors && f['firstName'].errors['required']) {
+                          <div class="text-error">Nombre es requerido.</div>
+                        }
+                      </mat-hint>
+                    }
+                  </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                  <mat-label class="f-s-14 f-w-600 m-b-12 d-block">Apellido</mat-label>
+                  <mat-form-field
+                    appearance="outline"
+                    class="w-100"
+                    color="primary"
+                  >
+                    <input matInput formControlName="lastName" />
+                    @if(f['lastName'].touched && f['lastName'].invalid) {
+                      <mat-hint class="m-b-16 error-msg">
+                        @if(f['lastName'].errors && f['lastName'].errors['required']) {
+                          <div class="text-error">Apellido es requerido.</div>
+                        }
+                      </mat-hint>
+                    }
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <mat-label class="f-s-14 f-w-600 m-b-12 d-block">Ciudad</mat-label>
+                  <mat-form-field
+                    appearance="outline"
+                    class="w-100"
+                    color="primary"
+                  >
+                    <input matInput formControlName="city" />
+                    @if(f['city'].touched && f['city'].invalid) {
+                      <mat-hint class="m-b-16 error-msg">
+                        @if(f['city'].errors && f['city'].errors['required']) {
+                          <div class="text-error">Ciudad es requerida.</div>
+                        }
+                      </mat-hint>
+                    }
+                  </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                  <mat-label class="f-s-14 f-w-600 m-b-12 d-block">País</mat-label>
+                  <mat-form-field
+                    appearance="outline"
+                    class="w-100"
+                    color="primary"
+                  >
+                    <input matInput formControlName="country" />
+                    @if(f['country'].touched && f['country'].invalid) {
+                      <mat-hint class="m-b-16 error-msg">
+                        @if(f['country'].errors && f['country'].errors['required']) {
+                          <div class="text-error">País es requerido.</div>
+                        }
+                      </mat-hint>
+                    }
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <mat-label class="f-s-14 f-w-600 m-b-12 d-block">Fecha de nacimiento</mat-label>
+
+
+                  <mat-form-field
+                    appearance="outline"
+                    class="w-100"
+                    color="primary"
+                  >
+                    <input matInput [matDatepicker]="picker" formControlName="birthDate" [max]="maxBirthDate" readonly />
+                    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                    @if(f['birthDate'].touched && f['birthDate'].invalid) {
+                      <mat-hint class="m-b-16 error-msg">
+                        @if(f['birthDate'].errors && f['birthDate'].errors['required']) {
+                          <div class="text-error">Fecha es requerida.</div>
+                        }
+                      </mat-hint>
+                    }
+                  </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                  <mat-label class="f-s-14 f-w-600 m-b-12 d-block">Foto de perfil</mat-label>
+                  <div class="d-flex align-items-center">
+                    <span class="upload-btn" (click)="fileInput.click()">
+                      <mat-icon matSuffix>
+                        <i-tabler name="upload" class="icon-20 d-flex m-t-2"></i-tabler>
+                      </mat-icon>
+                    </span>
+                    <span class="m-l-12">
+                      @if (imageUrl) {
+                        {{ imageName }}
+                      } @else {
+                        Subir foto
+                      }
+                    </span>
+                    <input #fileInput type="file" accept="image/*" style="display: none" (change)="onFileSelected($event)" />
+                  </div>
+                </div>
+              </div>
+
+              <mat-label class="f-s-14 f-w-600 m-b-12 d-block">Descripción</mat-label>
+              <mat-form-field
+                appearance="outline"
+                class="w-100"
+                color="primary"
+              >
+                <textarea matInput formControlName="description"></textarea>
+                @if(f['description'].touched && f['description'].invalid) {
+                  <mat-hint class="m-b-16 error-msg">
+                    @if(f['description'].errors && f['description'].errors['required']) {
+                      <div class="text-error">Descripción es requerida.</div>
+                    }
+                  </mat-hint>
+                }
+              </mat-form-field>
+
+              <div class="row" *ngIf="isAdvisor()">
+                <div class="col-md-6">
+                  <mat-label class="f-s-14 f-w-600 m-b-12 d-block">Ocupación</mat-label>
+                  <mat-form-field
+                    appearance="outline"
+                    class="w-100"
+                    color="primary"
+                  >
+                    <input matInput formControlName="occupation" />
+                    @if(f['occupation'].touched && f['occupation'].invalid) {
+                      <mat-hint class="m-b-16 error-msg">
+                        @if(f['occupation'].errors && f['occupation'].errors['required']) {
+                          <div class="text-error">Ocupación es requerida.</div>
+                        }
+                      </mat-hint>
+                    }
+                  </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                  <mat-label class="f-s-14 f-w-600 m-b-12 d-block">Experiencia</mat-label>
+                  <mat-form-field
+                    appearance="outline"
+                    class="w-100"
+                    color="primary"
+                  >
+                    <input matInput type="number" formControlName="experience" [min]="1" />
+                    @if(f['experience'].touched && f['experience'].invalid) {
+                      <mat-hint class="m-b-16 error-msg">
+                        @if(f['experience'].errors && f['experience'].errors['required']) {
+                          <div class="text-error">Experiencia es requerida.</div>
+                        } @else if (f['experience'].errors && f['experience'].errors['min']) {
+                          <div class="text-error">Experiencia debe ser al menos 1 años.</div>
+                        }
+                      </mat-hint>
+                    }
+                  </mat-form-field>
+                </div>
+              </div>
 
               <button
                 mat-flat-button

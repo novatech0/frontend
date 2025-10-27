@@ -6,10 +6,11 @@ import { MaterialModule } from '../../../material.module';
 import { AuthService } from "../../../shared/services/auth.service";
 import {User} from "../../../shared/model/user";
 import {ToastrService} from "ngx-toastr";
+import {BrandingComponent} from "../../../layouts/full/vertical/sidebar/branding.component";
 
 @Component({
     selector: 'app-side-login',
-    imports: [RouterModule, MaterialModule, FormsModule, ReactiveFormsModule],
+  imports: [RouterModule, MaterialModule, FormsModule, ReactiveFormsModule, BrandingComponent],
     templateUrl: './side-login.component.html',
     styleUrls: ['./side-login.component.scss']
 })

@@ -28,7 +28,7 @@ export const AuthenticationRoutes: Routes = [
         component: AppSideLoginComponent,
       },
       {
-        path: 'side-register',
+        path: 'signup',
         component: AppSideRegisterComponent,
       },
       {
