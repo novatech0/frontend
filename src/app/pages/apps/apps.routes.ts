@@ -6,8 +6,7 @@ import { DetailComponent } from './email/detail/detail.component';
 import { AppCoursesComponent } from './courses/courses.component';
 import { AppCourseDetailComponent } from './courses/course-detail/course-detail.component';
 import { AppEmployeeComponent } from './employee/employee.component';
-import { AppBlogsComponent } from './blogs/blogs.component';
-import { AppBlogDetailsComponent } from './blogs/details/details.component';
+import { AppPostsComponent } from './posts/posts.component';
 import { AppContactComponent } from './contact/contact.component';
 import { AppNotesComponent } from './notes/notes.component';
 import { AppTodoComponent } from './todo/todo.component';
@@ -46,7 +45,17 @@ export const AppsRoutes: Routes = [
           urls: [
             { title: 'Catalog', url: '/apps/catalog' },
             { title: 'Advisor Detail' },
-          ],
+          ]
+        }
+      },
+      {
+        path: 'posts',
+        component: AppPostsComponent,
+        data: {
+          title: 'Publicaciones de asesores',
+          urls: [
+            { title: 'Posts' },
+          ]
         }
       },
       {
@@ -192,28 +201,6 @@ export const AppsRoutes: Routes = [
           urls: [
             { title: 'Dashboard', url: '/dashboards/dashboard1' },
             { title: 'Course Detail' },
-          ],
-        },
-      },
-      {
-        path: 'blog/post',
-        component: AppBlogsComponent,
-        data: {
-          title: 'Posts',
-          urls: [
-            { title: 'Dashboard', url: '/dashboards/dashboard1' },
-            { title: 'Posts' },
-          ],
-        },
-      },
-      {
-        path: 'blog/detail/:id',
-        component: AppBlogDetailsComponent,
-        data: {
-          title: 'Blog Detail',
-          urls: [
-            { title: 'Dashboard', url: '/dashboards/dashboard1' },
-            { title: 'Blog Detail' },
           ],
         },
       },
