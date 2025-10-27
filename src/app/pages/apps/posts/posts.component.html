@@ -21,12 +21,12 @@
       <mat-card-header>
         <img
           mat-card-avatar
-          [src]="getAdvisor(post.advisorId).advisorImage"
-          alt="{{ getAdvisor(post.advisorId).advisorName }}"
+          [src]="getAdvisor(post.advisorId).photo"
+          alt="Asesor {{ getAdvisor(post.advisorId).firstName }} {{ getAdvisor(post.advisorId).lastName }}"
           (error)="onImageError($event)"
         />
         <mat-card-title>
-          {{ getAdvisor(post.advisorId).advisorName }}
+          {{ getAdvisor(post.advisorId).firstName }} {{ getAdvisor(post.advisorId).lastName }}
         </mat-card-title>
       </mat-card-header>
       <img mat-card-image [src]="post.image" alt="{{ post.title }}" />

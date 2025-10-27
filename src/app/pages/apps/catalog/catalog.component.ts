@@ -41,9 +41,10 @@ export class AppCatalogComponent implements OnInit {
     const filterValue = (event.target as HTMLInputElement).value.toLowerCase();
     this.searchText.set(filterValue);
     this.advisors.set(
-      this.originalAdvisors.filter(a =>
-        a.advisorName.toLowerCase().includes(filterValue)
-      )
+      this.originalAdvisors.filter(a => {
+        const fullName = `${a.firstName} ${a.lastName}`.toLowerCase();
+        return fullName.includes(filterValue);
+      })
     );
   }
 }

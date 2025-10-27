@@ -112,8 +112,8 @@ export class AppSideRegisterComponent implements OnInit{
           this.form.value.birthDate!,
           this.form.value.description!,
           this.form.value.photo!,
-          this.isAdvisor() ? this.form.value.occupation : "",
-          this.isAdvisor() ? this.form.value.experience : 0
+          this.isAdvisor() ? this.form.value.occupation! : "",
+          this.isAdvisor() ? this.form.value.experience! : 0
         )
         this.profileService.create(profile).subscribe(res => {
           this.toastr.success('Usuario registrado con éxito', 'Registro exitoso');

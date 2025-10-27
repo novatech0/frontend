@@ -46,7 +46,7 @@ export class ProfileService {
       profile['lastName'],
       profile['city'],
       profile['country'],
-      profile['birthDate'] ? new Date(profile['birthDate']) : null,
+      profile['birthDate'] ? new Date(profile['birthDate']) : new Date(),
       profile['description'],
       profile['photo'],
       profile['occupation'],
