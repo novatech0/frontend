@@ -13,7 +13,7 @@
           </mat-icon>
         </mat-form-field>
         @if(advisors().length === 0){
-        <p>No hay asesores disponibles.</p>
+        <mat-card-title class="m-t-24">No hay asesores disponibles.</mat-card-title>
         }
       </div>
     </div>
@@ -43,7 +43,7 @@
               class="text-white"
               [routerLink]="['/apps/catalog/', advisor.advisorId]"
             >
-              Contactar
+              Ver más
             </button>
           </div>
           <span class="f-s-14"> {{ advisor.city + ", " + advisor.country }}</span>
@@ -54,7 +54,7 @@
         <div class="col-4 p-y-12"></div>
         <div class="col-4 p-y-12">
           <a
-            [routerLink]="['/apps/reviews/', advisor.advisorId]"
+            [routerLink]="['/apps/catalog/', advisor.advisorId]"
             class="text-decoration-none f-s-14 f-w-500 d-flex justify-content-center align-items-center gap-4"
           >
             <i-tabler name="star" class="icon-18 d-flex"></i-tabler>

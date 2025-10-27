@@ -21,6 +21,7 @@ import { AppInvoiceViewComponent } from './invoice/invoice-view/invoice-view.com
 import { AppEditInvoiceComponent } from './invoice/edit-invoice/edit-invoice.component';
 import { AppContactListComponent } from './contact-list/contact-list.component';
 import {AppCatalogComponent} from "./catalog/catalog.component";
+import {AppAdvisorDetailComponent} from "./catalog/advisor-detail/advisor-detail.component";
 
 
 export const AppsRoutes: Routes = [
@@ -36,6 +37,17 @@ export const AppsRoutes: Routes = [
             { title: 'Catalog' },
           ],
         },
+      },
+      {
+        path: 'catalog/:advisorId',
+        component: AppAdvisorDetailComponent,
+        data: {
+          title: 'Detalle del asesor',
+          urls: [
+            { title: 'Catalog', url: '/apps/catalog' },
+            { title: 'Advisor Detail' },
+          ],
+        }
       },
       {
         path: 'chat',
