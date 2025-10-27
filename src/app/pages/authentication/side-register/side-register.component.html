@@ -137,12 +137,16 @@
               <div class="row">
                 <div class="col-md-6">
                   <mat-label class="f-s-14 f-w-600 m-b-12 d-block">Fecha de nacimiento</mat-label>
+
+
                   <mat-form-field
                     appearance="outline"
                     class="w-100"
                     color="primary"
                   >
-                    <input matInput formControlName="birthDate" />
+                    <input matInput [matDatepicker]="picker" formControlName="birthDate" [max]="maxBirthDate" readonly />
+                    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
                     @if(f['birthDate'].touched && f['birthDate'].invalid) {
                       <mat-hint class="m-b-16 error-msg">
                         @if(f['birthDate'].errors && f['birthDate'].errors['required']) {

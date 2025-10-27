@@ -24,6 +24,14 @@ export class AppSideRegisterComponent implements OnInit{
   imageUrl: any = null;
   imageName: string = '';
 
+  today = new Date();
+  maxBirthDate = new Date(
+    this.today.getFullYear() - 18,
+    this.today.getMonth(),
+    this.today.getDate()
+  );
+
+
   constructor(private settings: CoreService,
               private authService: AuthService,
               private profileService: ProfileService,
@@ -45,10 +53,10 @@ export class AppSideRegisterComponent implements OnInit{
     lastName: new FormControl('', [Validators.required]),
     city: new FormControl('', [Validators.required]),
     country: new FormControl('', [Validators.required]),
-    birthDate: new FormControl(new Date(), [Validators.required]),
+    birthDate: new FormControl(null, [Validators.required]),
     description: new FormControl('', []),
     occupation: new FormControl('', []),
-    experience: new FormControl(1, []),
+    experience: new FormControl(null, []),
     photo: new FormControl('', [Validators.required]),
   });
 
@@ -73,7 +81,7 @@ export class AppSideRegisterComponent implements OnInit{
       const file = input.files[0];
       this.imageName = file.name;
       this.imageUrl = URL.createObjectURL(file);
-      this.form.value.photo = this.imageUrl;
+      this.form.get('photo')?.setValue(this.imageUrl);
     }
   }
 
@@ -90,24 +98,28 @@ export class AppSideRegisterComponent implements OnInit{
     const roles = ['ROLE_USER', this.form.value.role!];
     this.user = new User(null, this.form.value.uname!, this.form.value.password!, roles);
     this.authService.signup(this.user).subscribe(response => {
-      // profile creation
-      let profile = new Profile(
-        0,
-        response.id,
-        this.form.value.firstName!,
-        this.form.value.lastName!,
-        this.form.value.city!,
-        this.form.value.country!,
-        this.form.value.birthDate!,
-        this.form.value.description!,
-        this.form.value.photo!,
-        this.isAdvisor() ? this.form.value.occupation : "",
-        this.isAdvisor() ? this.form.value.experience : 0
-      )
-      this.profileService.create(profile).subscribe(response => {
-        this.toastr.success('Usuario registrado con éxito', 'Registro exitoso');
-      })
-      this.router.navigate(['']);
+      this.authService.login(this.user).subscribe(res => {
+        this.authService.saveUser(res.token);
+        this.authService.saveToken(res.token);
+        // profile creation
+        let profile = new Profile(
+          0,
+          response.id,
+          this.form.value.firstName!,
+          this.form.value.lastName!,
+          this.form.value.city!,
+          this.form.value.country!,
+          this.form.value.birthDate!,
+          this.form.value.description!,
+          this.form.value.photo!,
+          this.isAdvisor() ? this.form.value.occupation : "",
+          this.isAdvisor() ? this.form.value.experience : 0
+        )
+        this.profileService.create(profile).subscribe(res => {
+          this.toastr.success('Usuario registrado con éxito', 'Registro exitoso');
+        })
+        this.router.navigate(['']);
+      });
     },
       _error => {
         this.toastr.error('Error al registrar el usuario', 'Error de registro');
