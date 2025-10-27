@@ -13,6 +13,7 @@ import { CommonModule } from '@angular/common';
   templateUrl: './blogs.component.html',
   standalone: true,
 })
+
 export class AppBlogsComponent implements OnInit {
   posts = signal<any[]>([]);
   advisors = signal<any[]>([]);
@@ -20,27 +21,33 @@ export class AppBlogsComponent implements OnInit {
   constructor(
     public router: Router,
     private postService: PostService,
-    private advisorService: AdvisorService
-  ) {}
+    private advisorService: AdvisorService,
+    ) {}
 
   ngOnInit(): void {
     this.advisorService.getAdvisors().subscribe(data => {
       this.advisors.set(data);
+      console.log('Advisors fetched:', data);
     });
 
     this.postService.getPosts().subscribe(posts => {
       this.posts.set(posts);
+      console.log('Posts fetched:', posts);
     });
   }
 
   getAdvisor(advisorId: number): any {
-    const advisor = this.advisors().find(a => a.advisorId === advisorId);
-    return advisor
-      ? { advisorName: advisor.advisorName, advisorOccupation: advisor.advisorOccupation }
-      : { advisorName: 'Unknown Advisor', advisorOccupation: '' };
+    const advisor = this.advisors().find(a => a.advisorId === advisorId) || {
+      advisorName: 'Unknown Advisor',
+      advisorOccupation: '',
+      userId: null,
+    };
+    console.log(`Advisor fetched for ID ${advisorId}:`, advisor);
+    return advisor;
   }
 
+
   goToAdvisorProfile(id: number) {
-    //this.router.navigate();
+
   }
 }

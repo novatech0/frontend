@@ -5,6 +5,11 @@
       (click)="goToAdvisorProfile(post.advisorId)"
     >
       <mat-card-header>
+        <img
+          mat-card-avatar
+          [src]="getAdvisor(post.advisorId)?.advisorImage"
+          alt="{{ getAdvisor(post.advisorId).advisorName }}"
+        />
         <mat-card-title>
           {{ getAdvisor(post.advisorId).advisorName }}
         </mat-card-title>
