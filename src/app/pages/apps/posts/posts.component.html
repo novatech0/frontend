@@ -1,5 +1,19 @@
+@if(posts().length == 0) {
+  <mat-card class="cardWithShadow">
+    <mat-card-content>
+      <div class="row justify-content-between gap-16">
+        <div class="col-sm-4">
+          @if(posts().length === 0){
+            <p>No hay publicaciones disponibles.</p>
+          }
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+}
+
 <div class="row">
-  <div class="col-sm-6 col-lg-4" *ngFor="let post of posts()">
+    <div class="col-sm-6 col-lg-4" *ngFor="let post of posts()">
     <mat-card
       class="cardWithShadow position-relative card-hover cursor-pointer"
       (click)="goToAdvisorProfile(post.advisorId)"
@@ -7,8 +21,9 @@
       <mat-card-header>
         <img
           mat-card-avatar
-          [src]="getAdvisor(post.advisorId)?.advisorImage"
+          [src]="getAdvisor(post.advisorId).advisorImage"
           alt="{{ getAdvisor(post.advisorId).advisorName }}"
+          (error)="onImageError($event)"
         />
         <mat-card-title>
           {{ getAdvisor(post.advisorId).advisorName }}
