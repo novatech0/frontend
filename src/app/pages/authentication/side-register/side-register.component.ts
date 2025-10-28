@@ -21,7 +21,7 @@ import {Profile} from "../../../shared/model/profile";
 export class AppSideRegisterComponent implements OnInit{
   options = this.settings.getOptions();
   user: User = new User(null,'', '', null);
-  imageUrl: any = null;
+  image: any = null;
   imageName: string = '';
 
   today = new Date();
@@ -79,9 +79,9 @@ export class AppSideRegisterComponent implements OnInit{
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
       const file = input.files[0];
+      this.image = file;
       this.imageName = file.name;
-      this.imageUrl = URL.createObjectURL(file);
-      this.form.get('photo')?.setValue(this.imageUrl);
+      this.form.get('photo')?.setValue(this.imageName);
     }
   }
 
@@ -115,7 +115,7 @@ export class AppSideRegisterComponent implements OnInit{
           this.isAdvisor() ? this.form.value.occupation! : "",
           this.isAdvisor() ? this.form.value.experience! : 0
         )
-        this.profileService.create(profile).subscribe(res => {
+        this.profileService.create(profile, this.image).subscribe(res => {
           this.toastr.success('Usuario registrado con éxito', 'Registro exitoso');
         })
         this.router.navigate(['']);

@@ -54,25 +54,25 @@ export class ProfileService {
     );
   }
 
-  public create(profile: Profile): Observable<Profile> {
+  public create(profile: Profile, photo: File): Observable<Profile> {
     const urlEndpoint = `${this.environmentUrl}`;
-    let data = JSON.stringify({
-      "userId": profile.userId,
-      "firstName": profile.firstName,
-      "lastName": profile.lastName,
-      "city": profile.city,
-      "country": profile.country,
-      "birthDate": profile.birthDate,
-      "description": profile.description,
-      "photo": profile.photo,
-      "occupation": profile.occupation,
-      "experience": profile.experience
-    });
-    return this.httpClient.post<any>(urlEndpoint, data, {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-      })
-    }).pipe(map(profile => this.mapToProfile(profile)));
+    const formData = new FormData();
+    // @ts-ignore
+    formData.append('userId', profile.userId);
+    formData.append('firstName', profile.firstName);
+    formData.append('lastName', profile.lastName);
+    formData.append('city', profile.city);
+    formData.append('country', profile.country);
+    // @ts-ignore
+    formData.append('birthDate', profile.birthDate.toISOString().slice(0, 10));
+    formData.append('description', profile.description);
+    // @ts-ignore
+    formData.append('occupation', profile.occupation);
+    formData.append('experience', profile.experience?.toString() ?? '0');
+    formData.append('photo', photo);
+
+    return this.httpClient.post<any>(urlEndpoint, formData).pipe(
+      map(profile => this.mapToProfile(profile))
+    );
   }
 }
