@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {environment} from "../../../../environments/environment";
+import {environment} from "src/environments/environment";
 import {map, switchMap} from "rxjs/operators";
 import {ProfileService} from "src/app/shared/services/profile.service";
 import {forkJoin, Observable} from "rxjs";
-import {Profile} from "src/app/shared/model/profile";
-import {Review} from "../../../components/catalog/review/review/review";
+import {Review} from "src/app/components/catalog/review/review";
 import {FarmerService} from "./farmer.service";
 
 @Injectable({

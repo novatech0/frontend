@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TablerIconsModule } from 'angular-tabler-icons';
 import {Advisor} from "./advisor";
-import {AdvisorService} from "../../../services/apps/catalog/advisor.service";
+import {AdvisorService} from "src/app/services/apps/catalog/advisor.service";
 import {RouterLink} from "@angular/router";
 
 @Component({

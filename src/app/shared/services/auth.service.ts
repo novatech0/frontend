@@ -58,10 +58,11 @@ export class AuthService {
     });
   }
 
-  saveUser(token: any): void {
+  saveUser(id: number, token: any): void {
     let payload = this.getPayloadToken(token);
 
     this._user = new User(0,'','',[]);
+    this._user.id = id;
     this._user.username = payload.sub;
     this._user.roles = payload.roles;
 
