@@ -36,7 +36,7 @@ export class AppSideLoginComponent {
     if (this.form.invalid) { return }
     this.user = new User(null, this.form.value.uname!, this.form.value.password!, null);
     this.authService.login(this.user).subscribe(response => {
-      this.authService.saveUser(response.token);
+      this.authService.saveUser(response.id, response.token);
       this.authService.saveToken(response.token);
       this.router.navigate(['']);
     },

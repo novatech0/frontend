@@ -99,7 +99,7 @@ export class AppSideRegisterComponent implements OnInit{
     this.user = new User(null, this.form.value.uname!, this.form.value.password!, roles);
     this.authService.signup(this.user).subscribe(response => {
       this.authService.login(this.user).subscribe(res => {
-        this.authService.saveUser(res.token);
+        this.authService.saveUser(res.id, res.token);
         this.authService.saveToken(res.token);
         // profile creation
         let profile = new Profile(

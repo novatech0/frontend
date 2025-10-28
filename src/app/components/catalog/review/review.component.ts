@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {MaterialModule} from "src/app/material.module";
-import {ReviewService} from "../../../../services/apps/catalog/review.service";
+import {ReviewService} from "../../../services/apps/catalog/review.service";
 import {Review} from "./review";
 import {NgClass, NgForOf} from "@angular/common";
 
@@ -26,7 +26,6 @@ export class ReviewComponent implements OnInit {
     this.reviewService.getReviewsByAdvisorId(this.advisorId).subscribe({
       next: (data) => {
         this.reviews = data;
-        console.log(this.reviews);
       },
       error: (err) => {
         console.error('Error loading reviews:', err);

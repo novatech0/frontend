@@ -21,7 +21,7 @@
 </mat-card>
 
 <div class="row">
-  @for(advisor of advisors(); track advisor.firstName ) {
+  @for(advisor of advisors(); track advisor.advisorId ) {
   <div class="col-sm-6 col-lg-4">
     <mat-card class="cardWithShadow">
       <mat-card-content class="text-center">
@@ -33,7 +33,7 @@
         <div class="d-flex flex-col gap-20 m-t-16">
           <div>
             <h4 mat-card-title>
-              {{ advisor.firstName }}, {{ advisor.lastName }}
+              {{ advisor.firstName }} {{ advisor.lastName }}
             </h4>
             <span class="f-s-12">{{ advisor.occupation }}</span>
           </div>

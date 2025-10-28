@@ -5,7 +5,7 @@ import { TablerIconsModule } from 'angular-tabler-icons';
 import {AdvisorService} from "src/app/services/apps/catalog/advisor.service";
 import {Advisor} from "../advisor";
 import moment from "moment";
-import {ReviewComponent} from "../../../../components/catalog/review/review/review.component";
+import {ReviewComponent} from "src/app/components/catalog/review/review.component";
 import {NgIf} from "@angular/common";
 
 @Component({

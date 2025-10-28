@@ -21,6 +21,7 @@ import { AppEditInvoiceComponent } from './invoice/edit-invoice/edit-invoice.com
 import { AppContactListComponent } from './contact-list/contact-list.component';
 import {AppCatalogComponent} from "./catalog/catalog.component";
 import {AppAdvisorDetailComponent} from "./catalog/advisor-detail/advisor-detail.component";
+import {AppBookAppointmentComponent} from "./catalog/book-appointment/book-appointment.component";
 
 
 export const AppsRoutes: Routes = [
@@ -45,6 +46,17 @@ export const AppsRoutes: Routes = [
           urls: [
             { title: 'Catalog', url: '/apps/catalog' },
             { title: 'Advisor Detail' },
+          ]
+        }
+      },
+      {
+        path: 'catalog/:advisorId/book',
+        component: AppBookAppointmentComponent,
+        data: {
+          title: 'Reservar cita',
+          urls: [
+            { title: 'Catalog', url: '/apps/catalog' },
+            { title: 'Book Appointment' },
           ]
         }
       },
