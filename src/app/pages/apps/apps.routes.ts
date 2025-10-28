@@ -22,6 +22,7 @@ import { AppContactListComponent } from './contact-list/contact-list.component';
 import {AppCatalogComponent} from "./catalog/catalog.component";
 import {AppAdvisorDetailComponent} from "./catalog/advisor-detail/advisor-detail.component";
 import {AppBookAppointmentComponent} from "./catalog/book-appointment/book-appointment.component";
+import { AppEnclosuresComponent } from './enclosures/enclosures.component';
 
 
 export const AppsRoutes: Routes = [
@@ -35,6 +36,17 @@ export const AppsRoutes: Routes = [
           title: 'Catálogo de asesores',
           urls: [
             { title: 'Catalog' },
+          ],
+        },
+      },
+      {
+        path: 'enclosures',
+        component: AppEnclosuresComponent,
+        data: {
+          title: 'Mis recintos',
+          urls: [
+            { url: '/apps/enclosures' },
+            { title: 'Enclosures' },
           ],
         },
       },

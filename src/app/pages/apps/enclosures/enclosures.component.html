@@ -1,0 +1,24 @@
+<mat-card class="cardWithShadow">
+  <mat-card-content>
+    <div class="d-flex align-items-center justify-content-between" style="width: 100%; flex-wrap: nowrap;">
+      <div style="flex: 0 0 auto; width: 100%; max-width: 360px;">
+        <mat-form-field appearance="outline" class="w-100 hide-hint">
+          <input matInput placeholder="Busca aquí..." (keyup)="applyFilter($event)" />
+          <mat-icon matSuffix>
+            <i-tabler name="search" class="icon-20 d-flex m-t-2"></i-tabler>
+          </mat-icon>
+        </mat-form-field>
+      </div>
+      <div class="d-flex" style="flex: 0 0 auto; margin-left: auto;">
+        <button mat-flat-button class="text-white" style="font-size: 13px;" color="primary" (click)="onAddEnclosure()">
+          <span class="d-inline-flex align-items-center" style="gap: 8px; white-space: nowrap;">
+            <i-tabler name="plus" class="icon-18"></i-tabler>
+            <span>Agregar recinto</span>
+          </span>
+        </button>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>
+
+<!-- Tabla por agregar en siguiente commit -->
