@@ -11,58 +11,7 @@ import { TablerIconsModule } from 'angular-tabler-icons';
   selector: 'app-enclosures-table',
   standalone: true,
   imports: [CommonModule, MaterialModule, TablerIconsModule],
-  template: `
-    <mat-card class="cardWithShadow m-t-16">
-      <mat-card-content>
-        <div class="table-responsive">
-          <table mat-table [dataSource]="dataSource" matSort>
-            <!-- # Column -->
-            <ng-container matColumnDef="index">
-              <th mat-header-cell *matHeaderCellDef>#</th>
-              <td mat-cell *matCellDef="let _row; let i = index">
-                {{ getRowIndex(i) }}
-              </td>
-            </ng-container>
-
-            <!-- Name Column -->
-            <ng-container matColumnDef="name">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
-              <td mat-cell *matCellDef="let row">{{ row.name }}</td>
-            </ng-container>
-
-            <!-- Capacity Column -->
-            <ng-container matColumnDef="capacity">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header>Capacidad</th>
-              <td mat-cell *matCellDef="let row">{{ row.capacity }}</td>
-            </ng-container>
-
-            <!-- Type Column -->
-            <ng-container matColumnDef="type">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header>Tipo</th>
-              <td mat-cell *matCellDef="let row">{{ row.type }}</td>
-            </ng-container>
-
-            <!-- Actions Column -->
-            <ng-container matColumnDef="actions">
-              <th mat-header-cell *matHeaderCellDef>Acciones</th>
-              <td mat-cell *matCellDef="let row" class="d-flex gap-8">
-                <button mat-icon-button color="primary" (click)="onEdit(row)">
-                  <i-tabler name="edit" class="icon-18 d-flex"></i-tabler>
-                </button>
-                <button mat-icon-button color="warn" (click)="onDelete(row)">
-                  <i-tabler name="trash" class="icon-18 d-flex"></i-tabler>
-                </button>
-              </td>
-            </ng-container>
-
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-          </table>
-        </div>
-        <mat-paginator [pageSize]="10" [pageSizeOptions]="[5,10,25]" showFirstLastButtons></mat-paginator>
-      </mat-card-content>
-    </mat-card>
-  `,
+  templateUrl: './enclosure-table.component.html',
 })
 export class AppEnclosuresTableComponent implements OnChanges {
   @Input() data: Enclosure[] = [];
