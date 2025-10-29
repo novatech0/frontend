@@ -5,16 +5,20 @@ import { MaterialModule } from 'src/app/material.module';
 import { TablerIconsModule } from 'angular-tabler-icons';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { FarmerService } from 'src/app/services/apps/catalog/farmer.service';
+import { EnclosureService } from 'src/app/services/apps/enclosures/enclosure.service';
+import { AppEnclosuresTableComponent } from './enclosures-table.component';
+import { Enclosure } from 'src/app/shared/model/enclosure';
 
 @Component({
   selector: 'app-enclosures',
   templateUrl: './enclosures.component.html',
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, MaterialModule, TablerIconsModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, MaterialModule, TablerIconsModule, AppEnclosuresTableComponent],
   standalone: true,
 })
 export class AppEnclosuresComponent implements OnInit {
   // UI state
   searchText = signal<string>('');
+  enclosures = signal<Enclosure[]>([]);
 
   // Identity
   userId: number | null = null;
@@ -23,6 +27,7 @@ export class AppEnclosuresComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private farmerService: FarmerService,
+    private enclosureService: EnclosureService,
   ) {}
 
   ngOnInit(): void {
@@ -37,12 +42,22 @@ export class AppEnclosuresComponent implements OnInit {
           // Nota: si el backend cambia el nombre, ajustar aquí
           // @ts-ignore: acceso tolerado por localización del modelo Farmer
           this.farmerId = farmer.farmerId ?? farmer.id ?? null;
+          if (this.farmerId != null) {
+            this.loadEnclosures(this.farmerId);
+          }
         },
         error: (err) => {
           console.error('No se pudo obtener el farmerId del usuario actual:', err);
         }
       });
     }
+  }
+
+  private loadEnclosures(farmerId: number): void {
+    this.enclosureService.getEnclosuresByFarmer(farmerId).subscribe({
+      next: (data) => this.enclosures.set(data ?? []),
+      error: (err) => console.error('Error cargando recintos:', err),
+    });
   }
 
   applyFilter(event: Event): void {
@@ -53,5 +68,13 @@ export class AppEnclosuresComponent implements OnInit {
 
   onAddEnclosure(): void {
     // Aquí luego abriremos el modal de creación de recinto.
+  }
+
+  onEdit(row: Enclosure): void {
+    // TODO: abrir modal de edición
+  }
+
+  onDelete(row: Enclosure): void {
+    // TODO: confirmar y eliminar
   }
 }

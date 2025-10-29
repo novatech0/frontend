@@ -21,4 +21,9 @@
   </mat-card-content>
 </mat-card>
 
-<!-- Tabla por agregar en siguiente commit -->
+<app-enclosures-table
+  [data]="enclosures()"
+  [filter]="searchText()"
+  (editRequested)="onEdit($event)"
+  (deleteRequested)="onDelete($event)">
+</app-enclosures-table>
