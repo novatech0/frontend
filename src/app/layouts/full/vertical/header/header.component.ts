@@ -17,7 +17,6 @@ import { FormsModule } from '@angular/forms';
 import { NgScrollbarModule } from 'ngx-scrollbar';
 import { AppSettings } from 'src/app/config';
 import {AuthService} from "../../../../shared/services/auth.service";
-import {ProfileService} from "../../../../shared/services/profile.service";
 
 interface notifications {
   id: number;
