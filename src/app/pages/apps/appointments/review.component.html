@@ -1,0 +1,30 @@
+<div class="review-container">
+  <button class="back-btn" routerLink="/apps/appointments/history">
+    <i class="icon-arrow-left"></i>
+  </button>
+  <div class="review-content">
+    <div class="advisor-section">
+      <img [src]="advisorPhoto" class="advisor-photo" alt="Foto asesor" />
+      <div class="advisor-name">{{ advisorName }}</div>
+    </div>
+    <div class="info-section">
+      <h2>Calificación</h2>
+      <div class="stars">
+        <ng-container *ngFor="let s of [1,2,3,4,5]">
+          <i class="icon-star"
+             [class.active]="s <= rating"
+             [style.color]="hasReview && !isEdit ? '#ffd600' : ''"
+             (click)="setRating(s)"
+             [style.pointerEvents]="hasReview && !isEdit ? 'none' : 'auto'"
+          ></i>
+        </ng-container>
+      </div>
+      <label>Comentario</label>
+      <textarea [(ngModel)]="comment" [readonly]="hasReview && !isEdit" placeholder=""></textarea>
+      <button *ngIf="!hasReview || isEdit" class="submit-btn" [disabled]="!rating || loading" (click)="submit()">
+        {{ isEdit ? 'Editar reseña' : 'Enviar' }}
+      </button>
+      <button *ngIf="hasReview && !isEdit" class="submit-btn" style="background:#386bfa;" (click)="editReview()">Editar reseña</button>
+    </div>
+  </div>
+</div>
