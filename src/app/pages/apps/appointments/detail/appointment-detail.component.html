@@ -1,0 +1,47 @@
+<div class="detail-container" *ngIf="!loading && appointment; else loadingOrError">
+  <button class="back-btn" (click)="goBack()" aria-label="Volver">
+    <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="14" cy="14" r="14" fill="#fff" stroke="#e6eaf0" stroke-width="2"/>
+      <path d="M9 9L19 19M19 9L9 19" stroke="#223153" stroke-width="2.2" stroke-linecap="round"/>
+    </svg>
+  </button>
+  <div class="detail-content">
+    <div class="advisor-section">
+      <img [src]="appointment?.advisorPhoto" class="advisor-photo" alt="Foto asesor" />
+      <div class="advisor-name">{{ appointment?.advisorName }}</div>
+    </div>
+    <div class="info-section">
+      <div class="info-block">
+        <label>Fecha programada</label>
+  <input type="text" [value]="(formattedDate ? formattedDate : 'Sin fecha') + (formattedTime ? ', ' + formattedTime : ', Sin hora')" readonly />
+      </div>
+      <div class="info-block">
+        <label>Link de la videoconferencia</label>
+        <input type="text" [value]="appointment?.meetingUrl" readonly />
+      </div>
+      <div class="info-block">
+        <label>Comentario brindado por ti</label>
+        <textarea readonly>{{ appointment?.message }}</textarea>
+      </div>
+      <button class="cancel-btn" (click)="openCancelModal()">Cancelar Cita</button>
+    </div>
+  </div>
+
+  <!-- Modal de cancelación -->
+  <div class="cancel-modal" *ngIf="showCancelModal">
+    <div class="modal-content">
+      <button class="close-btn" (click)="closeCancelModal()" aria-label="Cerrar">&#10005;</button>
+      <h3>¿Seguro que deseas cancelar tu cita?</h3>
+      <p>Por favor, ingresa el motivo por el cual cancelarás la cita</p>
+      <textarea [(ngModel)]="cancelReason" placeholder="Ingresa tu mensaje..." [disabled]="cancelLoading"></textarea>
+      <div class="error" *ngIf="cancelError">{{ cancelError }}</div>
+      <button class="cancel-btn" (click)="confirmCancel()" [disabled]="cancelLoading">
+        {{ cancelLoading ? 'Cancelando...' : 'Cancelar Cita' }}
+      </button>
+    </div>
+  </div>
+</div>
+<ng-template #loadingOrError>
+  <div class="loading-error" *ngIf="loading">Cargando...</div>
+  <div class="loading-error" *ngIf="error">No se pudo cargar la cita.</div>
+</ng-template>
