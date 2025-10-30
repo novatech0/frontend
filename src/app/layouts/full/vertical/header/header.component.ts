@@ -17,6 +17,7 @@ import { FormsModule } from '@angular/forms';
 import { NgScrollbarModule } from 'ngx-scrollbar';
 import { AppSettings } from 'src/app/config';
 import {AuthService} from "../../../../shared/services/auth.service";
+import {ProfileService} from "../../../../shared/services/profile.service";
 
 interface notifications {
   id: number;
@@ -66,6 +67,9 @@ export class HeaderComponent {
   @Output() toggleMobileFilterNav = new EventEmitter<void>();
   @Output() toggleCollapsed = new EventEmitter<void>();
 
+  @Input() username = "Usuario";
+  @Input() role = "Rol";
+  @Input() photo = "/assets/images/profile/user-1.jpg";
   showFiller = false;
 
   public selectedLanguage: any = {
@@ -75,6 +79,7 @@ export class HeaderComponent {
     icon: '/assets/images/flag/icon-flag-en.svg',
   };
 
+  /*
   public languages: any[] = [
     {
       language: 'English',
@@ -98,6 +103,7 @@ export class HeaderComponent {
       icon: '/assets/images/flag/icon-flag-de.svg',
     },
   ];
+  */
 
   @Output() optionsChange = new EventEmitter<AppSettings>();
 

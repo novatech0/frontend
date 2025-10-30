@@ -22,6 +22,7 @@ export class AppSideRegisterComponent implements OnInit{
   options = this.settings.getOptions();
   user: User = new User(null,'', '', null);
   image: any = null;
+  imageUrl: string = '';
   imageName: string = '';
 
   today = new Date();
@@ -81,6 +82,7 @@ export class AppSideRegisterComponent implements OnInit{
       const file = input.files[0];
       this.image = file;
       this.imageName = file.name;
+      this.imageUrl = URL.createObjectURL(file);
       this.form.get('photo')?.setValue(this.imageName);
     }
   }
