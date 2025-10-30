@@ -1,18 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AppointmentService } from 'src/app/services/apps/appointment/appointment.service';
-import { Appointment } from './appointment.model';
+import { AppointmentDetailed } from '../appointment-detailed';
+import {RouterLink} from "@angular/router";
 
 @Component({
   selector: 'app-appointments-history',
   templateUrl: './appointments-history.component.html',
   styleUrls: ['./appointments-history.component.scss'],
   imports: [
-    CommonModule
+    CommonModule,
+    RouterLink
   ]
 })
 export class AppAppointmentsHistoryComponent implements OnInit {
-  history: Appointment[] = [];
+  history: AppointmentDetailed[] = [];
   loading = true;
 
   constructor(private appointmentService: AppointmentService) {}
@@ -57,7 +59,7 @@ export class AppAppointmentsHistoryComponent implements OnInit {
     return start && end ? `${start} - ${end}` : '';
   }
 
-  isPast(appt: Appointment): boolean {
+  isPast(appt: AppointmentDetailed): boolean {
     if (!appt.scheduledDate) return false;
     const today = new Date();
     const apptDate = new Date(appt.scheduledDate);

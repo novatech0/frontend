@@ -1,5 +1,4 @@
-// @ts-nocheck
-export interface Appointment {
+export interface AppointmentDetailed {
   id: number;
   farmerId: number;
   availableDateId: number;

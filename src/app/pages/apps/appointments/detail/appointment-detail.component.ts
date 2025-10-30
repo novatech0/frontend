@@ -6,13 +6,13 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AppointmentService } from 'src/app/services/apps/appointment/appointment.service';
 import { AvailableDateService } from 'src/app/services/apps/catalog/available-date.service';
 import { AdvisorService } from 'src/app/services/apps/catalog/advisor.service';
-import { TimeFormatPipe } from '../../appointments/filter.pipe';
-import type { Appointment } from 'src/app/pages/apps/appointments/appointment.model';
+import { TimeFormatPipe } from '../../../../pipes/filter.pipe';
+import type { AppointmentDetailed } from 'src/app/pages/apps/appointments/appointment-detailed';
 
 @Component({
   selector: 'app-appointment-detail',
   standalone: true,
-  imports: [CommonModule, FormsModule, TimeFormatPipe],
+  imports: [CommonModule, FormsModule],
   templateUrl: './appointment-detail.component.html',
   styleUrls: ['./appointment-detail.component.scss']
 })
@@ -39,7 +39,7 @@ export class AppointmentDetailComponent implements OnInit {
   formatTime(start?: string, end?: string): string {
     return start && end ? `${start} - ${end}` : '';
   }
-  appointment?: Appointment;
+  appointment?: AppointmentDetailed;
   loading = true;
   error = false;
   formattedDate = '';

@@ -3,11 +3,11 @@ import { CommonModule } from '@angular/common';
 import { AppointmentService } from 'src/app/services/apps/appointment/appointment.service';
 import { FarmerService } from 'src/app/services/apps/catalog/farmer.service';
 import { AuthService } from 'src/app/shared/services/auth.service';
-import { TimeFormatPipe } from './filter.pipe';
+import { TimeFormatPipe } from '../../../pipes/filter.pipe';
 import { AvailableDateService } from 'src/app/services/apps/catalog/available-date.service';
 import { AdvisorService } from 'src/app/services/apps/catalog/advisor.service';
-import { Router } from '@angular/router';
-import type { Appointment } from 'src/app/pages/apps/appointments/appointment.model';
+import {Router, RouterLink} from '@angular/router';
+import type { AppointmentDetailed } from 'src/app/pages/apps/appointments/appointment-detailed';
 
 @Component({
   selector: 'app-appointments',
@@ -15,11 +15,12 @@ import type { Appointment } from 'src/app/pages/apps/appointments/appointment.mo
   styleUrls: ['./appointments.component.scss'],
   imports: [
     CommonModule,
-    TimeFormatPipe
+    TimeFormatPipe,
+    RouterLink
   ]
 })
 export class AppAppointmentsComponent implements OnInit {
-  appointments: Appointment[] = [];
+  appointments: AppointmentDetailed[] = [];
   loading = true;
 
   constructor(
@@ -31,7 +32,7 @@ export class AppAppointmentsComponent implements OnInit {
     private router: Router
   ) {}
   goToDetail(id: number) {
-    this.router.navigate(['/apps/appointments/detail', id]);
+    this.router.navigate(['/apps/appointments/', id]);
   }
 
   ngOnInit(): void {
@@ -67,7 +68,7 @@ export class AppAppointmentsComponent implements OnInit {
           return;
         }
         let loaded = 0;
-        const enriched: Appointment[] = [];
+        const enriched: AppointmentDetailed[] = [];
         data.forEach((appt, idx) => {
           this.availableDateService.getAvailableDateById(appt.availableDateId).subscribe({
             next: (date) => {

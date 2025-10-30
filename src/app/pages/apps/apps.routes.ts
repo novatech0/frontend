@@ -23,6 +23,10 @@ import {AppCatalogComponent} from "./catalog/catalog.component";
 import {AppAdvisorDetailComponent} from "./catalog/advisor-detail/advisor-detail.component";
 import {AppBookAppointmentComponent} from "./catalog/book-appointment/book-appointment.component";
 import { AppEnclosuresComponent } from './enclosures/enclosures.component';
+import {AppAppointmentsComponent} from "./appointments/appointments.component";
+import {AppAppointmentsHistoryComponent} from "./appointments/history/appointments-history.component";
+import {ReviewComponent} from "./appointments/review/review.component";
+import {AppointmentDetailComponent} from "./appointments/detail/appointment-detail.component";
 
 
 export const AppsRoutes: Routes = [
@@ -36,17 +40,6 @@ export const AppsRoutes: Routes = [
           title: 'Catálogo de asesores',
           urls: [
             { title: 'Catalog' },
-          ],
-        },
-      },
-      {
-        path: 'enclosures',
-        component: AppEnclosuresComponent,
-        data: {
-          title: 'Mis recintos',
-          urls: [
-            { url: '/apps/enclosures' },
-            { title: 'Enclosures' },
           ],
         },
       },
@@ -71,6 +64,60 @@ export const AppsRoutes: Routes = [
             { title: 'Book Appointment' },
           ]
         }
+      },
+      {
+        path: 'appointments',
+        component: AppAppointmentsComponent,
+        data: {
+          title: 'Mis citas',
+          urls: [
+            { title: 'Appointments' },
+          ],
+        }
+      },
+      {
+        path: 'appointments/history',
+        component: AppAppointmentsHistoryComponent,
+        data: {
+          title: 'Historial de citas',
+          urls: [
+            { title: 'Appointments', url: '/apps/appointments' },
+            { title: 'Appointment History' },
+          ],
+        }
+      },
+      {
+        path: 'appointments/:id',
+        component: AppointmentDetailComponent,
+        data: {
+          title: 'Detalle de la cita',
+          urls: [
+            { title: 'Appointments', url: '/apps/appointments' },
+            { title: 'Appointment Detail' },
+          ],
+        }
+      },
+      {
+        path: 'review/:advisorId',
+        component: ReviewComponent,
+        data: {
+          title: 'Reseñas del asesor',
+          urls: [
+            { title: 'Appointments', url: '/apps/appointments' },
+            { title: 'Advisor Reviews' },
+          ],
+        }
+      },
+      {
+        path: 'enclosures',
+        component: AppEnclosuresComponent,
+        data: {
+          title: 'Mis recintos',
+          urls: [
+            { url: '/apps/enclosures' },
+            { title: 'Enclosures' },
+          ],
+        },
       },
       {
         path: 'posts',
@@ -280,17 +327,6 @@ export const AppsRoutes: Routes = [
           urls: [
             { title: 'Dashboard', url: '/dashboards/dashboard1' },
             { title: 'Edit Invoice' },
-          ],
-        },
-      },
-      {
-        path: 'appointments',
-        loadChildren: () => import('./appointments/appointments.routes').then(m => m.AppointmentsRoutes),
-        data: {
-          title: 'Citas',
-          urls: [
-            { title: 'Dashboard', url: '/dashboards/dashboard1' },
-            { title: 'Citas' },
           ],
         },
       },

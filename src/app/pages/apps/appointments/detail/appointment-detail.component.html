@@ -7,8 +7,8 @@
   </button>
   <div class="detail-content">
     <div class="advisor-section">
-      <img [src]="appointment?.advisorPhoto" class="advisor-photo" alt="Foto asesor" />
-      <div class="advisor-name">{{ appointment?.advisorName }}</div>
+      <img [src]="appointment.advisorPhoto" class="advisor-photo" alt="Foto asesor" />
+      <div class="advisor-name">{{ appointment.advisorName }}</div>
     </div>
     <div class="info-section">
       <div class="info-block">
@@ -17,11 +17,11 @@
       </div>
       <div class="info-block">
         <label>Link de la videoconferencia</label>
-        <input type="text" [value]="appointment?.meetingUrl" readonly />
+        <input type="text" [value]="appointment.meetingUrl" readonly />
       </div>
       <div class="info-block">
         <label>Comentario brindado por ti</label>
-        <textarea readonly>{{ appointment?.message }}</textarea>
+        <textarea readonly>{{ appointment.message }}</textarea>
       </div>
       <button class="cancel-btn" (click)="openCancelModal()">Cancelar Cita</button>
     </div>
