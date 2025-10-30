@@ -1,0 +1,205 @@
+.detail-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2.5rem 1rem 1rem 1rem;
+}
+.back-btn {
+  background: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+  margin-left: 0.5rem;
+  margin-top: 0.5rem;
+  cursor: pointer;
+  font-size: 2rem;
+  box-shadow: 0 2px 8px 0 rgba(25, 50, 77, 0.08);
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 2;
+}
+
+/* Modal de cancelación */
+.cancel-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+.modal-content {
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 2px 16px 0 rgba(25, 50, 77, 0.10);
+  padding: 2.2rem 2.2rem 2.5rem 2.2rem;
+  min-width: 340px;
+  max-width: 370px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+.close-btn {
+  background: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  position: absolute;
+  left: 12px;
+  top: 12px;
+  cursor: pointer;
+  box-shadow: 0 2px 8px #0001;
+}
+.modal-content h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #222;
+  margin: 0 0 0.7rem 0;
+  text-align: center;
+}
+.modal-content p {
+  font-size: 1.05rem;
+  color: #222;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+.modal-content textarea {
+  width: 100%;
+  min-height: 70px;
+  padding: 0.7rem 1rem;
+  border-radius: 8px;
+  border: 1.5px solid #e6eaf0;
+  background: #f7f7f7;
+  font-size: 1.1rem;
+  color: #19324d;
+  resize: none;
+  margin-bottom: 0.7rem;
+}
+.modal-content .cancel-btn {
+  background: #f44336;
+  color: #fff;
+  border: none;
+  border-radius: 24px;
+  padding: 1rem 0;
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-top: 0.7rem;
+  width: 100%;
+  cursor: pointer;
+  box-shadow: 0 2px 8px 0 rgba(244, 67, 54, 0.08);
+  transition: background 0.2s;
+}
+.modal-content .cancel-btn:disabled {
+  background: #ffbdbd;
+  cursor: not-allowed;
+}
+.modal-content .cancel-btn:not(:disabled):hover {
+  background: #d32f2f;
+}
+.modal-content .error {
+  color: #f44336;
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+.detail-content {
+  display: flex;
+  gap: 3.5rem;
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 2px 16px 0 rgba(25, 50, 77, 0.10);
+  padding: 2.5rem 3.5rem;
+  align-items: center;
+}
+.advisor-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 220px;
+}
+.advisor-photo {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #e6eaf0;
+  margin-bottom: 1.2rem;
+}
+.advisor-name {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #19324d;
+  text-align: center;
+}
+.info-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  min-width: 340px;
+}
+.info-block label {
+  font-weight: 700;
+  color: #19324d;
+  margin-bottom: 0.3rem;
+  display: block;
+}
+.info-block input[type="text"] {
+  width: 100%;
+  padding: 0.7rem 1rem;
+  border-radius: 8px;
+  border: 1.5px solid #e6eaf0;
+  background: #f7f7f7;
+  font-size: 1.1rem;
+  color: #19324d;
+  margin-bottom: 0.2rem;
+}
+.info-block textarea {
+  width: 100%;
+  min-height: 70px;
+  padding: 0.7rem 1rem;
+  border-radius: 8px;
+  border: 1.5px solid #e6eaf0;
+  background: #f7f7f7;
+  font-size: 1.1rem;
+  color: #19324d;
+  resize: none;
+}
+.cancel-btn {
+  background: #f44336;
+  color: #fff;
+  border: none;
+  border-radius: 16px;
+  padding: 1rem 0;
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-top: 1.5rem;
+  width: 100%;
+  cursor: pointer;
+  box-shadow: 0 2px 8px 0 rgba(244, 67, 54, 0.08);
+  transition: background 0.2s;
+}
+.cancel-btn:hover {
+  background: #d32f2f;
+}
+.loading-error {
+  text-align: center;
+  color: #b0b8c1;
+  font-size: 1.2rem;
+  margin-top: 2rem;
+}

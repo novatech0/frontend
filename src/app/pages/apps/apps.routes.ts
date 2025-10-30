@@ -283,6 +283,17 @@ export const AppsRoutes: Routes = [
           ],
         },
       },
+      {
+        path: 'appointments',
+        loadChildren: () => import('./appointments/appointments.routes').then(m => m.AppointmentsRoutes),
+        data: {
+          title: 'Citas',
+          urls: [
+            { title: 'Dashboard', url: '/dashboards/dashboard1' },
+            { title: 'Citas' },
+          ],
+        },
+      },
     ],
   },
 ];

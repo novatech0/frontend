@@ -1,0 +1,30 @@
+<div class="appointments-container">
+  <div class="appointments-header">
+    <h1>Mis Citas</h1>
+    <button class="history-btn" routerLink="/apps/appointments/history">
+      <i class="icon-clock"></i> Historial
+    </button>
+  </div>
+  <div class="appointments-list">
+    <ng-container *ngIf="!loading && appointments.length; else noAppointments">
+      <div class="appointments-grid">
+  <div class="appointment-card" *ngFor="let appt of appointments" (click)="goToDetail(appt.id)" style="cursor:pointer;">
+          <div class="card-content">
+            <div class="card-row">
+              <img [src]="appt.advisorPhoto" class="advisor-photo" alt="Foto asesor" />
+              <div class="card-main">
+                <div class="advisor-name">{{ appt.advisorName }}</div>
+                <div class="divider"></div>
+                <div class="appointment-date">{{ appt.scheduledDate | date: "d 'de' MMMM 'de' y" : undefined : 'es' }}</div>
+                <div class="appointment-time">{{ appt.startTime | timeFormat }} - {{ appt.endTime | timeFormat }}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+    <ng-template #noAppointments>
+      <div class="no-appointments">No tienes citas programadas.</div>
+    </ng-template>
+  </div>
+</div>

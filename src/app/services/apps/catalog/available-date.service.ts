@@ -19,4 +19,9 @@ export class AvailableDateService {
     return this.httpClient.get<AvailableDate[]>(`${this.environmentUrl}?advisorId=${advisorId}&isAvailable=true`)
       .pipe(map(dtos => dtos.map(dto => AvailableDate.fromDto(dto))));
   }
+
+  public getAvailableDateById(id: number): Observable<AvailableDate> {
+    return this.httpClient.get<AvailableDate>(`${this.environmentUrl}/${id}`)
+      .pipe(map(dto => AvailableDate.fromDto(dto)));
+  }
 }
