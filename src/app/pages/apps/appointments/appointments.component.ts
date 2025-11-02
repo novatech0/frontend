@@ -8,7 +8,6 @@ import { AvailableDateService } from 'src/app/services/apps/catalog/available-da
 import { AdvisorService } from 'src/app/services/apps/catalog/advisor.service';
 import {Router, RouterLink} from '@angular/router';
 import type { AppointmentDetailed } from 'src/app/pages/apps/appointments/appointment-detailed';
-import {MatInput, MatSuffix} from "@angular/material/input";
 import {TablerIconsModule} from "angular-tabler-icons";
 import {MaterialModule} from "src/app/material.module";
 
@@ -21,7 +20,6 @@ import {MaterialModule} from "src/app/material.module";
     TimeFormatPipe,
     RouterLink,
     MaterialModule,
-    MatSuffix,
     TablerIconsModule
   ]
 })
