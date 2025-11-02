@@ -8,11 +8,12 @@ import { AvailableDateService } from 'src/app/services/apps/catalog/available-da
 import { AdvisorService } from 'src/app/services/apps/catalog/advisor.service';
 import { TimeFormatPipe } from '../../../../pipes/filter.pipe';
 import type { AppointmentDetailed } from 'src/app/pages/apps/appointments/appointment-detailed';
+import { MaterialModule } from 'src/app/material.module';
 
 @Component({
   selector: 'app-appointment-detail',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, MaterialModule],
   templateUrl: './appointment-detail.component.html',
   styleUrls: ['./appointment-detail.component.scss']
 })
