@@ -87,6 +87,18 @@ export const AppsRoutes: Routes = [
         }
       },
       {
+        path: 'appointments/review/:id',
+        component: ReviewComponent,
+        data: {
+          title: 'Evaluar cita',
+          urls: [
+            { title: 'Appointments', url: '/apps/appointments' },
+            { title: 'History', url: '/apps/appointments/history' },
+            { title: 'Review' },
+          ],
+        }
+      },
+      {
         path: 'appointments/:id',
         component: AppointmentDetailComponent,
         data: {

@@ -88,14 +88,23 @@ export class AppAppointmentsComponent implements OnInit {
                   };
                   loaded++;
                   if (loaded === data.length) {
-                    this.appointments = enriched;
+                    // Filtrar solo citas FUTURAS (no completadas y fecha >= hoy)
+                    this.appointments = enriched.filter(a => 
+                      a && 
+                      a.status !== 'COMPLETED' && 
+                      !this.isPast(a)
+                    );
                     this.loading = false;
                   }
                 },
                 error: () => {
                   loaded++;
                   if (loaded === data.length) {
-                    this.appointments = enriched;
+                    this.appointments = enriched.filter(a => 
+                      a && 
+                      a.status !== 'COMPLETED' && 
+                      !this.isPast(a)
+                    );
                     this.loading = false;
                   }
                 }
@@ -104,7 +113,11 @@ export class AppAppointmentsComponent implements OnInit {
             error: () => {
               loaded++;
               if (loaded === data.length) {
-                this.appointments = enriched;
+                this.appointments = enriched.filter(a => 
+                  a && 
+                  a.status !== 'COMPLETED' && 
+                  !this.isPast(a)
+                );
                 this.loading = false;
               }
             }
@@ -115,5 +128,14 @@ export class AppAppointmentsComponent implements OnInit {
         this.loading = false;
       }
     });
+  }
+
+  isPast(appt: AppointmentDetailed): boolean {
+    if (!appt.scheduledDate) return false;
+    const today = new Date();
+    today.setHours(0, 0, 0, 0); // Comparar solo fecha, no hora
+    const apptDate = new Date(appt.scheduledDate);
+    apptDate.setHours(0, 0, 0, 0);
+    return apptDate < today;
   }
 }
