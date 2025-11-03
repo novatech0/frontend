@@ -184,7 +184,7 @@ export class HeaderComponent {
       img: '/assets/images/svgs/icon-account.svg',
       title: 'Mi Perfil',
       subtitle: 'Configuración de la cuenta',
-      link: '/',
+      link: '/profile',
     },
     {
       id: 2,
