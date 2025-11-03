@@ -1,4 +1,4 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from 'src/app/material.module';
@@ -8,6 +8,13 @@ import { FarmerService } from 'src/app/services/apps/catalog/farmer.service';
 import { EnclosureService } from 'src/app/services/apps/enclosures/enclosure.service';
 import { AppEnclosuresTableComponent } from './enclosures-table.component';
 import { Enclosure } from 'src/app/shared/model/enclosure';
+import { MatDialog } from '@angular/material/dialog';
+import { AppEnclosureEditDialogComponent } from './enclosure-edit-dialog.component';
+import { AppEnclosureCreateDialogComponent } from './enclosure-create-dialog.component';
+import { ToastrService } from 'ngx-toastr';
+import { AppEnclosureDeleteDialogComponent } from './enclosure-delete-dialog.component';
+import { AppEnclosureInfoDialogComponent } from './enclosure-info-dialog.component';
+import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 
 @Component({
   selector: 'app-enclosures',
@@ -19,6 +26,13 @@ export class AppEnclosuresComponent implements OnInit {
   // UI state
   searchText = signal<string>('');
   enclosures = signal<Enclosure[]>([]);
+  filteredEnclosures = computed<Enclosure[]>(() => {
+    const term = (this.searchText() || '').trim().toLowerCase();
+    if (!term) return [];
+    return this.enclosures().filter(e => (e.name || '').toLowerCase().includes(term)).slice(0, 8);
+  });
+
+  displayEnclosure = (enc?: Enclosure): string => enc?.name ?? '';
 
   // Identity
   userId: number | null = null;
@@ -28,6 +42,8 @@ export class AppEnclosuresComponent implements OnInit {
     private authService: AuthService,
     private farmerService: FarmerService,
     private enclosureService: EnclosureService,
+    private dialog: MatDialog,
+    private toastr: ToastrService,
   ) {}
 
   ngOnInit(): void {
@@ -66,15 +82,98 @@ export class AppEnclosuresComponent implements OnInit {
     // La lógica de filtrado se aplicará sobre la tabla próximamente.
   }
 
+  onSelectSuggestion(event: MatAutocompleteSelectedEvent): void {
+    const enc: Enclosure = event.option?.value as Enclosure;
+    if (!enc) return;
+    this.dialog.open(AppEnclosureInfoDialogComponent, {
+      width: '420px',
+      data: { name: enc.name, capacity: enc.capacity, type: enc.type },
+      autoFocus: false,
+      restoreFocus: true,
+    });
+  }
+
   onAddEnclosure(): void {
-    // Aquí luego abriremos el modal de creación de recinto.
+    const ref = this.dialog.open(AppEnclosureCreateDialogComponent, {
+      width: '480px',
+      autoFocus: true,
+      restoreFocus: true,
+      disableClose: true,
+    });
+    ref.afterClosed().subscribe((result?: Partial<Enclosure>) => {
+      if (!result) return;
+      if (this.farmerId == null) {
+        this.toastr.error('No se pudo determinar el farmerId', 'Error');
+        return;
+      }
+      const payload = {
+        name: result.name?.trim() ?? '',
+        capacity: Number(result.capacity ?? 0),
+        type: result.type?.trim() ?? '',
+        farmerId: this.farmerId,
+      } as Omit<Enclosure, 'id'>;
+
+      this.enclosureService.createEnclosure(payload).subscribe({
+        next: (created) => {
+          this.enclosures.set([created, ...this.enclosures()]);
+          this.toastr.success('Recinto creado', 'Éxito');
+        },
+        error: (err) => {
+          console.error('No se pudo crear el recinto:', err);
+          this.toastr.error('No se pudo crear el recinto', 'Error');
+        }
+      });
+    });
   }
 
   onEdit(row: Enclosure): void {
-    // TODO: abrir modal de edición
+    const ref = this.dialog.open(AppEnclosureEditDialogComponent, {
+      width: '480px',
+      data: { ...row },
+      autoFocus: true,
+      restoreFocus: true,
+      disableClose: true,
+    });
+    ref.afterClosed().subscribe((result?: Partial<Enclosure>) => {
+      if (!result) return;
+      const payload: Enclosure = {
+        id: row.id,
+        name: result.name ?? row.name,
+        capacity: result.capacity ?? row.capacity,
+        type: result.type ?? row.type,
+        farmerId: row.farmerId,
+      };
+      this.enclosureService.updateEnclosure(row.id, payload).subscribe({
+        next: (updated) => {
+          // actualizar en memoria sin volver a cargar toda la lista
+          const nextData = this.enclosures().map(e => e.id === updated.id ? updated : e);
+          this.enclosures.set(nextData);
+        },
+        error: (err) => console.error('No se pudo actualizar el recinto:', err)
+      });
+    });
   }
 
   onDelete(row: Enclosure): void {
-    // TODO: confirmar y eliminar
+    const ref = this.dialog.open(AppEnclosureDeleteDialogComponent, {
+      width: '420px',
+      data: { id: row.id, name: row.name },
+      autoFocus: false,
+      restoreFocus: true,
+      disableClose: true,
+    });
+    ref.afterClosed().subscribe((confirm: boolean) => {
+      if (!confirm) return;
+      this.enclosureService.deleteEnclosure(row.id).subscribe({
+        next: () => {
+          this.enclosures.set(this.enclosures().filter(e => e.id !== row.id));
+          this.toastr.success('Recinto eliminado', 'Éxito');
+        },
+        error: (err) => {
+          console.error('No se pudo eliminar el recinto:', err);
+          this.toastr.error('No se pudo eliminar el recinto', 'Error');
+        }
+      });
+    });
   }
 }
