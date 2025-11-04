@@ -27,6 +27,10 @@ import {AppAppointmentsComponent} from "./appointments/appointments.component";
 import {AppAppointmentsHistoryComponent} from "./appointments/history/appointments-history.component";
 import {ReviewComponent} from "./appointments/review/review.component";
 import {AppointmentDetailComponent} from "./appointments/detail/appointment-detail.component";
+import {AdvisorAppointmentsComponent} from "./appointments/advisor/advisor-appointments.component";
+import {AdvisorAppointmentDetailComponent} from "./appointments/advisor/detail/advisor-appointment-detail.component";
+import {AdvisorHistoryComponent} from "./appointments/advisor/history/advisor-history.component";
+import {AdvisorReviewViewComponent} from "./appointments/advisor/review/advisor-review-view.component";
 
 
 export const AppsRoutes: Routes = [
@@ -72,6 +76,50 @@ export const AppsRoutes: Routes = [
           title: 'Mis citas',
           urls: [
             { title: 'Appointments' },
+          ],
+        }
+      },
+      {
+        path: 'appointments/advisor',
+        component: AdvisorAppointmentsComponent,
+        data: {
+          title: 'Mis Citas - Asesor',
+          urls: [
+            { title: 'Advisor Appointments' },
+          ],
+        }
+      },
+      {
+        path: 'appointments/advisor/history',
+        component: AdvisorHistoryComponent,
+        data: {
+          title: 'Historial - Asesor',
+          urls: [
+            { title: 'Advisor Appointments', url: '/apps/appointments/advisor' },
+            { title: 'History' },
+          ],
+        }
+      },
+      {
+        path: 'appointments/advisor/review/:id',
+        component: AdvisorReviewViewComponent,
+        data: {
+          title: 'Reseña de usuario',
+          urls: [
+            { title: 'Advisor Appointments', url: '/apps/appointments/advisor' },
+            { title: 'History', url: '/apps/appointments/advisor/history' },
+            { title: 'Review' },
+          ],
+        }
+      },
+      {
+        path: 'appointments/advisor/:id',
+        component: AdvisorAppointmentDetailComponent,
+        data: {
+          title: 'Detalle de Cita - Asesor',
+          urls: [
+            { title: 'Advisor Appointments', url: '/apps/appointments/advisor' },
+            { title: 'Detail' },
           ],
         }
       },
