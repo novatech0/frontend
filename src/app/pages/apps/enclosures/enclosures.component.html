@@ -3,10 +3,15 @@
     <div class="row justify-content-between">
       <div class="col-sm-4 col-7">
         <mat-form-field appearance="outline" class="w-100 hide-hint">
-          <input matInput placeholder="Busca aquí..." (keyup)="applyFilter($event)" />
+          <input matInput placeholder="Busca aquí..." (keyup)="applyFilter($event)" [matAutocomplete]="auto" />
           <mat-icon matSuffix>
             <i-tabler name="search" class="icon-20 d-flex m-t-2"></i-tabler>
           </mat-icon>
+          <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayEnclosure" (optionSelected)="onSelectSuggestion($event)">
+            <mat-option *ngFor="let enc of filteredEnclosures()" [value]="enc">
+              <span class="f-w-600">{{ enc.name }}</span>
+            </mat-option>
+          </mat-autocomplete>
         </mat-form-field>
       </div>
       <div class="col-4 d-flex align-items-center justify-content-end">
@@ -23,7 +28,6 @@
 
 <app-enclosures-table
   [data]="enclosures()"
-  [filter]="searchText()"
   (editRequested)="onEdit($event)"
   (deleteRequested)="onDelete($event)">
 </app-enclosures-table>
