@@ -3,10 +3,11 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { AppointmentDetailed } from 'src/app/pages/apps/appointments/appointment-detailed';
+import {environment} from "../../../../environments/environment";
 
 @Injectable({ providedIn: 'root' })
 export class AppointmentService {
-  private baseUrl = 'http://localhost:8080/api/v1/appointments';
+  private baseUrl = environment.apiUrl + '/appointments';
 
   constructor(private http: HttpClient) {}
 
@@ -22,7 +23,7 @@ export class AppointmentService {
     const advisorId = this.getAdvisorId();
     const headers = this.getAuthHeaders();
     const url = `${this.baseUrl}?advisorId=${advisorId}`;
-    
+
     return this.http.get<AppointmentDetailed[]>(url, { headers });
   }
 
@@ -39,9 +40,9 @@ export class AppointmentService {
   cancelAppointment(id: number, reason: string): Observable<any> {
     const headers = this.getAuthHeaders();
     // El backend devuelve texto plano, no JSON
-    return this.http.delete(`${this.baseUrl}/${id}`, { 
-      headers, 
-      responseType: 'text' 
+    return this.http.delete(`${this.baseUrl}/${id}`, {
+      headers,
+      responseType: 'text'
     });
   }
   getAppointmentById(id: number): Observable<AppointmentDetailed> {
