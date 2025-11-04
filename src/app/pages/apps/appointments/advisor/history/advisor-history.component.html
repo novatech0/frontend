@@ -1,0 +1,43 @@
+<div class="appointments-page">
+  <!-- Header con botón volver y título -->
+  <div class="page-header">
+    <button class="back-button" (click)="goBack()" aria-label="Volver">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M19 12H5M5 12L12 19M5 12L12 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      Volver
+    </button>
+    <h1 class="page-title">Historial de Citas</h1>
+    <div class="spacer"></div>
+  </div>
+
+  <!-- Grid de citas históricas -->
+  <div class="appointments-grid" *ngIf="!loading() && appointments().length > 0">
+    <div 
+      *ngFor="let appt of appointments()" 
+      class="appointment-card"
+      (click)="viewReview(appt.id)"
+    >
+      <!-- Foto del productor -->
+      <img [src]="appt.farmerPhoto" [alt]="appt.farmerName" class="farmer-photo" />
+
+      <!-- Información de la cita -->
+      <div class="appointment-details">
+        <h3 class="farmer-name">{{ appt.farmerName }}</h3>
+        <div class="divider-line"></div>
+        <p class="appointment-date">{{ appt.date | date: 'd \'de\' MMMM \'de\' yyyy' : '' : 'es-ES' }}</p>
+        <p class="appointment-time">{{ appt.startTime | timeFormat }} - {{ appt.endTime | timeFormat }}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Estado vacío -->
+  <div class="empty-state" *ngIf="!loading() && appointments().length === 0">
+    <p>No tienes citas en el historial</p>
+  </div>
+
+  <!-- Loading -->
+  <div class="loading-state" *ngIf="loading()">
+    <p>Cargando historial...</p>
+  </div>
+</div>
