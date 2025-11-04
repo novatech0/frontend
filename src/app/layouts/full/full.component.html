@@ -23,10 +23,10 @@
         </ng-scrollbar>
         <div class="p-24 m-t-auto profile-bar">
           <div class="bg-light-secondary d-flex align-items-center rounded p-16">
-            <img src="/assets/images/profile/user-1.jpg" class="rounded-circle" width="40" />
+            <img [src]="photo" class="rounded-circle icon-35 profile-dd" width="35" />
             <div class="m-l-16">
-              <h4 class="f-w-600">Jhon</h4>
-            <span class="f-s-12">Usuario</span>
+              <h4 class="f-w-600">{{ username }}</h4>
+            <span class="f-s-12">{{ role }}</span>
             </div>
             <div class="m-l-auto">
               <a mat-icon-button (click)="logout()" class="d-flex justify-content-center">
@@ -78,7 +78,7 @@
       <!-- VerticalHeader -->
       <!-- ============================================================== -->
       @if (!options.horizontal) {
-      <app-header [showToggle]="!isOver" (toggleCollapsed)="toggleCollapsed()" (toggleMobileNav)="sidenav.toggle()"
+      <app-header [showToggle]="!isOver" [username]="username" [role]="role" [photo]="photo" (toggleCollapsed)="toggleCollapsed()" (toggleMobileNav)="sidenav.toggle()"
         (toggleMobileFilterNav)="filterNavRight.toggle()" (optionsChange)="receiveOptions($event)"></app-header>
       } @else {
       <!-- horizontal header -->

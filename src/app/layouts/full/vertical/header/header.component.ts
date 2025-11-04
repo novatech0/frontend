@@ -66,6 +66,9 @@ export class HeaderComponent {
   @Output() toggleMobileFilterNav = new EventEmitter<void>();
   @Output() toggleCollapsed = new EventEmitter<void>();
 
+  @Input() username = "Usuario";
+  @Input() role = "Rol";
+  @Input() photo = "/assets/images/profile/user-1.jpg";
   showFiller = false;
 
   public selectedLanguage: any = {
@@ -75,6 +78,7 @@ export class HeaderComponent {
     icon: '/assets/images/flag/icon-flag-en.svg',
   };
 
+  /*
   public languages: any[] = [
     {
       language: 'English',
@@ -98,6 +102,7 @@ export class HeaderComponent {
       icon: '/assets/images/flag/icon-flag-de.svg',
     },
   ];
+  */
 
   @Output() optionsChange = new EventEmitter<AppSettings>();
 

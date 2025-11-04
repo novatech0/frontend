@@ -165,8 +165,13 @@
                       </mat-icon>
                     </span>
                     <span class="m-l-12">
-                      @if (imageUrl) {
-                        {{ imageName }}
+                      @if (image) {
+                        <img
+                          [src]="imageUrl"
+                          class="rounded-circle object-cover profile-dd"
+                          width="100"
+                          height="100"
+                        />
                       } @else {
                         Subir foto
                       }
