@@ -1,6 +1,6 @@
 import { Injectable, signal } from '@angular/core';
-import { TicketElement } from 'src/app/pages/apps/tickets/ticket';
-import { tickets } from 'src/app/pages/apps/tickets/ticketsData';
+import { TicketElement } from 'src/app/pages/apps/template/tickets/ticket';
+import { tickets } from 'src/app/pages/apps/template/tickets/ticketsData';
 
 @Injectable({
   providedIn: 'root',

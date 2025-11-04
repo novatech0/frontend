@@ -17,7 +17,7 @@ import { CommonModule } from '@angular/common';
 import { TablerIconsModule } from 'angular-tabler-icons';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TicketService } from 'src/app/services/apps/ticket/ticket.service';
-import { TicketElement } from 'src/app/pages/apps/tickets/ticket';
+import { TicketElement } from 'src/app/pages/apps/template/tickets/ticket';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({

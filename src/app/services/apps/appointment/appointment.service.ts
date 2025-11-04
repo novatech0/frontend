@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-import { AppointmentDetailed } from 'src/app/pages/apps/appointments/appointment-detailed';
+import { AppointmentDetailed } from 'src/app/pages/apps/farmer/appointment/appointment-detailed';
 import {environment} from "../../../../environments/environment";
 
 @Injectable({ providedIn: 'root' })

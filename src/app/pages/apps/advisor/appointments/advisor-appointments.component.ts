@@ -5,8 +5,8 @@ import { AppointmentService } from 'src/app/services/apps/appointment/appointmen
 import { AvailableDateService } from 'src/app/services/apps/catalog/available-date.service';
 import { ProfileService } from 'src/app/shared/services/profile.service';
 import { FarmerService } from 'src/app/services/apps/catalog/farmer.service';
-import { AppointmentDetailed } from '../appointment-detailed';
-import { TimeFormatPipe } from 'src/app/pipe/time-format.pipe';
+import { AppointmentDetailed } from '../../farmer/appointment/appointment-detailed';
+import { TimeFormatPipe } from 'src/app/pipes/time-format.pipe';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { AdvisorService } from 'src/app/services/apps/catalog/advisor.service';
 
@@ -45,11 +45,11 @@ export class AdvisorAppointmentsComponent implements OnInit {
   ngOnInit(): void {
     // Si no hay advisorId en localStorage, lo obtenemos usando el userId del usuario logueado
     const advisorId = localStorage.getItem('advisorId');
-    
+
     // Validar que advisorId existe y no es "undefined" o "null"
     if (!advisorId || advisorId === 'undefined' || advisorId === 'null' || advisorId === '0') {
       const user = this.authService.user;
-      
+
       if (user && user.id) {
         this.advisorService.getAdvisorByUserId(user.id).subscribe({
             next: (advisor) => {
@@ -91,7 +91,7 @@ export class AdvisorAppointmentsComponent implements OnInit {
     // Obtener citas del asesor autenticado
     this.appointmentService.getMyAdvisorAppointments().subscribe({
       next: (allAppointments: AppointmentDetailed[]) => {
-        
+
         // Filtrar solo citas futuras y no completadas
         const enrichmentPromises = allAppointments.map((appt: AppointmentDetailed) => {
           return new Promise<EnrichedAppointment | null>((resolve) => {

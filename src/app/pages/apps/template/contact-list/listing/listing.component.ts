@@ -8,7 +8,7 @@ import {
   signal,
 } from '@angular/core';
 import { Category, filter, label } from './categories';
-import { AppContactListDetailComponent } from '../detail/detail.component';
+import { AppContactListDetailComponent } from '../../detail/detail.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ContactFormDialogComponent } from '../contact-form-dialog/contact-form-dialog.component';
@@ -19,7 +19,7 @@ import { MediaMatcher } from '@angular/cdk/layout';
 import { ContactService } from 'src/app/services/apps/contact-list/contact-list.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-import { ContactBox } from 'src/app/pages/apps/contact-list/contact-list';
+import { ContactBox } from 'src/app/pages/apps/template/contact-list/contact-list';
 
 import { AppDeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
 import { AppSearchDialogComponent } from 'src/app/layouts/full/vertical/header/header.component';

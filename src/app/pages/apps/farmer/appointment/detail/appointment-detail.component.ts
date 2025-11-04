@@ -6,8 +6,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AppointmentService } from 'src/app/services/apps/appointment/appointment.service';
 import { AvailableDateService } from 'src/app/services/apps/catalog/available-date.service';
 import { AdvisorService } from 'src/app/services/apps/catalog/advisor.service';
-import { TimeFormatPipe } from '../../../../pipes/filter.pipe';
-import type { AppointmentDetailed } from 'src/app/pages/apps/appointments/appointment-detailed';
+import { TimeFormatPipe } from '../../../../../pipes/filter.pipe';
+import type { AppointmentDetailed } from 'src/app/pages/apps/farmer/appointment/appointment-detailed';
 import { MaterialModule } from 'src/app/material.module';
 
 @Component({

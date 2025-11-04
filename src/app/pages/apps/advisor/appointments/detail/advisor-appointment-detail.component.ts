@@ -6,7 +6,7 @@ import { AppointmentService } from 'src/app/services/apps/appointment/appointmen
 import { AvailableDateService } from 'src/app/services/apps/catalog/available-date.service';
 import { ProfileService } from 'src/app/shared/services/profile.service';
 import { FarmerService } from 'src/app/services/apps/catalog/farmer.service';
-import { AppointmentDetailed } from '../../appointment-detailed';
+import { AppointmentDetailed } from '../../../farmer/appointment/appointment-detailed';
 
 @Component({
   selector: 'app-advisor-appointment-detail',
@@ -26,7 +26,7 @@ export class AdvisorAppointmentDetailComponent implements OnInit {
   meetingUrl = signal('');
   message = signal('');
   loading = signal(true);
-  
+
   // Modal de cancelación
   showCancelModal = signal(false);
   cancelLoading = signal(false);

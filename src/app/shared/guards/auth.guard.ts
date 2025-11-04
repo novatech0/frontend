@@ -26,11 +26,11 @@ export class AuthGuard implements CanActivate {
 
   private redirectByRole(roles: string[]): UrlTree {
     if (roles.includes('ROLE_FARMER')) {
-      return this.router.createUrlTree(['/apps/catalog']);
+      return this.router.createUrlTree(['/apps/farmer/catalog']);
     }
     if (roles.includes('ROLE_ADVISOR')) {
-      return this.router.createUrlTree(['/dashboards/dashboard1']);
+      return this.router.createUrlTree(['/apps/advisor/appointments']);
     }
-    return this.router.createUrlTree(['/dashboards/dashboard1']);
+    return this.router.createUrlTree(['/authentication/login']);
   }
 }

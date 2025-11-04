@@ -7,12 +7,12 @@ export const navItemsFarmer: NavItem[] = [
   {
     displayName: 'Catálogo',
     iconName: 'aperture',
-    route: '/apps/catalog',
+    route: '/apps/farmer/catalog',
   },
   {
     displayName: 'Mis Citas',
     iconName: 'calendar',
-    route: '/apps/appointments',
+    route: '/apps/farmer/appointments',
   },
   {
     navCap: 'Gestión',
@@ -20,7 +20,7 @@ export const navItemsFarmer: NavItem[] = [
   {
     displayName: 'Mis Recintos',
     iconName: 'building-warehouse',
-    route: '/apps/enclosures',
+    route: '/apps/farmer/enclosures',
   },
   {
     navCap: 'Posts',
@@ -28,6 +28,6 @@ export const navItemsFarmer: NavItem[] = [
   {
     displayName: 'Publicaciones',
     iconName: 'news',
-    route: '/apps/posts',
+    route: '/apps/farmer/posts',
   }
 ];

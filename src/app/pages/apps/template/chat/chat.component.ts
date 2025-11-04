@@ -5,7 +5,7 @@ import { TablerIconsModule } from 'angular-tabler-icons';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from 'src/app/material.module';
 import { ChatService } from 'src/app/services/apps/chat/chat.service';
-import { Message } from 'src/app/pages/apps/chat/chat';
+import { Message } from 'src/app/pages/apps/template/chat/chat';
 
 @Component({
   selector: 'app-chat',
@@ -40,7 +40,7 @@ export class AppChatComponent {
   isOver(): boolean {
     return window.matchMedia(`(max-width: 960px)`).matches;
   }
-  
+
   ngOnInit() {
     this.messages.set(this.chatService.messages());
 

@@ -3,11 +3,11 @@ import { CommonModule } from '@angular/common';
 import { AppointmentService } from 'src/app/services/apps/appointment/appointment.service';
 import { FarmerService } from 'src/app/services/apps/catalog/farmer.service';
 import { AuthService } from 'src/app/shared/services/auth.service';
-import { TimeFormatPipe } from '../../../pipes/filter.pipe';
+import { TimeFormatPipe } from '../../../../pipes/filter.pipe';
 import { AvailableDateService } from 'src/app/services/apps/catalog/available-date.service';
 import { AdvisorService } from 'src/app/services/apps/catalog/advisor.service';
 import {Router, RouterLink} from '@angular/router';
-import type { AppointmentDetailed } from 'src/app/pages/apps/appointments/appointment-detailed';
+import type { AppointmentDetailed } from 'src/app/pages/apps/farmer/appointment/appointment-detailed';
 import {TablerIconsModule} from "angular-tabler-icons";
 import {MaterialModule} from "src/app/material.module";
 
@@ -104,9 +104,9 @@ export class AppAppointmentsComponent implements OnInit {
                   loaded++;
                   if (loaded === data.length) {
                     // Filtrar solo citas FUTURAS (no completadas y fecha >= hoy)
-                    this.appointments = enriched.filter(a => 
-                      a && 
-                      a.status !== 'COMPLETED' && 
+                    this.appointments = enriched.filter(a =>
+                      a &&
+                      a.status !== 'COMPLETED' &&
                       !this.isPast(a)
                     );
                     this.loading = false;
@@ -115,9 +115,9 @@ export class AppAppointmentsComponent implements OnInit {
                 error: () => {
                   loaded++;
                   if (loaded === data.length) {
-                    this.appointments = enriched.filter(a => 
-                      a && 
-                      a.status !== 'COMPLETED' && 
+                    this.appointments = enriched.filter(a =>
+                      a &&
+                      a.status !== 'COMPLETED' &&
                       !this.isPast(a)
                     );
                     this.loading = false;
@@ -128,9 +128,9 @@ export class AppAppointmentsComponent implements OnInit {
             error: () => {
               loaded++;
               if (loaded === data.length) {
-                this.appointments = enriched.filter(a => 
-                  a && 
-                  a.status !== 'COMPLETED' && 
+                this.appointments = enriched.filter(a =>
+                  a &&
+                  a.status !== 'COMPLETED' &&
                   !this.isPast(a)
                 );
                 this.loading = false;

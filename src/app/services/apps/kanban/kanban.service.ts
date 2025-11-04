@@ -1,11 +1,11 @@
 import { Injectable, signal } from '@angular/core';
-import { Todos } from 'src/app/pages/apps/kanban/kanban';
+import { Todos } from 'src/app/pages/apps/template/kanban/kanban';
 import {
   todos,
   inprogress,
   completed,
   onhold,
-} from 'src/app/pages/apps/kanban/kanbanData';
+} from 'src/app/pages/apps/template/kanban/kanbanData';
 
 @Injectable({
   providedIn: 'root',
