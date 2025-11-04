@@ -43,6 +43,10 @@ export class AdvisorService {
     )
   }
 
+  public getAdvisorByUserId(userId: number): Observable<{ id: number; userId: number; rating: number }> {
+    return this.httpClient.get<{ id: number; userId: number; rating: number }>(`${this.environmentUrl}/${userId}/user`);
+  }
+
   public getAdvisors(): Observable<Advisor[]> {
     return this.httpClient.get<any[]>(this.environmentUrl).pipe(
       switchMap((advisors) =>

@@ -26,6 +26,11 @@ export class ReviewService {
     return this.http.get<Review[]>(`${this.baseUrl}?advisorId=${advisorId}&farmerId=${farmerId}`, { headers: this.getAuthHeaders() });
   }
 
+  // Obtener todas las reviews de un asesor
+  getReviewsByAdvisorId(advisorId: number): Observable<Review[]> {
+    return this.http.get<Review[]>(`${this.baseUrl}?advisorId=${advisorId}`, { headers: this.getAuthHeaders() });
+  }
+
   createReview(advisorId: number, rating: number, comment: string): Observable<Review> {
     const farmerId = this.getFarmerId();
     return this.http.post<Review>(this.baseUrl, { advisorId, farmerId, rating, comment }, { headers: this.getAuthHeaders() });
