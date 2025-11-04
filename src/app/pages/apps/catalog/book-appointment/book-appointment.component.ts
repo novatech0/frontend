@@ -10,7 +10,7 @@ import {AvailableDate} from "./available-date";
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {AvailableDateService} from "src/app/services/apps/catalog/available-date.service";
 import {ToastrService} from "ngx-toastr";
-import {AppointmentService} from "src/app/shared/services/appointment.service";
+import {AppointmentService} from "src/app/services/apps/appointment/appointment.service";
 import {FarmerService} from "src/app/services/apps/catalog/farmer.service";
 import {AuthService} from "src/app/shared/services/auth.service";
 import {Appointment} from "src/app/shared/model/appointment";
