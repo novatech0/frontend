@@ -99,7 +99,7 @@ export class AppointmentDetailComponent implements OnInit {
   }
 
   goBack() {
-    this.router.navigate(['/apps/appointments']);
+    this.router.navigate(['/apps/farmer/appointments']);
   }
 
   openCancelModal() {
@@ -123,7 +123,7 @@ export class AppointmentDetailComponent implements OnInit {
       next: () => {
         this.cancelLoading = false;
         this.showCancelModal = false;
-        this.router.navigate(['/apps/appointments']);
+        this.router.navigate(['/apps/farmer/appointments']);
       },
       error: () => {
         this.cancelLoading = false;

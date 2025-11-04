@@ -109,7 +109,7 @@ export class AppBookAppointmentComponent implements OnInit {
             next: (data) => {
               this.toastr.success('Cita reservada con éxito.', 'Éxito');
               // TODO: Redireccionar a la página de confirmación o historial de citas
-              this.router.navigate(['apps/catalog']);
+              this.router.navigate(['apps/farmer/catalog']);
               console.log('Appointment booked successfully:', data);
             },
             error: (err) => {

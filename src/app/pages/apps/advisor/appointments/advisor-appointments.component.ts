@@ -153,10 +153,10 @@ export class AdvisorAppointmentsComponent implements OnInit {
   }
 
   goToDetail(appointmentId: number) {
-    this.router.navigate(['/apps/appointments/advisor', appointmentId]);
+    this.router.navigate(['/apps/advisor/appointments', appointmentId]);
   }
 
   goToHistory() {
-    this.router.navigate(['/apps/appointments/advisor/history']);
+    this.router.navigate(['/apps/advisor/appointments/history']);
   }
 }

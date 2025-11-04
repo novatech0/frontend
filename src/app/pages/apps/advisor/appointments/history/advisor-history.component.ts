@@ -148,10 +148,10 @@ export class AdvisorHistoryComponent implements OnInit {
   }
 
   goBack() {
-    this.router.navigate(['/apps/appointments/advisor']);
+    this.router.navigate(['/apps/advisor/appointments']);
   }
 
   viewReview(appointmentId: number) {
-    this.router.navigate(['/apps/appointments/advisor/review', appointmentId]);
+    this.router.navigate(['/apps/advisor/appointments/review', appointmentId]);
   }
 }

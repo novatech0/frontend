@@ -32,7 +32,7 @@ export class AdvisorReviewViewComponent implements OnInit {
   ngOnInit(): void {
     const appointmentId = Number(this.route.snapshot.paramMap.get('id'));
     if (!appointmentId) {
-      this.router.navigate(['/apps/appointments/advisor/history']);
+      this.router.navigate(['/apps/advisor/appointments/history']);
       return;
     }
 
@@ -82,18 +82,18 @@ export class AdvisorReviewViewComponent implements OnInit {
           },
           error: () => {
             this.loading.set(false);
-            this.router.navigate(['/apps/appointments/advisor/history']);
+            this.router.navigate(['/apps/advisor/appointments/history']);
           }
         });
       },
       error: () => {
         this.loading.set(false);
-        this.router.navigate(['/apps/appointments/advisor/history']);
+        this.router.navigate(['/apps/advisor/appointments/history']);
       }
     });
   }
 
   goBack() {
-    this.router.navigate(['/apps/appointments/advisor/history']);
+    this.router.navigate(['/apps/advisor/appointments/history']);
   }
 }

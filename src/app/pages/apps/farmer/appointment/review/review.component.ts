@@ -39,7 +39,7 @@ export class ReviewComponent implements OnInit {
     // Obtener ID del appointment de la ruta
     const id = Number(this.route.snapshot.paramMap.get('id'));
     if (!id) {
-      this.router.navigate(['/apps/appointments/history']);
+      this.router.navigate(['/apps/farmer/appointments/history']);
       return;
     }
 
@@ -50,7 +50,7 @@ export class ReviewComponent implements OnInit {
   loadAppointmentData() {
     this.loading = true;
     const farmerId = Number(localStorage.getItem('farmerId')) || 1;
-    
+
     // Obtener datos del appointment
     this.appointmentService.getAppointmentById(this.appointmentId).subscribe({
       next: (appt) => {
@@ -63,25 +63,25 @@ export class ReviewComponent implements OnInit {
               next: (advisor) => {
                 this.advisorName = advisor.firstName + ' ' + advisor.lastName;
                 this.advisorPhoto = advisor.photo;
-                
+
                 // Verificar si ya existe una review
                 this.checkExistingReview(this.advisorId, farmerId);
               },
               error: () => {
                 this.loading = false;
-                this.router.navigate(['/apps/appointments/history']);
+                this.router.navigate(['/apps/farmer/appointments/history']);
               }
             });
           },
           error: () => {
             this.loading = false;
-            this.router.navigate(['/apps/appointments/history']);
+            this.router.navigate(['/apps/farmer/appointments/history']);
           }
         });
       },
       error: () => {
         this.loading = false;
-        this.router.navigate(['/apps/appointments/history']);
+        this.router.navigate(['/apps/farmer/appointments/history']);
       }
     });
   }

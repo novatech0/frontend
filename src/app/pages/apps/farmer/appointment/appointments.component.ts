@@ -51,7 +51,7 @@ export class AppAppointmentsComponent implements OnInit {
   }
 
   goToDetail(id: number) {
-    this.router.navigate(['/apps/appointments/', id]);
+    this.router.navigate(['/apps/farmer/appointments/', id]);
   }
 
   ngOnInit(): void {

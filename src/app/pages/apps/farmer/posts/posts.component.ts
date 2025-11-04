@@ -44,7 +44,7 @@ export class AppPostsComponent implements OnInit {
 
 
   goToAdvisorProfile(advisorId: number) {
-    this.router.navigate(['/apps/catalog/', advisorId]);
+    this.router.navigate(['/apps/farmer/catalog/', advisorId]);
   }
 
   onImageError(event: Event) {

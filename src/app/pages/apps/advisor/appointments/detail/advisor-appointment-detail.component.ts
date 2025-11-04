@@ -45,7 +45,7 @@ export class AdvisorAppointmentDetailComponent implements OnInit {
   ngOnInit(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
     if (!id) {
-      this.router.navigate(['/apps/appointments/advisor']);
+      this.router.navigate(['/apps/advisor/appointments']);
       return;
     }
 
@@ -103,7 +103,7 @@ export class AdvisorAppointmentDetailComponent implements OnInit {
       },
       error: () => {
         this.loading.set(false);
-        this.router.navigate(['/apps/appointments/advisor']);
+        this.router.navigate(['/apps/advisor/appointments']);
       }
     });
   }
