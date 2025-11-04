@@ -6,15 +6,16 @@ import { TablerIconsModule } from 'angular-tabler-icons';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { FarmerService } from 'src/app/services/apps/catalog/farmer.service';
 import { EnclosureService } from 'src/app/services/apps/enclosures/enclosure.service';
-import { AppEnclosuresTableComponent } from './enclosures-table.component';
+import { AppEnclosuresTableComponent } from '../../../components/enclosures/table/enclosures-table.component';
 import { Enclosure } from 'src/app/shared/model/enclosure';
 import { MatDialog } from '@angular/material/dialog';
-import { AppEnclosureEditDialogComponent } from './enclosure-edit-dialog.component';
-import { AppEnclosureCreateDialogComponent } from './enclosure-create-dialog.component';
+import { AppEnclosureEditDialogComponent } from '../../../components/enclosures/edit-dialog/enclosure-edit-dialog.component';
+import { AppEnclosureCreateDialogComponent } from '../../../components/enclosures/create-dialog/enclosure-create-dialog.component';
 import { ToastrService } from 'ngx-toastr';
-import { AppEnclosureDeleteDialogComponent } from './enclosure-delete-dialog.component';
-import { AppEnclosureInfoDialogComponent } from './enclosure-info-dialog.component';
+import { AppEnclosureDeleteDialogComponent } from '../../../components/enclosures/delete-dialog/enclosure-delete-dialog.component';
+import { AppEnclosureInfoDialogComponent } from '../../../components/enclosures/info-dialog/enclosure-info-dialog.component';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import {Farmer} from "../../../components/catalog/review/farmer";
 
 @Component({
   selector: 'app-enclosures',
@@ -23,7 +24,6 @@ import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
   standalone: true,
 })
 export class AppEnclosuresComponent implements OnInit {
-  // UI state
   searchText = signal<string>('');
   enclosures = signal<Enclosure[]>([]);
   filteredEnclosures = computed<Enclosure[]>(() => {
@@ -53,11 +53,10 @@ export class AppEnclosuresComponent implements OnInit {
     if (this.userId != null) {
       // Resolver farmerId a partir del userId
       this.farmerService.getFarmerByUserId(this.userId).subscribe({
-        next: (farmer) => {
+        next: (farmer: Farmer) => {
           // La entidad Farmer tiene "farmerId"
           // Nota: si el backend cambia el nombre, ajustar aquí
-          // @ts-ignore: acceso tolerado por localización del modelo Farmer
-          this.farmerId = farmer.farmerId ?? farmer.id ?? null;
+          this.farmerId = farmer.farmerId ?? null;
           if (this.farmerId != null) {
             this.loadEnclosures(this.farmerId);
           }

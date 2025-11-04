@@ -13,19 +13,7 @@ interface EnclosureInfoData {
   selector: 'app-enclosure-info-dialog',
   standalone: true,
   imports: [CommonModule, MaterialModule],
-  template: `
-    <h2 mat-dialog-title>Detalle del recinto</h2>
-    <mat-dialog-content>
-      <div class="row">
-        <div class="col-12 m-b-8"><strong>Nombre:</strong> {{ data.name }}</div>
-        <div class="col-12 m-b-8"><strong>Capacidad:</strong> {{ data.capacity }}</div>
-        <div class="col-12 m-b-8"><strong>Tipo:</strong> {{ data.type }}</div>
-      </div>
-    </mat-dialog-content>
-    <mat-dialog-actions align="end">
-      <button mat-flat-button color="primary" class="text-white" (click)="close()">Cerrar</button>
-    </mat-dialog-actions>
-  `,
+  templateUrl: "enclosure-info-dialog.component.html",
 })
 export class AppEnclosureInfoDialogComponent {
   constructor(
