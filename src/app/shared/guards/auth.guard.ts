@@ -20,6 +20,14 @@ export class AuthGuard implements CanActivate {
     if (state.url === '/' || state.url === '') {
       return this.redirectByRole(roles);
     }
+    // Specific role-based access control
+    if (state.url.startsWith('/apps/farmer') && !roles.includes('ROLE_FARMER')) {
+      return this.redirectByRole(roles);
+    }
+
+    if (state.url.startsWith('/apps/advisor') && !roles.includes('ROLE_ADVISOR')) {
+      return this.redirectByRole(roles);
+    }
 
     return true;
   }
