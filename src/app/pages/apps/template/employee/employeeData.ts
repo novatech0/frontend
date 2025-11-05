@@ -1,4 +1,4 @@
-import { Employee } from 'src/app/pages/apps/employee/employee';
+import { Employee } from 'src/app/pages/apps/template/employee/employee';
 
 export const employees: Employee[] = [
   {

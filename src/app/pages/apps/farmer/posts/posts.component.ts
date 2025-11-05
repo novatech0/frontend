@@ -1,6 +1,6 @@
 import {Component, OnInit, signal} from '@angular/core';
 import {Router} from '@angular/router';
-import {PostService} from 'src/app/services/apps/blog/post.service';
+import {PostService} from 'src/app/services/apps/post/post.service';
 import {AdvisorService} from 'src/app/services/apps/catalog/advisor.service';
 import {TablerIconsModule} from 'angular-tabler-icons';
 import {CommonModule} from '@angular/common';
@@ -8,7 +8,7 @@ import {MaterialModule} from 'src/app/material.module';
 import {Advisor} from "../catalog/advisor";
 
 @Component({
-  selector: 'app-blogs',
+  selector: 'app-posts',
   imports: [TablerIconsModule, CommonModule, MaterialModule],
   templateUrl: './posts.component.html',
   standalone: true,

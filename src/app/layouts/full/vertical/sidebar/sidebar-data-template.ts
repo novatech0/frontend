@@ -20,32 +20,32 @@ export const navItems: NavItem[] = [
   {
     displayName: 'Chat',
     iconName: 'message-2',
-    route: 'apps/chat',
+    route: 'apps/template/chat',
   },
   {
     displayName: 'Calendar',
     iconName: 'calendar-event',
-    route: 'apps/calendar',
+    route: 'apps/template/calendar',
   },
   {
     displayName: 'Email',
     iconName: 'mail',
-    route: 'apps/email/inbox',
+    route: 'apps/template/email/inbox',
   },
   {
     displayName: 'Kanban',
     iconName: 'checklist',
-    route: 'apps/kanban',
+    route: 'apps/template/kanban',
   },
   {
     displayName: 'Contacts',
     iconName: 'phone',
-    route: 'apps/contacts',
+    route: 'apps/template/contacts',
   },
   {
     displayName: 'Contact List',
     iconName: 'phone',
-    route: 'apps/contact-list',
+    route: 'apps/template/contact-list',
     chip: true,
     chipClass: 'bg-error text-white',
     chipContent: 'New',
@@ -53,22 +53,22 @@ export const navItems: NavItem[] = [
   {
     displayName: 'Courses',
     iconName: 'certificate',
-    route: 'apps/courses',
+    route: 'apps/template/courses',
   },
   {
     displayName: 'Employee',
     iconName: 'brand-ctemplar',
-    route: 'apps/employee',
+    route: 'apps/template/employee',
   },
   {
     displayName: 'Notes',
     iconName: 'note',
-    route: 'apps/notes',
+    route: 'apps/template/notes',
   },
   {
     displayName: 'Tickets',
     iconName: 'ticket',
-    route: 'apps/tickets',
+    route: 'apps/template/tickets',
   },
   {
     displayName: 'Invoice',
@@ -78,44 +78,44 @@ export const navItems: NavItem[] = [
       {
         displayName: 'List',
         iconName: 'point',
-        route: '/apps/invoice',
+        route: '/apps/template/invoice',
       },
       {
         displayName: 'Detail',
         iconName: 'point',
-        route: '/apps/viewInvoice/101',
+        route: '/apps/template/viewInvoice/101',
       },
       {
         displayName: 'Create',
         iconName: 'point',
-        route: '/apps/addInvoice',
+        route: '/apps/template/addInvoice',
       },
       {
         displayName: 'Edit',
         iconName: 'point',
-        route: '/apps/editinvoice/101',
+        route: '/apps/template/editinvoice/101',
       },
     ],
   },
   {
     displayName: 'ToDo',
     iconName: 'edit',
-    route: 'apps/todo',
+    route: 'apps/template/todo',
   },
   {
     displayName: 'Blog',
     iconName: 'chart-donut-3',
-    route: 'apps/blog',
+    route: 'apps/template/blog',
     children: [
       {
         displayName: 'Post',
         iconName: 'point',
-        route: 'apps/blog/post',
+        route: 'apps/template/blog/post',
       },
       {
         displayName: 'Detail',
         iconName: 'point',
-        route: 'apps/blog/detail/Early Black Friday Amazon deals: cheap TVs, headphones, laptops',
+        route: 'apps/template/blog/detail/Early Black Friday Amazon deals: cheap TVs, headphones, laptops',
       },
     ],
   },
@@ -125,7 +125,7 @@ export const navItems: NavItem[] = [
   {
     displayName: 'Roll Base Access',
     iconName: 'lock-access',
-    route: 'apps/permission',
+    route: 'apps/template/permission',
   },
   {
     displayName: 'Treeview',

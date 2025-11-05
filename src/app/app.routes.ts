@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 import { BlankComponent } from './layouts/blank/blank.component';
 import { FullComponent } from './layouts/full/full.component';
-import {AuthGuard} from "./shared/guards/auth.guard";
+import { AuthGuard } from "./shared/guards/auth.guard";
 
 export const routes: Routes = [
   {
@@ -27,7 +27,60 @@ export const routes: Routes = [
             loadChildren: () =>
               import('./pages/apps/advisor.routes').then((m) => m.AdvisorRoutes),
           },
+          {
+            path: 'template',
+            loadChildren: () =>
+              import('./pages/apps/template.routes').then((m) => m.TemplateRoutes),
+          }
         ],
+      },
+      {
+        path: 'dashboards',
+        loadChildren: () =>
+          import('./pages/dashboards/dashboards.routes').then(
+            (m) => m.DashboardsRoutes
+          ),
+      },
+      {
+        path: 'forms',
+        loadChildren: () =>
+          import('./pages/forms/forms.routes').then((m) => m.FormsRoutes),
+      },
+      {
+        path: 'charts',
+        loadChildren: () =>
+          import('./pages/charts/charts.routes').then((m) => m.ChartsRoutes),
+      },
+      {
+        path: 'widgets',
+        loadChildren: () =>
+          import('./pages/widgets/widgets.routes').then((m) => m.WidgetsRoutes),
+      },
+      {
+        path: 'tables',
+        loadChildren: () =>
+          import('./pages/tables/tables.routes').then((m) => m.TablesRoutes),
+      },
+      {
+        path: 'datatable',
+        loadChildren: () =>
+          import('./pages/datatable/datatable.routes').then(
+            (m) => m.DatatablesRoutes
+          ),
+      },
+      {
+        path: 'theme-pages',
+        loadChildren: () =>
+          import('./pages/theme-pages/theme-pages.routes').then(
+            (m) => m.ThemePagesRoutes
+          ),
+      },
+      {
+        path: 'ui-components',
+        loadChildren: () =>
+          import('./pages/ui-components/ui-components.routes').then(
+            (m) => m.UiComponentsRoutes
+          ),
       },
     ],
   },

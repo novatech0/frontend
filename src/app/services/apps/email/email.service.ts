@@ -1,14 +1,14 @@
 import { Injectable,signal,computed  } from '@angular/core';
-import { Mailbox } from 'src/app/pages/apps/email/email';
-import { mailboxList } from 'src/app/pages/apps/email/email-data';
-import { User } from 'src/app/pages/apps/email/user-data';
+import { Mailbox } from 'src/app/pages/apps/template/email/email';
+import { mailboxList } from 'src/app/pages/apps/template/email/email-data';
+import { User } from 'src/app/pages/apps/template/email/user-data';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class mailGlobalVariable {
-  
+
 
   public page = signal(1);
   public pageSize = signal(5);
@@ -31,7 +31,7 @@ export class mailGlobalVariable {
   public type = signal('');
   router: any;
 
-  public inboxCount = computed(() => 
+  public inboxCount = computed(() =>
     this.inboxList().filter((inbox: { mailbox: string; seen: any; }) => inbox.mailbox === 'Inbox' && !inbox.seen).length
   );
   public spamCount = computed(() => this.spamList().length);
@@ -40,7 +40,7 @@ export class mailGlobalVariable {
 
   public toggleStar(name: string): void {
     const mail = this.selectedMail();
-  
+
     if (mail) {
       if (!mail.filter.includes(name)) {
         mail.filter.push(name);
@@ -49,7 +49,7 @@ export class mailGlobalVariable {
       }
     }
   }
- 
+
 }
 
 @Injectable({
