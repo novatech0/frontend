@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { BlankComponent } from './layouts/blank/blank.component';
 import { FullComponent } from './layouts/full/full.component';
 import { AuthGuard } from "./shared/guards/auth.guard";
+import {AppNotificationsComponent} from "./pages/apps/shared/notification/notifications.component";
 
 export const routes: Routes = [
   {
@@ -42,6 +43,16 @@ export const routes: Routes = [
             path: 'template',
             loadChildren: () =>
               import('./pages/apps/template.routes').then((m) => m.TemplateRoutes),
+          },
+          {
+            path: 'notifications',
+            component: AppNotificationsComponent,
+            data: {
+              title: 'Notificaciones',
+              urls: [
+                { title: 'Notifications', url: '/apps/notifications' }
+              ]
+            }
           }
         ],
       },

@@ -78,7 +78,7 @@
       <!-- VerticalHeader -->
       <!-- ============================================================== -->
       @if (!options.horizontal) {
-      <app-header [showToggle]="!isOver" [username]="username" [role]="role" [photo]="photo" (toggleCollapsed)="toggleCollapsed()" (toggleMobileNav)="sidenav.toggle()"
+      <app-header [showToggle]="!isOver" [username]="username" [role]="role" [photo]="photo" [notifications]="notifications" (toggleCollapsed)="toggleCollapsed()" (toggleMobileNav)="sidenav.toggle()"
         (toggleMobileFilterNav)="filterNavRight.toggle()" (optionsChange)="receiveOptions($event)"></app-header>
       } @else {
       <!-- horizontal header -->
