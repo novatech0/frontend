@@ -1,19 +1,19 @@
-  // ...existing code...
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import { AppointmentService } from 'src/app/services/apps/appointment/appointment.service';
 import { AvailableDateService } from 'src/app/services/apps/catalog/available-date.service';
 import { AdvisorService } from 'src/app/services/apps/catalog/advisor.service';
 import { TimeFormatPipe } from '../../../../../pipes/filter.pipe';
 import type { AppointmentDetailed } from 'src/app/pages/apps/farmer/appointment/appointment-detailed';
 import { MaterialModule } from 'src/app/material.module';
+  import {TablerIconsModule} from "angular-tabler-icons";
 
 @Component({
   selector: 'app-appointment-detail',
   standalone: true,
-  imports: [CommonModule, FormsModule, MaterialModule],
+  imports: [CommonModule, FormsModule, MaterialModule, TablerIconsModule],
   templateUrl: './appointment-detail.component.html',
   styleUrls: ['./appointment-detail.component.scss']
 })

@@ -35,20 +35,6 @@ export class AppAppointmentsComponent implements OnInit {
     private router: Router
   ) {}
 
-  // Función helper para convertir fecha sin problemas de zona horaria
-  private formatDateString(date: Date | string): string {
-    if (typeof date === 'string') {
-      return date;
-    }
-    if (date instanceof Date) {
-      const year = date.getFullYear();
-      const month = String(date.getMonth() + 1).padStart(2, '0');
-      const day = String(date.getDate()).padStart(2, '0');
-      return `${year}-${month}-${day}`;
-    }
-    return '';
-  }
-
   goToDetail(id: number) {
     this.router.navigate(['/apps/farmer/appointments/', id]);
   }
@@ -96,7 +82,7 @@ export class AppAppointmentsComponent implements OnInit {
                     ...appt,
                     advisorName: advisor.firstName + ' ' + advisor.lastName,
                     advisorPhoto: advisor.photo,
-                    scheduledDate: this.formatDateString(date.scheduledDate),
+                    scheduledDate: date.scheduledDate,
                     startTime: date.startTime,
                     endTime: date.endTime
                   };
