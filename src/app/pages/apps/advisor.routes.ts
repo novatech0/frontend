@@ -17,7 +17,7 @@ export const AdvisorRoutes: Routes = [
         data: {
           title: 'Mis citas',
           urls: [
-            { title: 'Appointments' },
+            { title: 'Appointments', url: '/apps/advisor/appointments' },
           ],
         }
       },
@@ -71,7 +71,7 @@ export const AdvisorRoutes: Routes = [
         data: {
           title: 'Detalle de publicacion',
           urls: [
-            { title: 'Posts', url: '/apps/advisor/appointments' },
+            { title: 'Posts', url: '/apps/advisor/posts' },
             { title: 'Detail' },
           ],
         }

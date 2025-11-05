@@ -148,14 +148,14 @@ export class HeaderComponent {
       img: '/assets/images/svgs/icon-account.svg',
       title: 'Mi Perfil',
       subtitle: 'Configuración de la cuenta',
-      link: '/profile',
+      link: 'apps//profile',
     },
     {
       id: 2,
       img: '/assets/images/svgs/icon-inbox.svg',
       title: 'Mi Inbox',
       subtitle: 'Notificaciones',
-      link: '/apps/email/inbox',
+      link: '/apps/notifications',
     },
   ];
 

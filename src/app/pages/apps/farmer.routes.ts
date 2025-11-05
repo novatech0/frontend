@@ -21,7 +21,7 @@ export const FarmerRoutes: Routes = [
         data: {
           title: 'Catálogo de asesores',
           urls: [
-            { title: 'Catalog' },
+            { title: 'Catalog', url: '/apps/farmer/catalog' },
           ],
         },
       },
@@ -53,7 +53,7 @@ export const FarmerRoutes: Routes = [
         data: {
           title: 'Mis citas',
           urls: [
-            { title: 'Appointments' },
+            { title: 'Appointments', url: '/apps/farmer/appointments' },
           ],
         }
       },
@@ -108,8 +108,7 @@ export const FarmerRoutes: Routes = [
         data: {
           title: 'Mis recintos',
           urls: [
-            { url: '/apps/farmer/enclosures' },
-            { title: 'Enclosures' },
+            { title: 'Enclosures', url: '/apps/farmer/enclosures' },
           ],
         },
       },
@@ -119,7 +118,7 @@ export const FarmerRoutes: Routes = [
         data: {
           title: 'Publicaciones de asesores',
           urls: [
-            { title: 'Posts' },
+            { title: 'Posts', url: '/apps/farmer/posts' },
           ]
         }
       }

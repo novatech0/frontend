@@ -6,6 +6,7 @@ import { TablerIconsModule } from 'angular-tabler-icons';
 import {Advisor} from "./advisor";
 import {AdvisorService} from "src/app/services/apps/catalog/advisor.service";
 import {RouterLink} from "@angular/router";
+import {AppEnclosuresTableComponent} from "../../../../components/enclosures/table/enclosures-table.component";
 
 @Component({
   templateUrl: './catalog.component.html',
@@ -16,6 +17,7 @@ import {RouterLink} from "@angular/router";
     TablerIconsModule,
     CommonModule,
     RouterLink,
+    AppEnclosuresTableComponent,
   ],
 })
 export class AppCatalogComponent implements OnInit {
