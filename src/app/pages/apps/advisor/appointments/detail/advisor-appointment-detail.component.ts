@@ -79,19 +79,7 @@ export class AdvisorAppointmentDetailComponent implements OnInit {
         this.availableDateService.getAvailableDateById(appt.availableDateId).subscribe({
           next: (date) => {
             // Usar directamente la fecha del backend sin convertir a ISO (evita problemas de zona horaria)
-            // Si es una fecha Object, convertir a string YYYY-MM-DD
-            let dateString: string;
-            if (date.scheduledDate instanceof Date) {
-              // Crear fecha local sin conversión UTC
-              const year = date.scheduledDate.getFullYear();
-              const month = String(date.scheduledDate.getMonth() + 1).padStart(2, '0');
-              const day = String(date.scheduledDate.getDate()).padStart(2, '0');
-              dateString = `${year}-${month}-${day}`;
-            } else {
-              // Es un string, usarlo directamente
-              dateString = String(date.scheduledDate);
-            }
-            this.scheduledDate.set(dateString);
+            this.scheduledDate.set(date.scheduledDate);
             this.startTime.set(date.startTime);
             this.endTime.set(date.endTime);
             this.loading.set(false);

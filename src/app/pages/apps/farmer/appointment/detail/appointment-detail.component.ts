@@ -75,7 +75,7 @@ export class AppointmentDetailComponent implements OnInit {
                   ...appt,
                   advisorName: advisor.firstName + ' ' + advisor.lastName,
                   advisorPhoto: advisor.photo,
-                  scheduledDate: date.scheduledDate instanceof Date ? date.scheduledDate.toISOString().split('T')[0] : String(date.scheduledDate),
+                  scheduledDate: date.scheduledDate,
                   startTime: date.startTime,
                   endTime: date.endTime
                 };

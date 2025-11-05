@@ -33,7 +33,7 @@ export class AvailableDateService {
   public getAvailableDatesByDate(date: string): Observable<AvailableDate[]> {
     return this.getAllAvailableDates().pipe(
       map(dtos =>
-        dtos.filter(d => d.scheduledDate.toISOString().split('T')[0] === date)
+        dtos.filter(d => d.scheduledDate === date)
       )
     );
   }

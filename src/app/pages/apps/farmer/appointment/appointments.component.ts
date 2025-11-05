@@ -14,7 +14,6 @@ import {MaterialModule} from "src/app/material.module";
 @Component({
   selector: 'app-appointments',
   templateUrl: './appointments.component.html',
-  styleUrls: ['./appointments.component.scss'],
   imports: [
     CommonModule,
     TimeFormatPipe,
