@@ -6,16 +6,16 @@ import { TablerIconsModule } from 'angular-tabler-icons';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { FarmerService } from 'src/app/services/apps/catalog/farmer.service';
 import { EnclosureService } from 'src/app/services/apps/enclosures/enclosure.service';
-import { AppEnclosuresTableComponent } from '../../../components/enclosures/table/enclosures-table.component';
 import { Enclosure } from 'src/app/shared/model/enclosure';
 import { MatDialog } from '@angular/material/dialog';
-import { AppEnclosureEditDialogComponent } from '../../../components/enclosures/edit-dialog/enclosure-edit-dialog.component';
-import { AppEnclosureCreateDialogComponent } from '../../../components/enclosures/create-dialog/enclosure-create-dialog.component';
 import { ToastrService } from 'ngx-toastr';
-import { AppEnclosureDeleteDialogComponent } from '../../../components/enclosures/delete-dialog/enclosure-delete-dialog.component';
-import { AppEnclosureInfoDialogComponent } from '../../../components/enclosures/info-dialog/enclosure-info-dialog.component';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
-import {Farmer} from "../../../components/catalog/review/farmer";
+import { AppEnclosureEditDialogComponent } from "src/app/components/enclosures/edit-dialog/enclosure-edit-dialog.component";
+import { AppEnclosureDeleteDialogComponent } from "src/app/components/enclosures/delete-dialog/enclosure-delete-dialog.component";
+import { AppEnclosureCreateDialogComponent } from "src/app/components/enclosures/create-dialog/enclosure-create-dialog.component";
+import { AppEnclosureInfoDialogComponent } from "src/app/components/enclosures/info-dialog/enclosure-info-dialog.component";
+import { Farmer } from "src/app/components/catalog/review/farmer";
+import { AppEnclosuresTableComponent } from "src/app/components/enclosures/table/enclosures-table.component";
 
 @Component({
   selector: 'app-enclosures',
