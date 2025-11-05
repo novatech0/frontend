@@ -11,8 +11,8 @@ export const navItemsAdvisor: NavItem[] = [
   },
   {
     displayName: 'Mis Horarios',
-    iconName: 'building-warehouse',
-    route: '/apps/advisor/enclosures',
+    iconName: 'calendar-event',
+    route: '/apps/advisor/available-dates',
   },
   {
     navCap: 'Perfil',

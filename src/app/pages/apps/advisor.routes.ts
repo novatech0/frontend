@@ -4,6 +4,7 @@ import {AdvisorAppointmentsComponent} from "./advisor/appointments/advisor-appoi
 import {AdvisorAppointmentDetailComponent} from "./advisor/appointments/detail/advisor-appointment-detail.component";
 import {AdvisorHistoryComponent} from "./advisor/appointments/history/advisor-history.component";
 import {AdvisorReviewViewComponent} from "./advisor/appointments/review/advisor-review-view.component";
+import {AvailableDatesComponent} from "./advisor/available-dates/available-dates.component";
 
 
 export const AdvisorRoutes: Routes = [
@@ -54,6 +55,16 @@ export const AdvisorRoutes: Routes = [
           ],
         }
       },
+      {
+        path: 'available-dates',
+        component: AvailableDatesComponent,
+        data: {
+          title: 'Mis Horarios',
+          urls: [
+            { title: 'Advisor Available Dates' },
+          ]
+        }
+      }
     ],
   },
 ];
