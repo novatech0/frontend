@@ -23,6 +23,7 @@ import { CustomizerComponent } from './shared/customizer/customizer.component';
 import {AuthService} from "../../shared/services/auth.service";
 import {navItemsFarmer} from "./vertical/sidebar/sidebar-data-farmer";
 import {navItemsAdvisor} from "./vertical/sidebar/sidebar-data-advisor";
+import {ProfileService} from "../../shared/services/profile.service";
 
 const MOBILE_VIEW = 'screen and (max-width: 768px)';
 const TABLET_VIEW = 'screen and (min-width: 769px) and (max-width: 1024px)';
@@ -197,6 +198,7 @@ export class FullComponent implements OnInit {
     private breakpointObserver: BreakpointObserver,
     private navService: NavService,
     private authService: AuthService,
+    private profileService: ProfileService
   ) {
     this.htmlElement = document.querySelector('html')!;
     this.layoutChangesSubscription = this.breakpointObserver
@@ -223,17 +225,31 @@ export class FullComponent implements OnInit {
       });
   }
 
+  username = "Usuario";
+  role = "Rol";
+  photo = "/assets/images/profile/user-1.jpg";
+
   ngOnInit(): void {
     const user = this.authService.user;
     const roles = user.roles || [];
+    const userId = user.id || 0;
 
     if (roles.includes('ROLE_FARMER')) {
       this.navItems = navItemsFarmer;
+      this.role = "Productor agrícola";
     }
 
     if (roles.includes('ROLE_ADVISOR')) {
       this.navItems = navItemsAdvisor;
+      this.role = "Asesor especializado"
     }
+
+    this.profileService.fetchProfile(userId).subscribe((profile) => {
+      this.username = `${profile.firstName} ${profile.lastName}`;
+      this.photo = profile.photo;
+    }, error => {
+      console.error('Error fetching profile:', error);
+    })
   }
 
   ngOnDestroy() {
