@@ -5,6 +5,7 @@ import {AdvisorAppointmentDetailComponent} from "./advisor/appointments/detail/a
 import {AdvisorHistoryComponent} from "./advisor/appointments/history/advisor-history.component";
 import {AdvisorReviewViewComponent} from "./advisor/appointments/review/advisor-review-view.component";
 import {AvailableDatesComponent} from "./advisor/available-dates/available-dates.component";
+import {AdvisorPostsComponent} from "./advisor/posts/advisor-posts.component";
 
 
 export const AdvisorRoutes: Routes = [
@@ -17,7 +18,7 @@ export const AdvisorRoutes: Routes = [
         data: {
           title: 'Mis citas',
           urls: [
-            { title: 'Advisor Appointments' },
+            { title: 'Appointments', url: '/apps/advisor/appointments' },
           ],
         }
       },
@@ -27,7 +28,7 @@ export const AdvisorRoutes: Routes = [
         data: {
           title: 'Historial de citas',
           urls: [
-            { title: 'Advisor Appointments', url: '/apps/advisor/appointments' },
+            { title: 'Appointments', url: '/apps/advisor/appointments' },
             { title: 'History' },
           ],
         }
@@ -38,7 +39,6 @@ export const AdvisorRoutes: Routes = [
         data: {
           title: 'Reseña de usuario',
           urls: [
-            { title: 'Advisor Appointments', url: '/apps/advisor/appointments' },
             { title: 'History', url: '/apps/advisor/appointments/history' },
             { title: 'Review' },
           ],
@@ -50,7 +50,28 @@ export const AdvisorRoutes: Routes = [
         data: {
           title: 'Detalle de cita',
           urls: [
-            { title: 'Advisor Appointments', url: '/apps/advisor/appointments' },
+            { title: 'Appointments', url: '/apps/advisor/appointments' },
+            { title: 'Detail' },
+          ],
+        }
+      },
+      {
+        path: 'posts',
+        component: AdvisorPostsComponent,
+        data: {
+          title: 'Mis publicaciones',
+          urls: [
+            { title: 'Posts',  url: '/apps/advisor/posts' },
+          ]
+        }
+      },
+      {
+        path: 'posts/:id',
+        component: AdvisorPostsComponent,
+        data: {
+          title: 'Detalle de publicacion',
+          urls: [
+            { title: 'Posts', url: '/apps/advisor/posts' },
             { title: 'Detail' },
           ],
         }

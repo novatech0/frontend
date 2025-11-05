@@ -15,16 +15,24 @@ export const navItemsAdvisor: NavItem[] = [
     route: '/apps/advisor/available-dates',
   },
   {
+    navCap: 'Posts',
+  },
+  {
+    displayName: 'Mis Publicaciones',
+    iconName: 'news',
+    route: '/apps/advisor/posts',
+  },
+  {
     navCap: 'Perfil',
   },
   {
     displayName: 'Mi Perfil',
     iconName: 'user-circle',
-    route: '/apps/advisor/posts',
+    route: '/apps/profile',
   },
   {
     displayName: 'Mis Notificaciones',
     iconName: 'notification',
-    route: '/apps/advisor/notifications',
+    route: '/apps/notifications',
   }
 ];

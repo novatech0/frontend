@@ -2,7 +2,7 @@ export class AvailableDate {
   constructor(
     public dateId: number,
     public advisorId: number,
-    public scheduledDate: Date,
+    public scheduledDate: string,
     public startTime: string,
     public endTime: string,
     public status: boolean,
@@ -11,7 +11,7 @@ export class AvailableDate {
   static fromDto(dto: any): AvailableDate {
     const dateId = dto.id ?? 0;
     const advisorId = dto.advisorId ?? 0;
-    const scheduledDate = dto.scheduledDate ? new Date(dto.scheduledDate) : new Date(NaN);
+    const scheduledDate = dto.scheduledDate;
     const startTime = dto.startTime ?? '';
     const endTime = dto.endTime ?? '';
     const statusRaw = dto.status ?? dto.isAvailable ?? '';
@@ -23,7 +23,7 @@ export class AvailableDate {
     return {
       id: this.dateId,
       advisorId: this.advisorId,
-      scheduledDate: this.scheduledDate.toISOString().split('T')[0],
+      scheduledDate: this.scheduledDate,
       startTime: this.startTime,
       endTime: this.endTime,
       status: this.status ? 'AVAILABLE' : 'UNAVAILABLE',

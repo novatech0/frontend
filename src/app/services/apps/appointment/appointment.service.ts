@@ -14,54 +14,33 @@ export class AppointmentService {
   getMyAppointments(): Observable<AppointmentDetailed[]> {
     // Aquí deberías obtener el farmerId y el token JWT del usuario autenticado
     const farmerId = this.getFarmerId();
-    const headers = this.getAuthHeaders();
-    return this.http.get<AppointmentDetailed[]>(`${this.baseUrl}?farmerId=${farmerId}`, { headers });
+    return this.http.get<AppointmentDetailed[]>(`${this.baseUrl}?farmerId=${farmerId}`);
   }
 
   getMyAdvisorAppointments(): Observable<AppointmentDetailed[]> {
     // Obtener citas del asesor autenticado usando advisorId del localStorage
     const advisorId = this.getAdvisorId();
-    const headers = this.getAuthHeaders();
-    const url = `${this.baseUrl}?advisorId=${advisorId}`;
-
-    return this.http.get<AppointmentDetailed[]>(url, { headers });
+    return this.http.get<AppointmentDetailed[]>(`${this.baseUrl}?advisorId=${advisorId}`);
   }
 
   getAllAppointments(): Observable<AppointmentDetailed[]> {
-    const headers = this.getAuthHeaders();
-    return this.http.get<AppointmentDetailed[]>(`${this.baseUrl}`, { headers });
+    return this.http.get<AppointmentDetailed[]>(`${this.baseUrl}`);
   }
 
   getAdvisorAppointments(advisorId: number): Observable<AppointmentDetailed[]> {
-    const headers = this.getAuthHeaders();
-    return this.http.get<AppointmentDetailed[]>(`${this.baseUrl}?advisorId=${advisorId}`, { headers });
+    return this.http.get<AppointmentDetailed[]>(`${this.baseUrl}?advisorId=${advisorId}`);
   }
 
   cancelAppointment(id: number, reason: string): Observable<any> {
-    const headers = this.getAuthHeaders();
     // El backend devuelve texto plano, no JSON
-    return this.http.delete(`${this.baseUrl}/${id}`, {
-      headers,
-      responseType: 'text'
-    });
+    return this.http.delete(`${this.baseUrl}/${id}`, { responseType: 'text' });
   }
   getAppointmentById(id: number): Observable<AppointmentDetailed> {
-    const headers = this.getAuthHeaders();
-    return this.http.get<AppointmentDetailed>(`${this.baseUrl}/${id}`, { headers });
+    return this.http.get<AppointmentDetailed>(`${this.baseUrl}/${id}`);
   }
 
   bookAppointment(appointment: any): Observable<any> {
-    const headers = this.getAuthHeaders();
-    return this.http.post<any>(this.baseUrl, appointment, { headers });
-  }
-
-  // Métodos para crear, actualizar, eliminar, etc. se agregarán después
-
-  private getAuthHeaders(): HttpHeaders {
-    const token = localStorage.getItem('token');
-    return new HttpHeaders({
-      Authorization: `Bearer ${token}`
-    });
+    return this.http.post<any>(this.baseUrl, appointment);
   }
 
   private getFarmerId(): number {

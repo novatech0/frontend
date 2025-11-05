@@ -7,38 +7,46 @@
     } @else if (error()) {
       <div class="p-16 text-center text-warn">{{ error() }}</div>
     } @else if (profile()) {
-      <div class="row g-3 align-items-start">
+      <div class="row align-items-center">
         <div class="col-sm-3 d-flex justify-content-center">
           <img [src]="profile()?.photo || '/assets/images/profile/user-1.jpg'" (error)="onImageError($event)" class="rounded-circle border" width="120" height="120" alt="Foto de perfil" />
         </div>
         <div class="col-sm-9">
-          <div class="row g-3">
-            <div class="col-sm-6">
-              <span class="text-secondary f-s-12">Nombre</span>
+          <div class="row">
+            <div class="col-sm-6 m-b-16">
+              <span class="text-primary f-s-12">Nombre</span>
               <div class="f-w-600">{{ profile()?.firstName }}</div>
             </div>
-            <div class="col-sm-6">
-              <span class="text-secondary f-s-12">Apellido</span>
+            <div class="col-sm-6 m-b-16">
+              <span class="text-primary f-s-12">Apellido</span>
               <div class="f-w-600">{{ profile()?.lastName }}</div>
             </div>
-            <div class="col-sm-6">
-              <span class="text-secondary f-s-12">Ciudad</span>
+            <div class="col-sm-6 m-b-16">
+              <span class="text-primary f-s-12">Ciudad</span>
               <div class="f-w-600">{{ profile()?.city }}</div>
             </div>
-            <div class="col-sm-6">
-              <span class="text-secondary f-s-12">País</span>
+            <div class="col-sm-6 m-b-16">
+              <span class="text-primary f-s-12">País</span>
               <div class="f-w-600">{{ profile()?.country }}</div>
             </div>
-            <div class="col-sm-6">
-              <span class="text-secondary f-s-12">Fecha de nacimiento</span>
+            <div class="col-sm-6 m-b-16">
+              <span class="text-primary f-s-12">Fecha de nacimiento</span>
               <div class="f-w-600">{{ profile()?.birthDate | date:'yyyy-MM-dd' }}</div>
             </div>
-            <div class="col-sm-6">
-              <span class="text-secondary f-s-12">Experiencia</span>
-              <div class="f-w-600">{{ profile()?.experience }} años</div>
-            </div>
-            <div class="col-12">
-              <span class="text-secondary f-s-12">Descripción</span>
+            @if (profile()?.occupation) {
+              <div class="col-sm-6 m-b-16">
+                <span class="text-primary f-s-12">Ocupación</span>
+                <div class="f-w-600">{{ profile()?.occupation }}</div>
+              </div>
+            }
+            @if ((profile()?.experience ?? 0) > 0) {
+              <div class="col-sm-6 m-b-16">
+                <span class="text-primary f-s-12">Experiencia</span>
+                <div class="f-w-600">{{ profile()?.experience }} años</div>
+              </div>
+            }
+            <div class="col-12 m-b-16">
+              <span class="text-primary f-s-12">Descripción</span>
               <div>{{ profile()?.description }}</div>
             </div>
           </div>
@@ -51,13 +59,17 @@
 </mat-card>
 
 <mat-card class="cardWithShadow">
-  <mat-card-content class="d-flex justify-content-center gap-8">
+  <mat-card-content class="d-flex align-items-center justify-content-center gap-8">
     <button mat-stroked-button (click)="onEdit()">
-      <i-tabler name="edit" class="icon-18 m-r-8"></i-tabler>
+      <mat-icon matSuffix class="d-none d-sm-flex">
+        <i-tabler name="edit" class="icon-18 d-flex m-0"></i-tabler>
+      </mat-icon>
       Editar
     </button>
     <button mat-flat-button color="warn" class="text-white" (click)="onDelete()">
-      <i-tabler name="trash" class="icon-18 m-r-8"></i-tabler>
+      <mat-icon matSuffix class="d-none d-sm-flex">
+        <i-tabler name="trash" class="icon-18 d-flex m-0"></i-tabler>
+      </mat-icon>
       Eliminar cuenta
     </button>
   </mat-card-content>
