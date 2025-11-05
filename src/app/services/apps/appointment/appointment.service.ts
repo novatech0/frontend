@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { AppointmentDetailed } from 'src/app/pages/apps/appointments/appointment-detailed';
+import { switchMap } from 'rxjs/operators';
+import { AppointmentDetailed } from 'src/app/pages/apps/farmer/appointment/appointment-detailed';
+import {environment} from "../../../../environments/environment";
 
 @Injectable({ providedIn: 'root' })
 export class AppointmentService {
-  private baseUrl = 'http://localhost:8080/api/v1/appointments';
+  private baseUrl = environment.apiUrl + '/appointments';
 
   constructor(private http: HttpClient) {}
 
@@ -16,15 +18,41 @@ export class AppointmentService {
     return this.http.get<AppointmentDetailed[]>(`${this.baseUrl}?farmerId=${farmerId}`, { headers });
   }
 
-  cancelAppointment(id: number, reason: string) {
+  getMyAdvisorAppointments(): Observable<AppointmentDetailed[]> {
+    // Obtener citas del asesor autenticado usando advisorId del localStorage
+    const advisorId = this.getAdvisorId();
     const headers = this.getAuthHeaders();
-    // Si el backend requiere el motivo, se puede enviar en el body o como query param
-    // Aquí se asume que se envía en el body como parte de un update
-    return this.http.put(`${this.baseUrl}/${id}`, { status: 'CANCELLED', cancelReason: reason }, { headers });
+    const url = `${this.baseUrl}?advisorId=${advisorId}`;
+
+    return this.http.get<AppointmentDetailed[]>(url, { headers });
+  }
+
+  getAllAppointments(): Observable<AppointmentDetailed[]> {
+    const headers = this.getAuthHeaders();
+    return this.http.get<AppointmentDetailed[]>(`${this.baseUrl}`, { headers });
+  }
+
+  getAdvisorAppointments(advisorId: number): Observable<AppointmentDetailed[]> {
+    const headers = this.getAuthHeaders();
+    return this.http.get<AppointmentDetailed[]>(`${this.baseUrl}?advisorId=${advisorId}`, { headers });
+  }
+
+  cancelAppointment(id: number, reason: string): Observable<any> {
+    const headers = this.getAuthHeaders();
+    // El backend devuelve texto plano, no JSON
+    return this.http.delete(`${this.baseUrl}/${id}`, {
+      headers,
+      responseType: 'text'
+    });
   }
   getAppointmentById(id: number): Observable<AppointmentDetailed> {
     const headers = this.getAuthHeaders();
     return this.http.get<AppointmentDetailed>(`${this.baseUrl}/${id}`, { headers });
+  }
+
+  bookAppointment(appointment: any): Observable<any> {
+    const headers = this.getAuthHeaders();
+    return this.http.post<any>(this.baseUrl, appointment, { headers });
   }
 
   // Métodos para crear, actualizar, eliminar, etc. se agregarán después
@@ -40,5 +68,10 @@ export class AppointmentService {
     // Debes obtener el farmerId real del usuario autenticado
     // Esto es un placeholder, reemplázalo por la lógica real
     return Number(localStorage.getItem('farmerId')) || 1;
+  }
+
+  private getAdvisorId(): number {
+    // Obtener el advisorId del usuario autenticado
+    return Number(localStorage.getItem('advisorId')) || 0;
   }
 }

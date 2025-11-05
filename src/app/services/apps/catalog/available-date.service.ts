@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {environment} from "../../../../environments/environment";
 import {Observable} from "rxjs";
-import {AvailableDate} from "../../../pages/apps/catalog/book-appointment/available-date";
+import {AvailableDate} from "../../../pages/apps/farmer/catalog/book-appointment/available-date";
 import {map} from "rxjs/operators";
 
 @Injectable({

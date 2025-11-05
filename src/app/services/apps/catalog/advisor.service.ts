@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Advisor} from "src/app/pages/apps/catalog/advisor";
+import {Advisor} from "src/app/pages/apps/farmer/catalog/advisor";
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../../../environments/environment";
 import {map, switchMap} from "rxjs/operators";
@@ -41,6 +41,10 @@ export class AdvisorService {
         )
       )
     )
+  }
+
+  public getAdvisorByUserId(userId: number): Observable<{ id: number; userId: number; rating: number }> {
+    return this.httpClient.get<{ id: number; userId: number; rating: number }>(`${this.environmentUrl}/${userId}/user`);
   }
 
   public getAdvisors(): Observable<Advisor[]> {

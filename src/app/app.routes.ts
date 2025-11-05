@@ -15,58 +15,19 @@ export const routes: Routes = [
           import('./pages/pages.routes').then((m) => m.PagesRoutes),
       },
       {
-        path: 'dashboards',
-        loadChildren: () =>
-          import('./pages/dashboards/dashboards.routes').then(
-            (m) => m.DashboardsRoutes
-          ),
-      },
-
-      {
-        path: 'forms',
-        loadChildren: () =>
-          import('./pages/forms/forms.routes').then((m) => m.FormsRoutes),
-      },
-      {
-        path: 'charts',
-        loadChildren: () =>
-          import('./pages/charts/charts.routes').then((m) => m.ChartsRoutes),
-      },
-      {
         path: 'apps',
-        loadChildren: () =>
-          import('./pages/apps/apps.routes').then((m) => m.AppsRoutes),
-      },
-      {
-        path: 'widgets',
-        loadChildren: () =>
-          import('./pages/widgets/widgets.routes').then((m) => m.WidgetsRoutes),
-      },
-      {
-        path: 'tables',
-        loadChildren: () =>
-          import('./pages/tables/tables.routes').then((m) => m.TablesRoutes),
-      },
-      {
-        path: 'datatable',
-        loadChildren: () =>
-          import('./pages/datatable/datatable.routes').then(
-            (m) => m.DatatablesRoutes
-          ),
-      },
-      {
-        path: 'theme-pages',
-        loadChildren: () =>
-          import('./pages/theme-pages/theme-pages.routes').then(
-            (m) => m.ThemePagesRoutes
-          ),
-      },
-      {
-        path: 'ui-components',
-        loadChildren: () =>
-          import('./pages/ui-components/ui-components.routes').then(
-            (m) => m.UiComponentsRoutes
-          ),
+        children: [
+          {
+            path: 'farmer', // subpath interno para FarmerRoutes
+            loadChildren: () =>
+              import('./pages/apps/farmer.routes').then((m) => m.FarmerRoutes),
+          },
+          {
+            path: 'advisor', // subpath interno para AdvisorRoutes
+            loadChildren: () =>
+              import('./pages/apps/advisor.routes').then((m) => m.AdvisorRoutes),
+          },
+        ],
       },
     ],
   },

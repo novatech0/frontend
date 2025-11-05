@@ -1,0 +1,83 @@
+<div class="review-page" *ngIf="!loading">
+  <!-- Botón volver (flecha superior izquierda) -->
+  <button class="back-arrow" routerLink="/apps/farmer/appointments/history" aria-label="Volver">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M19 12H5M5 12L12 19M5 12L12 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+
+  <!-- Título -->
+  <h1 class="page-title">Calificación</h1>
+
+  <!-- Layout: Foto izquierda, Formulario derecha -->
+  <div class="review-content">
+    <!-- Foto y nombre del asesor -->
+    <div class="advisor-profile">
+      <img
+        [src]="advisorPhoto || 'assets/images/profile/user-1.jpg'"
+        class="advisor-avatar"
+        alt="Foto del asesor"
+      />
+      <h2 class="advisor-name">{{ advisorName }}</h2>
+    </div>
+
+    <!-- Formulario de calificación -->
+    <div class="review-form">
+      <!-- Estrellas -->
+      <div class="rating-section">
+        <h3 class="section-label">Calificación</h3>
+        <div class="stars">
+          <ng-container *ngFor="let s of [1,2,3,4,5]">
+            <svg
+              width="48"
+              height="48"
+              viewBox="0 0 24 24"
+              [class.active]="s <= rating"
+              [class.readonly]="hasReview && !isEdit"
+              (click)="(hasReview && !isEdit) ? null : setRating(s)"
+              class="star-icon"
+              [style.pointer-events]="(hasReview && !isEdit) ? 'none' : 'auto'"
+            >
+              <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
+            </svg>
+          </ng-container>
+        </div>
+      </div>
+
+      <!-- Comentario -->
+      <div class="comment-section">
+        <h3 class="section-label">Comentario</h3>
+        <textarea
+          [(ngModel)]="comment"
+          placeholder="Escribe tu comentario aquí..."
+          rows="6"
+          [readonly]="hasReview && !isEdit"
+        ></textarea>
+      </div>
+
+      <!-- Botón enviar -->
+      <button
+        *ngIf="!hasReview || isEdit"
+        class="submit-button"
+        [disabled]="!rating || loading"
+        (click)="submit()"
+      >
+        {{ isEdit ? 'Actualizar' : 'Enviar' }}
+      </button>
+
+      <!-- Botón editar -->
+      <button
+        *ngIf="hasReview && !isEdit"
+        class="edit-button"
+        (click)="editReview()"
+      >
+        Editar reseña
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Loading state -->
+<div *ngIf="loading" class="loading-state">
+  <p>Cargando...</p>
+</div>
