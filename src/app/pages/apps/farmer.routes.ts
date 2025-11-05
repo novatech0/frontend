@@ -74,7 +74,6 @@ export const FarmerRoutes: Routes = [
         data: {
           title: 'Evaluar cita',
           urls: [
-            { title: 'Appointments', url: '/apps/farmer/appointments' },
             { title: 'History', url: '/apps/farmer/appointments/history' },
             { title: 'Review' },
           ],

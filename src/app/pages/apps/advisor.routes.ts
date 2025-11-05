@@ -38,7 +38,6 @@ export const AdvisorRoutes: Routes = [
         data: {
           title: 'Reseña de usuario',
           urls: [
-            { title: 'Appointments', url: '/apps/advisor/appointments' },
             { title: 'History', url: '/apps/advisor/appointments/history' },
             { title: 'Review' },
           ],

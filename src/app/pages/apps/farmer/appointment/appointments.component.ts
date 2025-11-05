@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { AppointmentService } from 'src/app/services/apps/appointment/appointment.service';
 import { FarmerService } from 'src/app/services/apps/catalog/farmer.service';
 import { AuthService } from 'src/app/shared/services/auth.service';
-import { TimeFormatPipe } from '../../../../pipes/filter.pipe';
+import { TimeFormatPipe } from 'src/app/pipes/filter.pipe';
 import { AvailableDateService } from 'src/app/services/apps/catalog/available-date.service';
 import { AdvisorService } from 'src/app/services/apps/catalog/advisor.service';
 import {Router, RouterLink} from '@angular/router';
@@ -14,7 +14,6 @@ import {MaterialModule} from "src/app/material.module";
 @Component({
   selector: 'app-appointments',
   templateUrl: './appointments.component.html',
-  styleUrls: ['./appointments.component.scss'],
   imports: [
     CommonModule,
     TimeFormatPipe,
@@ -35,20 +34,6 @@ export class AppAppointmentsComponent implements OnInit {
     private advisorService: AdvisorService,
     private router: Router
   ) {}
-
-  // Función helper para convertir fecha sin problemas de zona horaria
-  private formatDateString(date: Date | string): string {
-    if (typeof date === 'string') {
-      return date;
-    }
-    if (date instanceof Date) {
-      const year = date.getFullYear();
-      const month = String(date.getMonth() + 1).padStart(2, '0');
-      const day = String(date.getDate()).padStart(2, '0');
-      return `${year}-${month}-${day}`;
-    }
-    return '';
-  }
 
   goToDetail(id: number) {
     this.router.navigate(['/apps/farmer/appointments/', id]);
@@ -97,7 +82,7 @@ export class AppAppointmentsComponent implements OnInit {
                     ...appt,
                     advisorName: advisor.firstName + ' ' + advisor.lastName,
                     advisorPhoto: advisor.photo,
-                    scheduledDate: this.formatDateString(date.scheduledDate),
+                    scheduledDate: date.scheduledDate,
                     startTime: date.startTime,
                     endTime: date.endTime
                   };
