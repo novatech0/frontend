@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { CoreService } from 'src/app/services/core.service';
 import { MatDialog } from '@angular/material/dialog';
-import { navItems } from '../sidebar/sidebar-data';
+import { navItems } from '../sidebar/sidebar-data-template';
 import { TranslateService } from '@ngx-translate/core';
 import { TablerIconsModule } from 'angular-tabler-icons';
 import { MaterialModule } from 'src/app/material.module';
@@ -66,6 +66,9 @@ export class HeaderComponent {
   @Output() toggleMobileFilterNav = new EventEmitter<void>();
   @Output() toggleCollapsed = new EventEmitter<void>();
 
+  @Input() username = "Usuario";
+  @Input() role = "Rol";
+  @Input() photo = "/assets/images/profile/user-1.jpg";
   showFiller = false;
 
   public selectedLanguage: any = {
@@ -75,6 +78,7 @@ export class HeaderComponent {
     icon: '/assets/images/flag/icon-flag-en.svg',
   };
 
+  /*
   public languages: any[] = [
     {
       language: 'English',
@@ -98,6 +102,7 @@ export class HeaderComponent {
       icon: '/assets/images/flag/icon-flag-de.svg',
     },
   ];
+  */
 
   @Output() optionsChange = new EventEmitter<AppSettings>();
 
@@ -179,7 +184,7 @@ export class HeaderComponent {
       img: '/assets/images/svgs/icon-account.svg',
       title: 'Mi Perfil',
       subtitle: 'Configuración de la cuenta',
-      link: '/',
+      link: '/profile',
     },
     {
       id: 2,
@@ -263,7 +268,7 @@ export class HeaderComponent {
     {
       id: 3,
       title: 'Register Now',
-      link: '/authentication/side-register',
+      link: '/authentication/signup',
     },
     {
       id: 4,

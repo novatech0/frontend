@@ -58,12 +58,18 @@ export class AuthService {
     });
   }
 
-  saveUser(token: any): void {
+  saveUser(id: number, token: any): void {
     let payload = this.getPayloadToken(token);
 
     this._user = new User(0,'','',[]);
+    this._user.id = id;
     this._user.username = payload.sub;
     this._user.roles = payload.roles;
+    // Si el JWT contiene advisorId, lo guardamos
+    if (payload.advisorId) {
+      this._user.advisorId = payload.advisorId;
+      localStorage.setItem('advisorId', String(payload.advisorId));
+    }
 
     localStorage.setItem("user", JSON.stringify(this._user));
   }

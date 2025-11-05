@@ -319,7 +319,7 @@ export const navItems: NavItem[] = [
               {
                 displayName: 'Login 1',
                 iconName: 'point',
-                route: '/authentication/side-register',
+                route: '/authentication/signup',
               },
             ],
           },

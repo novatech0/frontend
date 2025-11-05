@@ -1,6 +1,6 @@
 import { Injectable, signal } from '@angular/core';
-import { Employee } from 'src/app/pages/apps/employee/employee';
-import { employees } from 'src/app/pages/apps/employee/employeeData';
+import { Employee } from 'src/app/pages/apps/template/employee/employee';
+import { employees } from 'src/app/pages/apps/template/employee/employeeData';
 
 @Injectable({
   providedIn: 'root',

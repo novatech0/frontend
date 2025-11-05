@@ -1,7 +1,9 @@
 <div class="blank-layout-container justify-content-center">
   <div class="position-relative row w-100 h-100">
     <div class="col-lg-7 col-xl-8 bg-gredient p-0">
-
+      <div class="p-24 h-100">
+        <app-branding></app-branding>
+      </div>
     </div>
     <div class="col-lg-5 col-xl-4 p-0">
       <div
@@ -56,11 +58,6 @@
                 <mat-checkbox color="primary"
                   >Recordar este dispositivo</mat-checkbox
                 >
-                <a
-                  [routerLink]="['/authentication/side-forgot-pwd']"
-                  class="text-primary f-w-600 text-decoration-none m-l-auto f-s-14"
-                  >Olvidé mi contraseña</a
-                >
               </div>
               <button
                 mat-flat-button
@@ -75,7 +72,7 @@
             <span class="d-block f-w-500 d-block m-t-24"
               >¿No tienes una cuenta?
               <a
-                [routerLink]="['/authentication/side-register']"
+                [routerLink]="['/authentication/signup']"
                 class="text-decoration-none text-primary f-w-500 f-s-14"
               >
                 Regístrate</a

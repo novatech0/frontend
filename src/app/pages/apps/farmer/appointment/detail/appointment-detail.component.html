@@ -1,0 +1,68 @@
+<div class="appointment-detail-page" *ngIf="!loading && appointment; else loadingOrError">
+  <!-- Botón de volver (flecha) -->
+  <button class="back-arrow" (click)="goBack()" aria-label="Volver">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M19 12H5M5 12L12 19M5 12L12 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+
+  <!-- Contenedor principal -->
+  <div class="detail-wrapper">
+    <!-- Sección izquierda: Foto y nombre del asesor -->
+    <div class="advisor-profile">
+      <img [src]="appointment.advisorPhoto || 'assets/images/profile/user-1.jpg'" class="advisor-avatar" alt="Foto del asesor" />
+      <h2 class="advisor-name">{{ appointment.advisorName }}</h2>
+    </div>
+
+    <!-- Sección derecha: Información de la cita -->
+    <div class="appointment-info">
+      <!-- Fecha programada -->
+      <div class="info-field">
+        <label class="field-label">Fecha programada</label>
+        <div class="field-value">
+          {{ formattedDate }}{{ formattedTime ? ', ' + formattedTime : '' }}
+        </div>
+      </div>
+
+      <!-- Link de videoconferencia -->
+      <div class="info-field">
+        <label class="field-label">Link de la videoconferencia</label>
+        <a [href]="appointment.meetingUrl" target="_blank" class="field-value field-link">
+          {{ appointment.meetingUrl }}
+        </a>
+      </div>
+
+      <!-- Comentario -->
+      <div class="info-field">
+        <label class="field-label">Comentario brindado por ti</label>
+        <div class="field-value field-comment">
+          {{ appointment.message }}
+        </div>
+      </div>
+
+      <!-- Botón cancelar -->
+      <button class="cancel-button" (click)="openCancelModal()">
+        Cancelar Cita
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal de cancelación -->
+<div class="cancel-modal" *ngIf="showCancelModal">
+  <div class="modal-content">
+    <button class="close-btn" (click)="closeCancelModal()" aria-label="Cerrar">&#10005;</button>
+    <h3>¿Seguro que deseas cancelar tu cita?</h3>
+    <p>Por favor, ingresa el motivo por el cual cancelarás la cita</p>
+    <textarea [(ngModel)]="cancelReason" placeholder="Ingresa tu mensaje..." [disabled]="cancelLoading"></textarea>
+    <div class="error" *ngIf="cancelError">{{ cancelError }}</div>
+    <button class="cancel-btn" (click)="confirmCancel()" [disabled]="cancelLoading">
+      {{ cancelLoading ? 'Cancelando...' : 'Cancelar Cita' }}
+    </button>
+  </div>
+</div>
+
+<ng-template #loadingOrError>
+  <div class="loading-error" *ngIf="loading">Cargando...</div>
+  <div class="loading-error" *ngIf="error">No se pudo cargar la cita.</div>
+</ng-template>

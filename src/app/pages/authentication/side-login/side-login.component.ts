@@ -6,10 +6,11 @@ import { MaterialModule } from '../../../material.module';
 import { AuthService } from "../../../shared/services/auth.service";
 import {User} from "../../../shared/model/user";
 import {ToastrService} from "ngx-toastr";
+import {BrandingComponent} from "../../../layouts/full/vertical/sidebar/branding.component";
 
 @Component({
     selector: 'app-side-login',
-    imports: [RouterModule, MaterialModule, FormsModule, ReactiveFormsModule],
+  imports: [RouterModule, MaterialModule, FormsModule, ReactiveFormsModule, BrandingComponent],
     templateUrl: './side-login.component.html',
     styleUrls: ['./side-login.component.scss']
 })
@@ -35,7 +36,7 @@ export class AppSideLoginComponent {
     if (this.form.invalid) { return }
     this.user = new User(null, this.form.value.uname!, this.form.value.password!, null);
     this.authService.login(this.user).subscribe(response => {
-      this.authService.saveUser(response.token);
+      this.authService.saveUser(response.id, response.token);
       this.authService.saveToken(response.token);
       this.router.navigate(['']);
     },
