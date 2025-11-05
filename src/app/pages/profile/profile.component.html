@@ -1,0 +1,64 @@
+<mat-card class="cardWithShadow m-b-16">
+  <mat-card-content>
+    @if (loading()) {
+      <div class="d-flex justify-content-center p-24">
+        <mat-progress-spinner mode="indeterminate" diameter="36"></mat-progress-spinner>
+      </div>
+    } @else if (error()) {
+      <div class="p-16 text-center text-warn">{{ error() }}</div>
+    } @else if (profile()) {
+      <div class="row g-3 align-items-start">
+        <div class="col-sm-3 d-flex justify-content-center">
+          <img [src]="profile()?.photo || '/assets/images/profile/user-1.jpg'" (error)="onImageError($event)" class="rounded-circle border" width="120" height="120" alt="Foto de perfil" />
+        </div>
+        <div class="col-sm-9">
+          <div class="row g-3">
+            <div class="col-sm-6">
+              <span class="text-secondary f-s-12">Nombre</span>
+              <div class="f-w-600">{{ profile()?.firstName }}</div>
+            </div>
+            <div class="col-sm-6">
+              <span class="text-secondary f-s-12">Apellido</span>
+              <div class="f-w-600">{{ profile()?.lastName }}</div>
+            </div>
+            <div class="col-sm-6">
+              <span class="text-secondary f-s-12">Ciudad</span>
+              <div class="f-w-600">{{ profile()?.city }}</div>
+            </div>
+            <div class="col-sm-6">
+              <span class="text-secondary f-s-12">País</span>
+              <div class="f-w-600">{{ profile()?.country }}</div>
+            </div>
+            <div class="col-sm-6">
+              <span class="text-secondary f-s-12">Fecha de nacimiento</span>
+              <div class="f-w-600">{{ profile()?.birthDate | date:'yyyy-MM-dd' }}</div>
+            </div>
+            <div class="col-sm-6">
+              <span class="text-secondary f-s-12">Experiencia</span>
+              <div class="f-w-600">{{ profile()?.experience }} años</div>
+            </div>
+            <div class="col-12">
+              <span class="text-secondary f-s-12">Descripción</span>
+              <div>{{ profile()?.description }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    } @else {
+      <div class="p-16 text-center text-secondary">No hay datos de perfil.</div>
+    }
+  </mat-card-content>
+</mat-card>
+
+<mat-card class="cardWithShadow">
+  <mat-card-content class="d-flex justify-content-center gap-8">
+    <button mat-stroked-button (click)="onEdit()">
+      <i-tabler name="edit" class="icon-18 m-r-8"></i-tabler>
+      Editar
+    </button>
+    <button mat-flat-button color="warn" class="text-white" (click)="onDelete()">
+      <i-tabler name="trash" class="icon-18 m-r-8"></i-tabler>
+      Eliminar cuenta
+    </button>
+  </mat-card-content>
+</mat-card>
