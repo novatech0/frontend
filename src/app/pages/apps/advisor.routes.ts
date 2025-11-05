@@ -4,6 +4,7 @@ import {AdvisorAppointmentsComponent} from "./advisor/appointments/advisor-appoi
 import {AdvisorAppointmentDetailComponent} from "./advisor/appointments/detail/advisor-appointment-detail.component";
 import {AdvisorHistoryComponent} from "./advisor/appointments/history/advisor-history.component";
 import {AdvisorReviewViewComponent} from "./advisor/appointments/review/advisor-review-view.component";
+import {AdvisorPostsComponent} from "./advisor/posts/listPost/advisor-posts.component";
 
 
 export const AdvisorRoutes: Routes = [
@@ -50,6 +51,27 @@ export const AdvisorRoutes: Routes = [
           title: 'Detalle de cita',
           urls: [
             { title: 'Advisor Appointments', url: '/apps/advisor/appointments' },
+            { title: 'Detail' },
+          ],
+        }
+      },
+      {
+        path: 'posts',
+        component: AdvisorPostsComponent,
+        data: {
+          title: 'Mis publicaciones',
+          urls: [
+            { title: 'Posts',  url: '/apps/advisor/posts' },
+          ]
+        }
+      },
+      {
+        path: 'posts/:id',
+        component: AdvisorPostsComponent,
+        data: {
+          title: 'Detalle de publicacion',
+          urls: [
+            { title: 'Advisor Posts', url: '/apps/advisor/appointments' },
             { title: 'Detail' },
           ],
         }

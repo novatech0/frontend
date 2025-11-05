@@ -20,11 +20,19 @@ export const navItemsAdvisor: NavItem[] = [
   {
     displayName: 'Mi Perfil',
     iconName: 'user-circle',
-    route: '/apps/advisor/posts',
+    route: '/apps/advisor/profile',
   },
   {
     displayName: 'Mis Notificaciones',
     iconName: 'notification',
     route: '/apps/advisor/notifications',
-  }
+  },
+  {
+    navCap: 'Publicaciones',
+  },
+  {
+    displayName: 'Mis Publicaciones',
+    iconName: 'news',
+    route: '/apps/advisor/posts',
+  },
 ];
