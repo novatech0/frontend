@@ -4,7 +4,7 @@ import {AdvisorAppointmentsComponent} from "./advisor/appointments/advisor-appoi
 import {AdvisorAppointmentDetailComponent} from "./advisor/appointments/detail/advisor-appointment-detail.component";
 import {AdvisorHistoryComponent} from "./advisor/appointments/history/advisor-history.component";
 import {AdvisorReviewViewComponent} from "./advisor/appointments/review/advisor-review-view.component";
-import {AdvisorPostsComponent} from "./advisor/posts/listPost/advisor-posts.component";
+import {AdvisorPostsComponent} from "./advisor/posts/advisor-posts.component";
 
 
 export const AdvisorRoutes: Routes = [
@@ -17,7 +17,7 @@ export const AdvisorRoutes: Routes = [
         data: {
           title: 'Mis citas',
           urls: [
-            { title: 'Advisor Appointments' },
+            { title: 'Appointments' },
           ],
         }
       },
@@ -27,7 +27,7 @@ export const AdvisorRoutes: Routes = [
         data: {
           title: 'Historial de citas',
           urls: [
-            { title: 'Advisor Appointments', url: '/apps/advisor/appointments' },
+            { title: 'Appointments', url: '/apps/advisor/appointments' },
             { title: 'History' },
           ],
         }
@@ -38,7 +38,7 @@ export const AdvisorRoutes: Routes = [
         data: {
           title: 'Reseña de usuario',
           urls: [
-            { title: 'Advisor Appointments', url: '/apps/advisor/appointments' },
+            { title: 'Appointments', url: '/apps/advisor/appointments' },
             { title: 'History', url: '/apps/advisor/appointments/history' },
             { title: 'Review' },
           ],
@@ -50,7 +50,7 @@ export const AdvisorRoutes: Routes = [
         data: {
           title: 'Detalle de cita',
           urls: [
-            { title: 'Advisor Appointments', url: '/apps/advisor/appointments' },
+            { title: 'Appointments', url: '/apps/advisor/appointments' },
             { title: 'Detail' },
           ],
         }
@@ -71,7 +71,7 @@ export const AdvisorRoutes: Routes = [
         data: {
           title: 'Detalle de publicacion',
           urls: [
-            { title: 'Advisor Posts', url: '/apps/advisor/appointments' },
+            { title: 'Posts', url: '/apps/advisor/appointments' },
             { title: 'Detail' },
           ],
         }
