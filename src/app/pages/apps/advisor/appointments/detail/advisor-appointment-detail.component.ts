@@ -117,7 +117,7 @@ export class AdvisorAppointmentDetailComponent implements OnInit {
       next: () => {
         this.cancelLoading.set(false);
         this.closeCancelModal();
-        this.router.navigate(['/apps/appointments/advisor']);
+        this.router.navigate(['/apps/advisor/appointments']);
       },
       error: (err) => {
         this.cancelLoading.set(false);
@@ -128,6 +128,6 @@ export class AdvisorAppointmentDetailComponent implements OnInit {
   }
 
   goBack() {
-    this.router.navigate(['/apps/appointments/advisor']);
+    this.router.navigate(['/apps/advisor/appointments']);
   }
 }

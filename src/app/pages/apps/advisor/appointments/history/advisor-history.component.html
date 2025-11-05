@@ -1,43 +1,65 @@
-<div class="appointments-page">
-  <!-- Header con botón volver y título -->
-  <div class="page-header">
-    <button class="back-button" (click)="goBack()" aria-label="Volver">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M19 12H5M5 12L12 19M5 12L12 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-      Volver
-    </button>
-    <h1 class="page-title">Historial de Citas</h1>
-    <div class="spacer"></div>
-  </div>
-
-  <!-- Grid de citas históricas -->
-  <div class="appointments-grid" *ngIf="!loading() && appointments().length > 0">
-    <div 
-      *ngFor="let appt of appointments()" 
-      class="appointment-card"
-      (click)="viewReview(appt.id)"
-    >
-      <!-- Foto del productor -->
-      <img [src]="appt.farmerPhoto" [alt]="appt.farmerName" class="farmer-photo" />
-
-      <!-- Información de la cita -->
-      <div class="appointment-details">
-        <h3 class="farmer-name">{{ appt.farmerName }}</h3>
-        <div class="divider-line"></div>
-        <p class="appointment-date">{{ appt.date | date: 'd \'de\' MMMM \'de\' yyyy' : '' : 'es-ES' }}</p>
-        <p class="appointment-time">{{ appt.startTime | timeFormat }} - {{ appt.endTime | timeFormat }}</p>
+<mat-card class="cardWithShadow">
+  <mat-card-content>
+    <div class="row justify-content-start">
+      <div class="d-flex align-items-center">
+        <button mat-flat-button color="primary" (click)="goBack()">
+          <mat-icon matSuffix class="d-none d-sm-flex">
+            <i-tabler name="arrow-left" class="icon-18 d-flex m-0"></i-tabler>
+          </mat-icon>
+          Volver
+        </button>
       </div>
     </div>
-  </div>
+  </mat-card-content>
+</mat-card>
 
-  <!-- Estado vacío -->
-  <div class="empty-state" *ngIf="!loading() && appointments().length === 0">
-    <p>No tienes citas en el historial</p>
+@if (loading()) {
+  <div class="d-flex justify-content-center p-24">
+    <mat-progress-spinner mode="indeterminate" diameter="36"></mat-progress-spinner>
   </div>
-
-  <!-- Loading -->
-  <div class="loading-state" *ngIf="loading()">
-    <p>Cargando historial...</p>
-  </div>
-</div>
+}
+@else {
+  @if (appointments().length == 0) {
+    <mat-card class="cardWithShadow">
+      <mat-card-content class="text-center p-y-32">
+        <i-tabler name="calendar-off" class="icon-48 text-dark m-b-16"></i-tabler>
+        <div class="f-s-16 text-dark">No hay citas pasadas.</div>
+      </mat-card-content>
+    </mat-card>
+  }
+  @else {
+    <div class="row">
+      @for(appointment of appointments(); track appointment.id) {
+        <div class="col-sm-6 col-lg-4">
+          <mat-card class="cardWithShadow">
+            <mat-card-content class="text-center">
+              <img
+                src="{{ appointment.farmerPhoto }}"
+                class="rounded-circle border p-5"
+                width="100"
+              />
+              <div class="d-flex flex-col gap-20 m-t-16">
+                <div>
+                  <h4 mat-card-title>
+                    {{ appointment.farmerName }}
+                  </h4>
+                  <span class="f-s-12">{{ appointment.date | date: "d 'de' MMMM 'de' y" : undefined : 'es' }}</span>
+                  <span class="f-s-12 d-block">{{ appointment.startTime | timeFormat }} - {{ appointment.endTime | timeFormat }}</span>
+                </div>
+                <div class="d-flex gap-8 justify-content-center">
+                  <button
+                    mat-flat-button
+                    class="text-white"
+                    (click)="viewReview(appointment.id)"
+                  >
+                    Ver reseña
+                  </button>
+                </div>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      }
+    </div>
+  }
+}

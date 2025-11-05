@@ -13,7 +13,6 @@ import {TimeFormatPipe} from "../../../../../pipes/filter.pipe";
   selector: 'app-appointments-history',
   standalone: true,
   templateUrl: './appointments-history.component.html',
-  styleUrls: ['./appointments-history.component.scss'],
   imports: [
     CommonModule,
     RouterLink,
@@ -99,28 +98,6 @@ export class AppAppointmentsHistoryComponent implements OnInit {
         this.loading = false;
       }
     });
-  }
-
-  formatDate(dateVal: string | Date | undefined): string {
-    if (!dateVal) return '';
-    let d: Date | null = null;
-    if (dateVal instanceof Date && !isNaN(dateVal as any)) {
-      d = dateVal;
-    } else if (typeof dateVal === 'string' && dateVal) {
-      d = new Date(dateVal);
-      if (isNaN(d.getTime()) && typeof dateVal === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(dateVal)) {
-        const [y, m, day] = dateVal.split('-');
-        d = new Date(Number(y), Number(m) - 1, Number(day));
-      }
-    }
-    if (d && !isNaN(d.getTime())) {
-      return d.toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' });
-    }
-    return '';
-  }
-
-  formatTime(start?: string, end?: string): string {
-    return start && end ? `${start} - ${end}` : '';
   }
 
   isPast(appt: AppointmentDetailed): boolean {

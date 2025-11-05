@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { AppointmentService } from 'src/app/services/apps/appointment/appointment.service';
 import { FarmerService } from 'src/app/services/apps/catalog/farmer.service';
 import { AuthService } from 'src/app/shared/services/auth.service';
-import { TimeFormatPipe } from '../../../../pipes/filter.pipe';
+import { TimeFormatPipe } from 'src/app/pipes/filter.pipe';
 import { AvailableDateService } from 'src/app/services/apps/catalog/available-date.service';
 import { AdvisorService } from 'src/app/services/apps/catalog/advisor.service';
 import {Router, RouterLink} from '@angular/router';
