@@ -46,7 +46,7 @@ export class AppointmentService {
   private getFarmerId(): number {
     // Debes obtener el farmerId real del usuario autenticado
     // Esto es un placeholder, reemplázalo por la lógica real
-    return Number(localStorage.getItem('farmerId')) || 1;
+    return Number(localStorage.getItem('farmerId')) || 0;
   }
 
   private getAdvisorId(): number {
