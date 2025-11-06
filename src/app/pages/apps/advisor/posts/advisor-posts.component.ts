@@ -45,8 +45,9 @@ export class AdvisorPostsComponent implements OnInit {
   }
 
   editPost(postId: number): void {
-    this.router.navigate(['/apps/advisor/posts/edit', postId]);
+    this.router.navigate(['/apps/advisor/posts', postId]);
   }
+
 
   deletePost(postId: number): void {
     this.postService.deletePost(postId).subscribe(() => {

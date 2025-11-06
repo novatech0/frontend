@@ -27,9 +27,11 @@ export class PostService {
     return this.httpClient.post<Post>(this.environmentUrl, post);
   }
 
-  public updatePost(id: number, post: Post): Observable<Post> {
+  public updatePost(id: number, post: Post | FormData): Observable<Post> {
     return this.httpClient.put<Post>(`${this.environmentUrl}/${id}`, post);
   }
+
+
 
   public deletePost(id: number): Observable<void> {
     return this.httpClient.delete<void>(`${this.environmentUrl}/${id}`);

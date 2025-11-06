@@ -5,6 +5,7 @@ import {AdvisorAppointmentDetailComponent} from "./advisor/appointments/detail/a
 import {AdvisorHistoryComponent} from "./advisor/appointments/history/advisor-history.component";
 import {AdvisorReviewViewComponent} from "./advisor/appointments/review/advisor-review-view.component";
 import {AdvisorPostsComponent} from "./advisor/posts/advisor-posts.component";
+import {EditPostComponent} from "./advisor/posts/edit-post/edit-post.component";
 
 
 export const AdvisorRoutes: Routes = [
@@ -66,7 +67,7 @@ export const AdvisorRoutes: Routes = [
       },
       {
         path: 'posts/:id',
-        component: AdvisorPostsComponent,
+        component: EditPostComponent,
         data: {
           title: 'Detalle de publicacion',
           urls: [
