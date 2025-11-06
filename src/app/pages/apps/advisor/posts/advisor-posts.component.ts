@@ -56,5 +56,8 @@ export class AdvisorPostsComponent implements OnInit {
     });
   }
 
-  addPost() {}
+  addPost() {
+    this.router.navigate(['/apps/advisor/create/post']);
+
+  }
 }

@@ -6,6 +6,7 @@ import {AdvisorHistoryComponent} from "./advisor/appointments/history/advisor-hi
 import {AdvisorReviewViewComponent} from "./advisor/appointments/review/advisor-review-view.component";
 import {AdvisorPostsComponent} from "./advisor/posts/advisor-posts.component";
 import {EditPostComponent} from "./advisor/posts/edit-post/edit-post.component";
+import {CreatePostComponent} from "./advisor/posts/create-post/create-post.component";
 
 
 export const AdvisorRoutes: Routes = [
@@ -73,6 +74,16 @@ export const AdvisorRoutes: Routes = [
           urls: [
             { title: 'Posts', url: '/apps/advisor/posts' },
             { title: 'Detail' },
+          ],
+        }
+      },
+      {
+        path: 'create/post',
+        component: CreatePostComponent,
+        data: {
+          title: 'Crear nueva publicacion',
+          urls: [
+            { title: 'Posts', url: '/apps/advisor/posts' },
           ],
         }
       },
