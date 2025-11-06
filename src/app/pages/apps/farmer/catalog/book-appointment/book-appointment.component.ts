@@ -79,8 +79,8 @@ export class AppBookAppointmentComponent implements OnInit {
     return moment().diff(birthDate, 'years');
   }
 
-  protected formatAvailableDate(scheduleDate: Date, startTime: String, endTime: String): string {
-    const date = moment(scheduleDate).format('DD MMM YYYY');
+  protected formatAvailableDate(scheduledDate: string, startTime: string, endTime: string): string {
+    const date = moment(scheduledDate, 'YYYY-MM-DD').format('DD MMM YYYY');
     return `${date}, ${startTime} - ${endTime}`;
   }
 

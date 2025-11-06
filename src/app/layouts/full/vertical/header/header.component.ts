@@ -16,14 +16,9 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NgScrollbarModule } from 'ngx-scrollbar';
 import { AppSettings } from 'src/app/config';
-import {AuthService} from "../../../../shared/services/auth.service";
-
-interface notifications {
-  id: number;
-  img: string;
-  title: string;
-  subtitle: string;
-}
+import { AuthService } from "src/app/shared/services/auth.service";
+import { UserNotification } from "src/app/shared/model/userNotification";
+import {NotificationService} from "../../../../shared/services/notification.service";
 
 interface profiledd {
   id: number;
@@ -70,6 +65,7 @@ export class HeaderComponent {
   @Input() role = "Rol";
   @Input() photo = "/assets/images/profile/user-1.jpg";
   showFiller = false;
+  @Input() notifications: UserNotification[] = [];
 
   public selectedLanguage: any = {
     language: 'English',
@@ -77,6 +73,7 @@ export class HeaderComponent {
     type: 'US',
     icon: '/assets/images/flag/icon-flag-en.svg',
   };
+
 
   /*
   public languages: any[] = [
@@ -145,53 +142,20 @@ export class HeaderComponent {
     this.router.navigate(['/authentication/login']);
   }
 
-  notifications: notifications[] = [
-    {
-      id: 1,
-      img: '/assets/images/profile/user-1.jpg',
-      title: 'Roman Joined thes Team!',
-      subtitle: 'Congratulate him',
-    },
-    {
-      id: 2,
-      img: '/assets/images/profile/user-2.jpg',
-      title: 'New message received',
-      subtitle: 'Salma sent you new message',
-    },
-    {
-      id: 3,
-      img: '/assets/images/profile/user-3.jpg',
-      title: 'New Payment received',
-      subtitle: 'Check your earnings',
-    },
-    {
-      id: 4,
-      img: '/assets/images/profile/user-4.jpg',
-      title: 'Jolly completed tasks',
-      subtitle: 'Assign her new tasks',
-    },
-    {
-      id: 5,
-      img: '/assets/images/profile/user-5.jpg',
-      title: 'Roman Joined the Team!',
-      subtitle: 'Congratulatse him',
-    },
-  ];
-
   profiledd: profiledd[] = [
     {
       id: 1,
       img: '/assets/images/svgs/icon-account.svg',
       title: 'Mi Perfil',
       subtitle: 'Configuración de la cuenta',
-      link: '/profile',
+      link: 'apps//profile',
     },
     {
       id: 2,
       img: '/assets/images/svgs/icon-inbox.svg',
       title: 'Mi Inbox',
       subtitle: 'Notificaciones',
-      link: '/apps/email/inbox',
+      link: '/apps/notifications',
     },
   ];
 

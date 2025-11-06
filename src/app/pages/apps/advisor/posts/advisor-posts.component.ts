@@ -54,4 +54,6 @@ export class AdvisorPostsComponent implements OnInit {
       this.posts.set(updatedPosts);
     });
   }
+
+  addPost() {}
 }

@@ -1,14 +1,16 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
 import { AppointmentService } from 'src/app/services/apps/appointment/appointment.service';
 import { AvailableDateService } from 'src/app/services/apps/catalog/available-date.service';
 import { ProfileService } from 'src/app/shared/services/profile.service';
 import { FarmerService } from 'src/app/services/apps/catalog/farmer.service';
 import { AppointmentDetailed } from '../../farmer/appointment/appointment-detailed';
-import { TimeFormatPipe } from 'src/app/pipes/time-format.pipe';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { AdvisorService } from 'src/app/services/apps/catalog/advisor.service';
+import {TablerIconsModule} from "angular-tabler-icons";
+import {MaterialModule} from "../../../../material.module";
+import { TimeFormatPipe } from 'src/app/pipes/filter.pipe';
 
 interface EnrichedAppointment {
   id: number;
@@ -25,8 +27,7 @@ interface EnrichedAppointment {
   selector: 'app-advisor-appointments',
   standalone: true,
   templateUrl: './advisor-appointments.component.html',
-  styleUrls: ['./advisor-appointments.component.scss'],
-  imports: [CommonModule, TimeFormatPipe]
+  imports: [CommonModule, MaterialModule, TablerIconsModule, RouterLink, TimeFormatPipe]
 })
 export class AdvisorAppointmentsComponent implements OnInit {
   appointments = signal<EnrichedAppointment[]>([]);
@@ -71,20 +72,6 @@ export class AdvisorAppointmentsComponent implements OnInit {
     }
   }
 
-  // Función helper para convertir fecha sin problemas de zona horaria
-  private formatDateString(date: Date | string): string {
-    if (typeof date === 'string') {
-      return date;
-    }
-    if (date instanceof Date) {
-      const year = date.getFullYear();
-      const month = String(date.getMonth() + 1).padStart(2, '0');
-      const day = String(date.getDate()).padStart(2, '0');
-      return `${year}-${month}-${day}`;
-    }
-    return '';
-  }
-
   fetchAppointments() {
     this.loading.set(true);
 
@@ -115,7 +102,7 @@ export class AdvisorAppointmentsComponent implements OnInit {
                           farmerId: appt.farmerId,
                           farmerName: `${profile.firstName} ${profile.lastName}`,
                           farmerPhoto: profile.photo || 'assets/images/profile/user-1.jpg',
-                          date: this.formatDateString(date.scheduledDate),
+                          date: date.scheduledDate,
                           startTime: date.startTime,
                           endTime: date.endTime,
                           status: appt.status

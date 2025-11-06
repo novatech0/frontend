@@ -29,5 +29,18 @@ export const navItemsFarmer: NavItem[] = [
     displayName: 'Publicaciones',
     iconName: 'news',
     route: '/apps/farmer/posts',
+  },
+  {
+    navCap: 'Perfil',
+  },
+  {
+    displayName: 'Mi Perfil',
+    iconName: 'user-circle',
+    route: '/apps/profile',
+  },
+  {
+    displayName: 'Mis Notificaciones',
+    iconName: 'notification',
+    route: '/apps/notifications',
   }
 ];
