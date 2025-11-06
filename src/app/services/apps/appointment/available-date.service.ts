@@ -31,7 +31,7 @@ export class AvailableDateService {
     return this.httpClient.put<AvailableDate>(`${this.environmentUrl}/${id}`, date);
   }
 
-  public delete(id: number): Observable<void> {
-    return this.httpClient.delete<void>(`${this.environmentUrl}/${id}`);
+  public delete(id: number): Observable<any> {
+    return this.httpClient.delete(`${this.environmentUrl}/${id}`, { responseType: 'text' });
   }
 }
