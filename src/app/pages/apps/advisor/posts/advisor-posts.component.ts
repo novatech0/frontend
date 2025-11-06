@@ -48,13 +48,21 @@ export class AdvisorPostsComponent implements OnInit {
     this.router.navigate(['/apps/advisor/posts', postId]);
   }
 
-
   deletePost(postId: number): void {
-    this.postService.deletePost(postId).subscribe(() => {
-      const updatedPosts = this.posts().filter((post) => post.id !== postId);
-      this.posts.set(updatedPosts);
+    this.postService.deletePost(postId).subscribe({
+      next: () => {
+        this.posts.set(this.posts().filter(post => post.id !== postId));
+      },
+      error: (err) => {
+        if (err.status === 200) {
+          this.posts.set(this.posts().filter(post => post.id !== postId));
+        } else {
+          console.error('Error real al eliminar post:', err);
+        }
+      }
     });
   }
+
 
   addPost() {
     this.router.navigate(['/apps/advisor/create/post']);

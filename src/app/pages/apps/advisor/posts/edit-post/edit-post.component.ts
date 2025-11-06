@@ -91,7 +91,7 @@ export class EditPostComponent implements OnInit {
 
       this.postService.updatePost(this.postId, formData).subscribe({
         next: (response) => {
-          console.log('Respuesta del PUT:', response); // <--- Aquí ves qué devuelve el backend
+          console.log('Respuesta del PUT:', response);
           alert('Publicación actualizada correctamente.');
         },
         error: (err) => {

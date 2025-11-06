@@ -32,8 +32,8 @@ export class PostService {
   }
 
 
-
-  public deletePost(id: number): Observable<void> {
-    return this.httpClient.delete<void>(`${this.environmentUrl}/${id}`);
+  deletePost(id: number): Observable<any> {
+    return this.httpClient.delete(`${this.environmentUrl}/${id}`, { responseType: 'text' });
   }
+
 }
