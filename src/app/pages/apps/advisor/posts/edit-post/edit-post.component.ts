@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PostService } from 'src/app/services/apps/post/post.service';
 import { MatCardModule } from '@angular/material/card';
@@ -9,8 +9,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import {MatIcon} from "@angular/material/icon";
-import {log} from "@angular-devkit/build-angular/src/builders/ssr-dev-server";
+import { MatIcon } from '@angular/material/icon';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-edit-post',
@@ -40,6 +40,7 @@ export class EditPostComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private postService: PostService,
+    private toastr: ToastrService
   ) {
     this.postForm = this.fb.group({
       title: ['', Validators.required],
@@ -91,11 +92,11 @@ export class EditPostComponent implements OnInit {
 
       this.postService.updatePost(this.postId, formData).subscribe({
         next: (response) => {
-          console.log('Respuesta del PUT:', response);
-          alert('Publicación actualizada correctamente.');
+          this.toastr.success('Publicación actualizada correctamente.', 'Éxito');
+          this.router.navigate(['/apps/advisor/posts']);
         },
         error: (err) => {
-          alert('Error!!');
+          this.toastr.error('Error al actualizar la publicación.', 'Error');
         },
       });
     }
@@ -104,5 +105,4 @@ export class EditPostComponent implements OnInit {
   goBack(): void {
     this.router.navigate(['/apps/advisor/posts']);
   }
-
 }

@@ -10,6 +10,7 @@ import { CommonModule } from '@angular/common';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatIcon } from '@angular/material/icon';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-create-post',
@@ -38,7 +39,8 @@ export class CreatePostComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private postService: PostService
+    private postService: PostService,
+    private toastr: ToastrService
   ) {
     this.postForm = this.fb.group({
       title: ['', Validators.required],
@@ -78,13 +80,12 @@ export class CreatePostComponent implements OnInit {
 
       this.postService.createPost(formData as any).subscribe({
         next: (response) => {
-          console.log('Post creado:', response);
-          alert('Publicación creada correctamente.');
+          this.toastr.success('Publicación creada', 'Éxito');
           this.router.navigate(['/apps/advisor/posts']);
         },
         error: (err) => {
           console.error('Error al crear post:', err);
-          alert('Error al crear la publicación.');
+          this.toastr.error('Error al crear la publicación', 'Error');
           this.isSaving = false;
         }
       });
