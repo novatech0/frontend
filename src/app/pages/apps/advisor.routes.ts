@@ -68,24 +68,22 @@ export const AdvisorRoutes: Routes = [
         }
       },
       {
-        path: 'posts/:id',
-        component: EditPostComponent,
-        data: {
-          title: 'Detalle de publicacion',
-          urls: [
-            { title: 'Posts', url: '/apps/advisor/posts' },
-            { title: 'Detail' },
-          ],
-        }
-      },
-      {
         path: 'posts/create',
         component: CreatePostComponent,
         data: {
           title: 'Crear nueva publicacion',
           urls: [
-            { title: 'Posts', url: '/apps/advisor/posts' },
-            { title: 'Create Post' }
+            { title: 'Create Posts', url: '/apps/advisor/posts' }
+          ],
+        }
+      },
+      {
+        path: 'posts/:id',
+        component: EditPostComponent,
+        data: {
+          title: 'Detalle de publicacion',
+          urls: [
+            { title: 'Edit Post', url: '/apps/advisor/posts' },
           ],
         }
       },

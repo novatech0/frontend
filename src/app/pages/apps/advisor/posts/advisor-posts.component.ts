@@ -80,7 +80,7 @@ export class AdvisorPostsComponent implements OnInit {
 
 
   addPost() {
-    this.router.navigate(['/apps/advisor/create/post']);
-
+    this.router.navigate(['/apps/advisor/posts/create']);
   }
+
 }
