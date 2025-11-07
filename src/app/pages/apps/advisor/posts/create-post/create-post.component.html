@@ -4,19 +4,21 @@
     <mat-icon>arrow_back</mat-icon>
   </button>
 
-  <h1 class="title">Editar publicación</h1>
+  <h1 class="title">Crear publicación</h1>
 
   <!-- Sección de imagen -->
   <div class="image-section">
     <div class="image-wrapper">
       <img
-        [src]="imagePreview || currentImageUrl"
+        *ngIf="imagePreview"
+        [src]="imagePreview"
         alt="Vista previa"
       />
+      <span *ngIf="!imagePreview">No hay imagen seleccionada</span>
     </div>
 
     <label class="change-image-btn">
-      Cambiar imagen
+      Subir imagen
       <input type="file" accept="image/*" (change)="onFileChange($event)" />
     </label>
 
@@ -24,7 +26,7 @@
   </div>
 
   <!-- Sección de formulario -->
-  <form class="form-section" [formGroup]="postForm" (ngSubmit)="savePost()">
+  <form class="form-section" [formGroup]="postForm" (ngSubmit)="createPost()">
     <div class="form-field">
       <mat-form-field appearance="outline" class="w-full">
         <mat-label>Título</mat-label>
@@ -45,7 +47,7 @@
     </div>
 
     <button mat-flat-button color="primary" type="submit" [disabled]="postForm.invalid || isSaving">
-      Guardar
+      Crear
     </button>
   </form>
 </div>

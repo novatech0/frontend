@@ -6,6 +6,8 @@ import {AdvisorHistoryComponent} from "./advisor/appointments/history/advisor-hi
 import {AdvisorReviewViewComponent} from "./advisor/appointments/review/advisor-review-view.component";
 import {AvailableDatesComponent} from "./advisor/available-dates/available-dates.component";
 import {AdvisorPostsComponent} from "./advisor/posts/advisor-posts.component";
+import {EditPostComponent} from "./advisor/posts/edit-post/edit-post.component";
+import {CreatePostComponent} from "./advisor/posts/create-post/create-post.component";
 
 
 export const AdvisorRoutes: Routes = [
@@ -66,13 +68,22 @@ export const AdvisorRoutes: Routes = [
         }
       },
       {
+        path: 'posts/create',
+        component: CreatePostComponent,
+        data: {
+          title: 'Crear nueva publicacion',
+          urls: [
+            { title: 'Create Posts', url: '/apps/advisor/posts' }
+          ],
+        }
+      },
+      {
         path: 'posts/:id',
-        component: AdvisorPostsComponent,
+        component: EditPostComponent,
         data: {
           title: 'Detalle de publicacion',
           urls: [
-            { title: 'Posts', url: '/apps/advisor/posts' },
-            { title: 'Detail' },
+            { title: 'Edit Post', url: '/apps/advisor/posts' },
           ],
         }
       },
@@ -82,10 +93,10 @@ export const AdvisorRoutes: Routes = [
         data: {
           title: 'Mis Horarios',
           urls: [
-            { title: 'Advisor Available Dates' },
+            { title: 'Available Dates', url: '/apps/advisor/available-dates' },
           ]
         }
-      }
+      },
     ],
   },
 ];

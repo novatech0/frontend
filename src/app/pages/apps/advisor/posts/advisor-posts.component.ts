@@ -5,6 +5,9 @@ import { AdvisorService } from 'src/app/services/apps/catalog/advisor.service';
 import { TablerIconsModule } from 'angular-tabler-icons';
 import { CommonModule } from '@angular/common';
 import { MaterialModule } from 'src/app/material.module';
+import {PostDeleteDialogComponent} from "./post-delete-dialog/post-delete-dialog.component";
+import {ToastrService} from "ngx-toastr";
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-posts',
@@ -21,7 +24,9 @@ export class AdvisorPostsComponent implements OnInit {
   constructor(
     public router: Router,
     private postService: PostService,
-    private advisorService: AdvisorService
+    private advisorService: AdvisorService,
+    private dialog: MatDialog,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -45,15 +50,37 @@ export class AdvisorPostsComponent implements OnInit {
   }
 
   editPost(postId: number): void {
-    this.router.navigate(['/apps/advisor/posts/edit', postId]);
+    this.router.navigate(['/apps/advisor/posts', postId]);
   }
 
   deletePost(postId: number): void {
-    this.postService.deletePost(postId).subscribe(() => {
-      const updatedPosts = this.posts().filter((post) => post.id !== postId);
-      this.posts.set(updatedPosts);
+    const ref = this.dialog.open(PostDeleteDialogComponent, {
+      width: '420px',
+      data: { id: postId },
+      autoFocus: false,
+      restoreFocus: true,
+      disableClose: true,
+    });
+
+    ref.afterClosed().subscribe((confirm: boolean) => {
+      if (!confirm) return;
+
+      this.postService.deletePost(postId).subscribe({
+        next: () => {
+          this.posts.set(this.posts().filter(post => post.id !== postId));
+          this.toastr.success('Publicación eliminada', 'Éxito');
+        },
+        error: (err) => {
+          console.error('No se pudo eliminar la publicación:', err);
+          this.toastr.error('No se pudo eliminar la publicación', 'Error');
+        }
+      });
     });
   }
 
-  addPost() {}
+
+  addPost() {
+    this.router.navigate(['/apps/advisor/posts/create']);
+  }
+
 }
