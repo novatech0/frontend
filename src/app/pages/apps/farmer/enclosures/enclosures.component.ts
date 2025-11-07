@@ -16,6 +16,7 @@ import { AppEnclosureCreateDialogComponent } from "src/app/components/enclosures
 import { AppEnclosureInfoDialogComponent } from "src/app/components/enclosures/info-dialog/enclosure-info-dialog.component";
 import { Farmer } from "src/app/components/catalog/review/farmer";
 import { AppEnclosuresTableComponent } from "src/app/components/enclosures/table/enclosures-table.component";
+import {AppDeleteDialogComponent} from "../../../../shared/components/delete-dialog/delete-dialog.component";
 
 @Component({
   selector: 'app-enclosures',
@@ -154,9 +155,9 @@ export class AppEnclosuresComponent implements OnInit {
   }
 
   onDelete(row: Enclosure): void {
-    const ref = this.dialog.open(AppEnclosureDeleteDialogComponent, {
+    const ref = this.dialog.open(AppDeleteDialogComponent, {
       width: '420px',
-      data: { id: row.id, name: row.name },
+      data: { id: row.id, name: row.name, type: "recinto" },
       autoFocus: false,
       restoreFocus: true,
       disableClose: true,
