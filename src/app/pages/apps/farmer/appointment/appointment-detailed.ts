@@ -5,6 +5,7 @@ export interface AppointmentDetailed {
   message: string;
   status: 'PENDING' | 'ONGOING' | 'COMPLETED';
   meetingUrl: string;
+  advisorId?: number;
   advisorName?: string;
   advisorPhoto?: string;
   scheduledDate?: string;
