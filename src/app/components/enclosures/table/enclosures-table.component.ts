@@ -17,6 +17,7 @@ export class AppEnclosuresTableComponent implements OnChanges {
   @Input() data: Enclosure[] = [];
   @Input() filter: string = '';
 
+  @Output() viewRequested = new EventEmitter<Enclosure>();
   @Output() editRequested = new EventEmitter<Enclosure>();
   @Output() deleteRequested = new EventEmitter<Enclosure>();
 
@@ -61,6 +62,7 @@ export class AppEnclosuresTableComponent implements OnChanges {
     return pageIndex * pageSize + i + 1;
   }
 
+  onView(row: Enclosure) { this.viewRequested.emit(row); }
   onEdit(row: Enclosure) { this.editRequested.emit(row); }
   onDelete(row: Enclosure) { this.deleteRequested.emit(row); }
 }
