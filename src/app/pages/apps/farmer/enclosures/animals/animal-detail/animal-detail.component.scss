@@ -1,12 +1,14 @@
-.animal-detail-card {
+.title {
+    margin-bottom: 16px;
+    text-align: center;
+}
+
+.form-container {
     padding: 16px;
-    .row {
-        margin-bottom: 16px;
-        mat-form-field {
-            width: 100%;
-        }
-    }
-    .field-row {
+    margin-top: 16px;
+}
+
+.field-row {
         margin-bottom: 16px;
         display: block;
         mat-form-field {
@@ -28,7 +30,6 @@
             grid-template-columns: repeat(2, 1fr);
         }
     }
-}
 
 .button-container {
   display: flex;

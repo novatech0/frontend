@@ -1,0 +1,102 @@
+<div>
+    <button class="back-btn mb-4" mat-icon-button (click)="goBack()">
+        <mat-icon>arrow_back</mat-icon>
+    </button>
+
+    <div class="title">
+        <h2>Crear nuevo animal</h2>
+    </div>
+
+    <div class="form-container">
+        <form class="field-grid form-section" [formGroup]="animalForm" (ngSubmit)="create()">
+            <div class="field-row">
+                <mat-form-field appearance="outline">
+                    <mat-label>Nombre</mat-label>
+                    <input matInput formControlName="name" />
+                    <mat-error *ngIf="animalForm.get('name')?.hasError('required')">
+                        Requerido
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="field-row">
+                <mat-form-field appearance="outline">
+                    <mat-label>Especie</mat-label>
+                    <input matInput formControlName="species" />
+                    <mat-error *ngIf="animalForm.get('species')?.hasError('required')">
+                        Requerido
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="field-row">
+                <mat-form-field appearance="outline">
+                    <mat-label>Raza</mat-label>
+                    <input matInput formControlName="breed" />
+                    <mat-error *ngIf="animalForm.get('breed')?.hasError('required')">
+                        Requerido
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="field-row">
+                <mat-form-field appearance="outline">
+                    <mat-label>Edad</mat-label>
+                    <input type="number"  matInput formControlName="age" [min]="0" />
+                    <mat-error *ngIf="animalForm.get('age')?.hasError('required')">
+                        Requerido
+                    </mat-error>
+                    <mat-error *ngIf="animalForm.get('age')?.hasError('min')">
+                        Edad no válida
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="field-row">
+                <mat-form-field appearance="outline">
+                    <mat-label>Género</mat-label>
+                    <mat-select formControlName="gender">
+                        <mat-option value="true">Macho</mat-option>
+                        <mat-option value="false">Hembra</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="animalForm.get('gender')?.hasError('required')">
+                        Requerido
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            
+            <div class="field-row">
+                <mat-form-field appearance="outline">
+                    <mat-label>Peso (kg)</mat-label>
+                    <input type="number" matInput formControlName="weight" [min]="0.1" />
+                    <mat-error *ngIf="animalForm.get('weight')?.hasError('required')">
+                        Requerido
+                    </mat-error>
+                    <mat-error *ngIf="animalForm.get('weight')?.hasError('min')">
+                        Peso no válido
+                    </mat-error>
+                </mat-form-field>
+
+            </div>
+
+            <div class="field-row">
+                <mat-form-field appearance="outline">
+                    <mat-label>Salud</mat-label>
+                    <mat-select formControlName="health">
+                        <mat-option value="HEALTHY">Saludable</mat-option>
+                        <mat-option value="SICK">Enfermo</mat-option>
+                        <mat-option value="DEAD">Fallecido</mat-option>
+                        <mat-option value="UNKNOWN">Desconocido</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="animalForm.get('health')?.hasError('required')">
+                        Requerido
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </form>
+
+        <div class="button-container">
+            <button mat-flat-button color="primary" type="submit" [disabled]="animalForm.invalid" (click)="create()">Guardar</button>
+        </div>
+    </div>
+</div>

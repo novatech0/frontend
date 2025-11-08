@@ -138,6 +138,28 @@ export const FarmerRoutes: Routes = [
         },
       },
       {
+        path: 'enclosures/:id/create-animal',
+        component: AppCreateAnimalComponent,
+        data: {
+          title: 'Crear animal',
+          urls: [
+            { title: 'Enclosures', url: '/apps/farmer/enclosures' },
+            { title: 'Create Animal' },
+          ],
+        },
+      },
+      {
+        path: 'enclosures/:id/animals/:animalId/edit',
+        component: AppEditAnimalComponent,
+        data: {
+          title: 'Editar animal',
+          urls: [
+            { title: 'Enclosures', url: '/apps/farmer/enclosures' },
+            { title: 'Edit Animal' },
+          ],
+        },
+      },
+      {
         path: 'posts',
         component: AppPostsComponent,
         data: {
