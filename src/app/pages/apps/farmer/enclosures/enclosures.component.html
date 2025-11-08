@@ -37,6 +37,7 @@
 @else {
   <app-enclosures-table
     [data]="enclosures()"
+    (viewRequested)="onView($event)"
     (editRequested)="onEdit($event)"
     (deleteRequested)="onDelete($event)">
   </app-enclosures-table>

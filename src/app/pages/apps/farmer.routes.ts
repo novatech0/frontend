@@ -9,6 +9,10 @@ import {AppAppointmentsComponent} from "./farmer/appointment/appointments.compon
 import {AppAppointmentsHistoryComponent} from "./farmer/appointment/history/appointments-history.component";
 import {ReviewComponent} from "./farmer/appointment/review/review.component";
 import {AppointmentDetailComponent} from "./farmer/appointment/detail/appointment-detail.component";
+import { AppAnimalsComponent } from './farmer/enclosures/animals/animals.component';
+import { AppAnimalDetailComponent } from './farmer/enclosures/animals/animal-detail/animal-detail.component';
+import { AppCreateAnimalComponent } from './farmer/enclosures/animals/create-animal/create-animal.component';
+import { AppEditAnimalComponent } from './farmer/enclosures/animals/edit-animal/edit-animal.component';
 
 
 export const FarmerRoutes: Routes = [
@@ -108,6 +112,50 @@ export const FarmerRoutes: Routes = [
           title: 'Mis recintos',
           urls: [
             { title: 'Enclosures', url: '/apps/farmer/enclosures' },
+          ],
+        },
+      },
+      {
+        path: 'enclosures/:id/animals',
+        component: AppAnimalsComponent,
+        data: {
+          title: 'Animales del recinto',
+          urls: [
+            { title: 'Enclosures', url: '/apps/farmer/enclosures' },
+            { title: 'Animals' },
+          ],
+        },
+      },
+      {
+        path: 'enclosures/:id/animals/:animalId',
+        component: AppAnimalDetailComponent,
+        data: {
+          title: 'Detalle del animal',
+          urls: [
+            { title: 'Enclosures', url: '/apps/farmer/enclosures' },
+            { title: 'Animal Detail' },
+          ],
+        },
+      },
+      {
+        path: 'enclosures/:id/create-animal',
+        component: AppCreateAnimalComponent,
+        data: {
+          title: 'Crear animal',
+          urls: [
+            { title: 'Enclosures', url: '/apps/farmer/enclosures' },
+            { title: 'Create Animal' },
+          ],
+        },
+      },
+      {
+        path: 'enclosures/:id/animals/:animalId/edit',
+        component: AppEditAnimalComponent,
+        data: {
+          title: 'Editar animal',
+          urls: [
+            { title: 'Enclosures', url: '/apps/farmer/enclosures' },
+            { title: 'Edit Animal' },
           ],
         },
       },

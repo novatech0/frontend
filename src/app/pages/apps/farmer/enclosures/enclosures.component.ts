@@ -11,12 +11,12 @@ import { MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { AppEnclosureEditDialogComponent } from "src/app/components/enclosures/edit-dialog/enclosure-edit-dialog.component";
-import { AppEnclosureDeleteDialogComponent } from "src/app/components/enclosures/delete-dialog/enclosure-delete-dialog.component";
 import { AppEnclosureCreateDialogComponent } from "src/app/components/enclosures/create-dialog/enclosure-create-dialog.component";
 import { AppEnclosureInfoDialogComponent } from "src/app/components/enclosures/info-dialog/enclosure-info-dialog.component";
 import { Farmer } from "src/app/components/catalog/review/farmer";
 import { AppEnclosuresTableComponent } from "src/app/components/enclosures/table/enclosures-table.component";
-import {AppDeleteDialogComponent} from "../../../../shared/components/delete-dialog/delete-dialog.component";
+import {AppDeleteDialogComponent} from "src/app/shared/components/delete-dialog/delete-dialog.component";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-enclosures',
@@ -45,6 +45,7 @@ export class AppEnclosuresComponent implements OnInit {
     private enclosureService: EnclosureService,
     private dialog: MatDialog,
     private toastr: ToastrService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -124,6 +125,15 @@ export class AppEnclosuresComponent implements OnInit {
         }
       });
     });
+  }
+
+  onView(row: Enclosure): void {
+    // ir a ruta /apps/farmer/enclosures/:id/animals
+    // usando routerLink o programáticamente
+    // Aquí se hace programáticamente
+    const enclosureId = row.id;
+    if (enclosureId == null) return;
+    this.router.navigate(['/apps/farmer/enclosures', enclosureId, 'animals']);
   }
 
   onEdit(row: Enclosure): void {
