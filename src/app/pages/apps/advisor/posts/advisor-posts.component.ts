@@ -8,6 +8,7 @@ import { MaterialModule } from 'src/app/material.module';
 import {PostDeleteDialogComponent} from "./post-delete-dialog/post-delete-dialog.component";
 import {ToastrService} from "ngx-toastr";
 import {MatDialog} from "@angular/material/dialog";
+import { AppDeleteDialogComponent } from 'src/app/shared/components/delete-dialog/delete-dialog.component';
 
 @Component({
   selector: 'app-posts',
@@ -18,7 +19,6 @@ import {MatDialog} from "@angular/material/dialog";
 })
 export class AdvisorPostsComponent implements OnInit {
   posts = signal<any[]>([]);
-  advisors = signal<any[]>([]);
   loggedInAdvisorId: number | null = null;
 
   constructor(
@@ -31,21 +31,10 @@ export class AdvisorPostsComponent implements OnInit {
 
   ngOnInit(): void {
     const advisorId = localStorage.getItem('advisorId');
-    this.loggedInAdvisorId = advisorId ? parseInt(advisorId, 10) : null;
+    this.loggedInAdvisorId = advisorId ? parseInt(advisorId, 10) : 0;
 
-    this.advisorService.getAdvisors().subscribe((data) => {
-      this.advisors.set(data);
-    });
-
-    this.postService.getPosts().subscribe((posts) => {
-      if (this.loggedInAdvisorId !== null) {
-        const filteredPosts = posts.filter(
-          (post) => post.advisorId === this.loggedInAdvisorId
-        );
-        this.posts.set(filteredPosts);
-      } else {
-        this.posts.set([]);
-      }
+    this.postService.getPosts(this.loggedInAdvisorId).subscribe((posts) => {
+        this.posts.set(posts);
     });
   }
 
@@ -54,21 +43,19 @@ export class AdvisorPostsComponent implements OnInit {
   }
 
   deletePost(postId: number): void {
-    const ref = this.dialog.open(PostDeleteDialogComponent, {
+    const ref = this.dialog.open(AppDeleteDialogComponent, {
       width: '420px',
-      data: { id: postId },
+      data: { id: postId, name: `publicación`, type: "publicación" },
       autoFocus: false,
       restoreFocus: true,
       disableClose: true,
     });
-
     ref.afterClosed().subscribe((confirm: boolean) => {
       if (!confirm) return;
-
       this.postService.deletePost(postId).subscribe({
         next: () => {
-          this.posts.set(this.posts().filter(post => post.id !== postId));
           this.toastr.success('Publicación eliminada', 'Éxito');
+          this.posts.set(this.posts().filter(post => post.id !== postId));
         },
         error: (err) => {
           console.error('No se pudo eliminar la publicación:', err);
