@@ -36,7 +36,7 @@ export class AuthService {
     return null;
   }
 
-  login(user: User): Observable<any> {
+  signin(user: User): Observable<any> {
     const urlEndpoint = `${this.environmentUrl}/sign-in`;
     let data = JSON.stringify({ "username": user.username, "password": user.password })
     return this.httpClient.post<any>(urlEndpoint, data, {
@@ -45,6 +45,10 @@ export class AuthService {
         'Accept': 'application/json',
       })
     });
+  }
+
+  login(user: User): Observable<any> {
+    return this.signin(user);
   }
 
   signup(user: User): Observable<any> {
