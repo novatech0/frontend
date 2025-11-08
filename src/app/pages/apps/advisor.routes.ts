@@ -3,7 +3,6 @@ import { Routes } from '@angular/router';
 import {AdvisorAppointmentsComponent} from "./advisor/appointments/advisor-appointments.component";
 import {AdvisorAppointmentDetailComponent} from "./advisor/appointments/detail/advisor-appointment-detail.component";
 import {AdvisorHistoryComponent} from "./advisor/appointments/history/advisor-history.component";
-import {AdvisorReviewViewComponent} from "./advisor/appointments/review/advisor-review-view.component";
 import {AvailableDatesComponent} from "./advisor/available-dates/available-dates.component";
 import {AdvisorPostsComponent} from "./advisor/posts/advisor-posts.component";
 import {EditPostComponent} from "./advisor/posts/edit-post/edit-post.component";
@@ -32,17 +31,6 @@ export const AdvisorRoutes: Routes = [
           urls: [
             { title: 'Appointments', url: '/apps/advisor/appointments' },
             { title: 'History' },
-          ],
-        }
-      },
-      {
-        path: 'appointments/review/:id',
-        component: AdvisorReviewViewComponent,
-        data: {
-          title: 'Reseña de usuario',
-          urls: [
-            { title: 'History', url: '/apps/advisor/appointments/history' },
-            { title: 'Review' },
           ],
         }
       },
