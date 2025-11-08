@@ -5,9 +5,11 @@ import { AppointmentDetailed } from '../appointment-detailed';
 import { RouterLink } from "@angular/router";
 import { AvailableDateService } from 'src/app/services/apps/catalog/available-date.service';
 import { AdvisorService } from 'src/app/services/apps/catalog/advisor.service';
-import {TablerIconsModule} from "angular-tabler-icons";
-import {MaterialModule} from "../../../../../material.module";
-import {TimeFormatPipe} from "../../../../../pipes/filter.pipe";
+import { TablerIconsModule } from "angular-tabler-icons";
+import { MaterialModule } from "../../../../../material.module";
+import { TimeFormatPipe } from "../../../../../pipes/filter.pipe";
+import { MatDialog } from '@angular/material/dialog';
+import { ReviewDialogComponent } from 'src/app/shared/components/review-dialog/review-dialog.component';
 
 @Component({
   selector: 'app-appointments-history',
@@ -28,7 +30,8 @@ export class AppAppointmentsHistoryComponent implements OnInit {
   constructor(
     private appointmentService: AppointmentService,
     private availableDateService: AvailableDateService,
-    private advisorService: AdvisorService
+    private advisorService: AdvisorService,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -56,6 +59,7 @@ export class AppAppointmentsHistoryComponent implements OnInit {
                 next: (advisor) => {
                   enriched[idx] = {
                     ...appt,
+                    advisorId: date.advisorId,
                     advisorName: advisor.firstName + ' ' + advisor.lastName,
                     advisorPhoto: advisor.photo,
                     scheduledDate: date.scheduledDate,
@@ -107,5 +111,26 @@ export class AppAppointmentsHistoryComponent implements OnInit {
     const apptDate = new Date(appt.scheduledDate);
     apptDate.setHours(0, 0, 0, 0);
     return apptDate < today;
+  }
+
+  openReviewDialog(appointment: AppointmentDetailed): void {
+    // Obtener advisor info del appointment enriquecido
+    const dialogRef = this.dialog.open(ReviewDialogComponent, {
+      width: '500px',
+      autoFocus: false,
+      data: {
+        appointmentId: appointment.id,
+        advisorId: appointment.advisorId || 0, // Nota: deberíamos tener esto del enriquecimiento
+        advisorName: appointment.advisorName || 'Asesor',
+        advisorPhoto: appointment.advisorPhoto
+      }
+    });
+
+    dialogRef.afterClosed().subscribe((success) => {
+      if (success) {
+        // Reseña creada/actualizada exitosamente
+        console.log('Reseña guardada exitosamente');
+      }
+    });
   }
 }

@@ -50,7 +50,7 @@
                   <button
                     mat-flat-button
                     class="text-white"
-                    [routerLink]="['/apps/farmer/appointments/review', appointment.id]"
+                    (click)="openReviewDialog(appointment)"
                   >
                     Ver reseña
                   </button>
