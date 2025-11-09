@@ -7,43 +7,66 @@
     } @else if (error()) {
       <div class="p-16 text-center text-warn">{{ error() }}</div>
     } @else if (profile()) {
-      <div class="row g-3 align-items-start">
-        <div class="col-sm-3 d-flex justify-content-center">
-          <img [src]="profile()?.photo || '/assets/images/profile/user-1.jpg'" (error)="onImageError($event)" class="rounded-circle border" width="120" height="120" alt="Foto de perfil" />
-        </div>
-        <div class="col-sm-9">
-          <div class="row g-3">
-            <div class="col-sm-6">
-              <span class="text-secondary f-s-12">Nombre</span>
-              <div class="f-w-600">{{ profile()?.firstName }}</div>
-            </div>
-            <div class="col-sm-6">
-              <span class="text-secondary f-s-12">Apellido</span>
-              <div class="f-w-600">{{ profile()?.lastName }}</div>
-            </div>
-            <div class="col-sm-6">
-              <span class="text-secondary f-s-12">Ciudad</span>
-              <div class="f-w-600">{{ profile()?.city }}</div>
-            </div>
-            <div class="col-sm-6">
-              <span class="text-secondary f-s-12">País</span>
-              <div class="f-w-600">{{ profile()?.country }}</div>
-            </div>
-            <div class="col-sm-6">
-              <span class="text-secondary f-s-12">Fecha de nacimiento</span>
-              <div class="f-w-600">{{ profile()?.birthDate | date:'yyyy-MM-dd' }}</div>
-            </div>
-            <div class="col-sm-6">
-              <span class="text-secondary f-s-12">Experiencia</span>
-              <div class="f-w-600">{{ profile()?.experience }} años</div>
-            </div>
-            <div class="col-12">
-              <span class="text-secondary f-s-12">Descripción</span>
-              <div>{{ profile()?.description }}</div>
+      <form [formGroup]="form">
+        <div class="row g-3 align-items-start">
+          <div class="col-sm-3 d-flex justify-content-center">
+            <img [src]="profile()?.photo || '/assets/images/profile/user-1.jpg'" (error)="onImageError($event)" class="rounded-circle border" width="120" height="120" alt="Foto de perfil" />
+          </div>
+          <div class="col-sm-9">
+            <div class="row g-3">
+              <div class="col-sm-6">
+                <span class="text-secondary f-s-12">Nombre</span>
+                <div *ngIf="!editing()" class="f-w-600">{{ profile()?.firstName }}</div>
+                <mat-form-field *ngIf="editing()" appearance="outline" class="w-100">
+                  <input matInput formControlName="firstName" />
+                </mat-form-field>
+              </div>
+              <div class="col-sm-6">
+                <span class="text-secondary f-s-12">Apellido</span>
+                <div *ngIf="!editing()" class="f-w-600">{{ profile()?.lastName }}</div>
+                <mat-form-field *ngIf="editing()" appearance="outline" class="w-100">
+                  <input matInput formControlName="lastName" />
+                </mat-form-field>
+              </div>
+              <div class="col-sm-6">
+                <span class="text-secondary f-s-12">Ciudad</span>
+                <div *ngIf="!editing()" class="f-w-600">{{ profile()?.city }}</div>
+                <mat-form-field *ngIf="editing()" appearance="outline" class="w-100">
+                  <input matInput formControlName="city" />
+                </mat-form-field>
+              </div>
+              <div class="col-sm-6">
+                <span class="text-secondary f-s-12">País</span>
+                <div *ngIf="!editing()" class="f-w-600">{{ profile()?.country }}</div>
+                <mat-form-field *ngIf="editing()" appearance="outline" class="w-100">
+                  <input matInput formControlName="country" />
+                </mat-form-field>
+              </div>
+              <div class="col-sm-6">
+                <span class="text-secondary f-s-12">Fecha de nacimiento</span>
+                <div *ngIf="!editing()" class="f-w-600">{{ profile()?.birthDate | date:'yyyy-MM-dd' }}</div>
+                <mat-form-field *ngIf="editing()" appearance="outline" class="w-100">
+                  <input matInput type="date" formControlName="birthDate" />
+                </mat-form-field>
+              </div>
+              <div class="col-sm-6">
+                <span class="text-secondary f-s-12">Experiencia</span>
+                <div *ngIf="!editing()" class="f-w-600">{{ profile()?.experience }} años</div>
+                <mat-form-field *ngIf="editing()" appearance="outline" class="w-100">
+                  <input matInput type="number" formControlName="experience" />
+                </mat-form-field>
+              </div>
+              <div class="col-12">
+                <span class="text-secondary f-s-12">Descripción</span>
+                <div *ngIf="!editing()">{{ profile()?.description }}</div>
+                <mat-form-field *ngIf="editing()" appearance="outline" class="w-100">
+                  <textarea matInput rows="3" formControlName="description"></textarea>
+                </mat-form-field>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      </form>
     } @else {
       <div class="p-16 text-center text-secondary">No hay datos de perfil.</div>
     }
@@ -52,13 +75,24 @@
 
 <mat-card class="cardWithShadow">
   <mat-card-content class="d-flex justify-content-center gap-8">
-    <button mat-stroked-button (click)="onEdit()">
-      <i-tabler name="edit" class="icon-18 m-r-8"></i-tabler>
-      Editar
-    </button>
-    <button mat-flat-button color="warn" class="text-white" (click)="onDelete()">
-      <i-tabler name="trash" class="icon-18 m-r-8"></i-tabler>
-      Eliminar cuenta
-    </button>
+    <ng-container *ngIf="!editing(); else editButtons">
+      <button mat-stroked-button (click)="onEdit()">
+        <i-tabler name="edit" class="icon-18 m-r-8"></i-tabler>
+        Editar
+      </button>
+      <button mat-flat-button color="warn" class="text-white" (click)="onDelete()">
+        <i-tabler name="trash" class="icon-18 m-r-8"></i-tabler>
+        Eliminar cuenta
+      </button>
+    </ng-container>
+    <ng-template #editButtons>
+      <button mat-flat-button color="primary" class="text-white" (click)="onSave()">
+        <i-tabler name="check" class="icon-18 m-r-8"></i-tabler>
+        Guardar
+      </button>
+      <button mat-stroked-button (click)="onCancel()">
+        Cancelar
+      </button>
+    </ng-template>
   </mat-card-content>
 </mat-card>

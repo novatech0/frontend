@@ -75,4 +75,24 @@ export class ProfileService {
       map(profile => this.mapToProfile(profile))
     );
   }
+
+  public updateProfile(id: number, payload: {
+    firstName: string;
+    lastName: string;
+    city: string;
+    country: string;
+    birthDate: string; // yyyy-MM-dd
+    description: string;
+    photo: string | null;
+    occupation: string | null;
+    experience: number;
+  }): Observable<Profile> {
+    const urlEndpoint = `${this.environmentUrl}/${id}`;
+    return this.httpClient.put<any>(urlEndpoint, payload, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      })
+    }).pipe(map(profile => this.mapToProfile(profile)));
+  }
 }
