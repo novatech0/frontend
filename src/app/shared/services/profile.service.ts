@@ -95,10 +95,10 @@ export class ProfileService {
     country: string;
     birthDate: string; // yyyy-MM-dd
     description: string;
-    photo: string | null; // ignorado si no es archivo
+    photo: string | null; // mantenido para compatibilidad, no usado si se pasa File
     occupation: string | null;
     experience: number;
-  }): Observable<Profile> {
+  }, photoFile?: File): Observable<Profile> {
     const urlEndpoint = `${this.environmentUrl}/${id}`;
 
     const formData = new FormData();
@@ -114,7 +114,9 @@ export class ProfileService {
     if (payload.experience !== undefined && payload.experience !== null) {
       formData.append('experience', String(payload.experience));
     }
-    // Nota: 'photo' no se adjunta aquí porque es una URL/string. Cuando se permita editar la foto se añadirá un File real.
+    if (photoFile) {
+      formData.append('photo', photoFile);
+    }
 
     return this.httpClient.put<any>(urlEndpoint, formData).pipe(
       map(profile => this.mapToProfile(profile))

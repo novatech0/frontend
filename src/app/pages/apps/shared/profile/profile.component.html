@@ -10,10 +10,21 @@
       <form [formGroup]="form">
         <div class="row g-3 align-items-start">
           <div class="col-sm-3 d-flex justify-content-center">
-            <img [src]="profile()?.photo || '/assets/images/profile/user-1.jpg'" (error)="onImageError($event)" class="rounded-circle border" width="120" height="120" alt="Foto de perfil" />
+            <img [src]="previewUrl || '/assets/images/profile/user-1.jpg'" (error)="onImageError($event)" class="rounded-circle border" width="120" height="120" alt="Foto de perfil" />
           </div>
           <div class="col-sm-9">
             <div class="row g-3">
+              <!-- Selector de foto sólo en edición -->
+              <div class="col-12" *ngIf="editing()">
+                <button mat-stroked-button type="button" (click)="photoInput.click()">
+                  <mat-icon matSuffix class="d-none d-sm-flex m-r-8">
+                    <i-tabler name="photo" class="icon-18 d-flex m-0"></i-tabler>
+                  </mat-icon>
+                  Cambiar foto
+                </button>
+                <input #photoInput id="photoInput" type="file" accept="image/*" class="d-none" (change)="onPhotoSelected($event)" />
+              </div>
+
               <div class="col-sm-6">
                 <span class="text-secondary f-s-12">Nombre</span>
                 <div *ngIf="!editing()" class="f-w-600">{{ profile()?.firstName }}</div>

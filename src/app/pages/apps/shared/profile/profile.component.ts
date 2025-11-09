@@ -47,6 +47,9 @@ export class AppProfileComponent implements OnInit {
   editing = signal<boolean>(false);
   form: FormGroup;
 
+  selectedPhotoFile: File | null = null;
+  previewUrl: string | null = null;
+
   constructor(
     private profileService: ProfileService,
     private authService: AuthService,
@@ -105,6 +108,7 @@ export class AppProfileComponent implements OnInit {
       occupation: p.occupation,
       experience: p.experience
     });
+    this.previewUrl = p.photo || null;
   }
 
   onEdit(): void {
@@ -123,6 +127,14 @@ export class AppProfileComponent implements OnInit {
     const m = String(date.getMonth() + 1).padStart(2, '0');
     const d = String(date.getDate()).padStart(2, '0');
     return `${y}-${m}-${d}`;
+  }
+
+  onPhotoSelected(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      this.selectedPhotoFile = input.files[0];
+      this.previewUrl = URL.createObjectURL(this.selectedPhotoFile);
+    }
   }
 
   onSave(): void {
@@ -147,12 +159,13 @@ export class AppProfileComponent implements OnInit {
       experience: this.isAdvisor ? (Number(this.form.value.experience) ?? 0) : p.experience
     };
 
-    this.profileService.updateProfile(p.id, payload).subscribe({
+    this.profileService.updateProfile(p.id, payload, this.selectedPhotoFile || undefined).subscribe({
       next: (updated) => {
         this.profile.set(updated);
         this.patchForm(updated);
         this.editing.set(false);
         this.alert.saved('Perfil actualizado correctamente');
+        this.selectedPhotoFile = null; // limpiar selección tras guardar
       },
       error: (err) => {
         console.error('Error al actualizar perfil:', err);
