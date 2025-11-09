@@ -1,6 +1,6 @@
 import { Injectable, signal } from '@angular/core';
-import { ToDo } from 'src/app/pages/apps/todo/todo';
-import { todos } from 'src/app/pages/apps/todo/todoData';
+import { ToDo } from 'src/app/pages/apps/template/todo/todo';
+import { todos } from 'src/app/pages/apps/template/todo/todoData';
 
 @Injectable({
   providedIn: 'root',
@@ -36,7 +36,7 @@ export class TodoService {
   }
 
   public deleteTodo(id: number): void {
-    this.todos.update((todos) => todos.filter((todo) => todo.id !== id)); 
+    this.todos.update((todos) => todos.filter((todo) => todo.id !== id));
   }
 
   public editTodo(id: number, message: string): void {
@@ -47,5 +47,5 @@ export class TodoService {
     );
   }
 
- 
+
 }

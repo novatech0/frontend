@@ -1,7 +1,9 @@
 import { Routes } from '@angular/router';
 import { BlankComponent } from './layouts/blank/blank.component';
 import { FullComponent } from './layouts/full/full.component';
-import {AuthGuard} from "./shared/guards/auth.guard";
+import { AuthGuard } from "./shared/guards/auth.guard";
+import {AppNotificationsComponent} from "./pages/apps/shared/notification/notifications.component";
+import {AppProfileComponent} from "./pages/apps/shared/profile/profile.component";
 
 export const routes: Routes = [
   {
@@ -10,20 +12,49 @@ export const routes: Routes = [
     canActivate: [AuthGuard],
     children: [
       {
-        path: 'profile',
-        loadComponent: () => import('./pages/profile/profile.component').then(m => m.AppProfileComponent),
-        data: {
-          title: 'Mi perfil',
-          urls: [
-            { title: 'profile', url: '/profile' },
-            { title: 'Mi perfil' },
-          ],
-        },
-      },
-      {
         path: 'starter',
         loadChildren: () =>
           import('./pages/pages.routes').then((m) => m.PagesRoutes),
+      },
+      {
+        path: 'apps',
+        children: [
+          {
+            path: 'farmer', // subpath interno para FarmerRoutes
+            loadChildren: () =>
+              import('./pages/apps/farmer.routes').then((m) => m.FarmerRoutes),
+          },
+          {
+            path: 'advisor', // subpath interno para AdvisorRoutes
+            loadChildren: () =>
+              import('./pages/apps/advisor.routes').then((m) => m.AdvisorRoutes),
+          },
+          {
+            path: 'template',
+            loadChildren: () =>
+              import('./pages/apps/template.routes').then((m) => m.TemplateRoutes),
+          },
+          {
+            path: 'notifications',
+            component: AppNotificationsComponent,
+            data: {
+              title: 'Notificaciones',
+              urls: [
+                { title: 'Notifications', url: '/apps/notifications' }
+              ]
+            },
+          },
+          {
+            path: 'profile',
+            component: AppProfileComponent,
+            data: {
+              title: 'Mi perfil',
+              urls: [
+                { title: 'Profile' },
+              ],
+            },
+          },
+        ],
       },
       {
         path: 'dashboards',
@@ -32,7 +63,6 @@ export const routes: Routes = [
             (m) => m.DashboardsRoutes
           ),
       },
-
       {
         path: 'forms',
         loadChildren: () =>
@@ -42,11 +72,6 @@ export const routes: Routes = [
         path: 'charts',
         loadChildren: () =>
           import('./pages/charts/charts.routes').then((m) => m.ChartsRoutes),
-      },
-      {
-        path: 'apps',
-        loadChildren: () =>
-          import('./pages/apps/apps.routes').then((m) => m.AppsRoutes),
       },
       {
         path: 'widgets',

@@ -1,0 +1,53 @@
+<div class="edit-post-container">
+  <!-- Botón de regresar -->
+  <button class="back-btn mb-4" mat-icon-button (click)="goBack()">
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+
+  <h1 class="title">Crear publicación</h1>
+
+  <!-- Sección de imagen -->
+  <div class="image-section">
+    <div class="image-wrapper">
+      <img
+        *ngIf="imagePreview"
+        [src]="imagePreview"
+        alt="Vista previa"
+      />
+      <span *ngIf="!imagePreview">No hay imagen seleccionada</span>
+    </div>
+
+    <label class="change-image-btn">
+      Subir imagen
+      <input type="file" accept="image/*" (change)="onFileChange($event)" />
+    </label>
+
+    <span *ngIf="selectedFileName">{{ selectedFileName }}</span>
+  </div>
+
+  <!-- Sección de formulario -->
+  <form class="form-section" [formGroup]="postForm" (ngSubmit)="createPost()">
+    <div class="form-field">
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Título</mat-label>
+        <input matInput formControlName="title" placeholder="Ingrese el título" />
+      </mat-form-field>
+    </div>
+
+    <div class="form-field">
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Descripción</mat-label>
+        <textarea
+          matInput
+          formControlName="description"
+          placeholder="Ingrese la descripción"
+          rows="5"
+        ></textarea>
+      </mat-form-field>
+    </div>
+
+    <button mat-flat-button color="primary" type="submit" [disabled]="postForm.invalid || isSaving">
+      Crear
+    </button>
+  </form>
+</div>

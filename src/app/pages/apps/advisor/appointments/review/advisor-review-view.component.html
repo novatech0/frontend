@@ -1,0 +1,57 @@
+<div class="review-page" *ngIf="!loading()">
+  <!-- Botón volver (flecha superior izquierda) -->
+  <button class="back-arrow" (click)="goBack()" aria-label="Volver">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M19 12H5M5 12L12 19M5 12L12 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+
+  <!-- Título -->
+  <h1 class="page-title">Reseña de usuario</h1>
+
+  <!-- Layout: Foto izquierda, Reseña derecha -->
+  <div class="review-content">
+    <!-- Foto y nombre del productor -->
+    <div class="farmer-profile">
+      <img 
+        [src]="farmerPhoto()"
+        class="farmer-avatar"
+        [alt]="farmerName()"
+      />
+      <h2 class="farmer-name">{{ farmerName() }}</h2>
+    </div>
+
+    <!-- Reseña (solo lectura) -->
+    <div class="review-form">
+      <!-- Calificación -->
+      <div class="rating-section">
+        <h3 class="section-label">Calificación</h3>
+        <div class="stars">
+          <svg 
+            *ngFor="let s of [1,2,3,4,5]"
+            width="48" 
+            height="48" 
+            viewBox="0 0 24 24" 
+            [class.active]="s <= rating()"
+            class="star-icon"
+          >
+            <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Comentario (solo lectura) -->
+      <div class="comment-section">
+        <h3 class="section-label">Comentario</h3>
+        <div class="comment-box">
+          <p>{{ comment() }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Loading -->
+<div class="loading-state" *ngIf="loading()">
+  <p>Cargando reseña...</p>
+</div>

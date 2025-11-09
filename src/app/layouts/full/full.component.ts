@@ -6,7 +6,7 @@ import { CoreService } from 'src/app/services/core.service';
 import { AppSettings } from 'src/app/config';
 import { filter } from 'rxjs/operators';
 import { NavigationEnd, Router } from '@angular/router';
-import { navItems } from './vertical/sidebar/sidebar-data';
+import { navItems } from './vertical/sidebar/sidebar-data-template';
 import { NavService } from '../../services/nav.service';
 import { AppNavItemComponent } from './vertical/sidebar/nav-item/nav-item.component';
 import { RouterModule } from '@angular/router';
@@ -24,6 +24,8 @@ import {AuthService} from "../../shared/services/auth.service";
 import {navItemsFarmer} from "./vertical/sidebar/sidebar-data-farmer";
 import {navItemsAdvisor} from "./vertical/sidebar/sidebar-data-advisor";
 import {ProfileService} from "../../shared/services/profile.service";
+import {UserNotification} from "../../shared/model/userNotification";
+import {NotificationService} from "../../shared/services/notification.service";
 
 const MOBILE_VIEW = 'screen and (max-width: 768px)';
 const TABLET_VIEW = 'screen and (min-width: 769px) and (max-width: 1024px)';
@@ -198,7 +200,8 @@ export class FullComponent implements OnInit {
     private breakpointObserver: BreakpointObserver,
     private navService: NavService,
     private authService: AuthService,
-    private profileService: ProfileService
+    private profileService: ProfileService,
+    private notificationService: NotificationService,
   ) {
     this.htmlElement = document.querySelector('html')!;
     this.layoutChangesSubscription = this.breakpointObserver
@@ -228,6 +231,7 @@ export class FullComponent implements OnInit {
   username = "Usuario";
   role = "Rol";
   photo = "/assets/images/profile/user-1.jpg";
+  notifications: UserNotification[] = [];
 
   ngOnInit(): void {
     const user = this.authService.user;
@@ -244,11 +248,23 @@ export class FullComponent implements OnInit {
       this.role = "Asesor especializado"
     }
 
-    this.profileService.fetchProfile(userId).subscribe((profile) => {
-      this.username = `${profile.firstName} ${profile.lastName}`;
-      this.photo = profile.photo;
-    }, error => {
-      console.error('Error fetching profile:', error);
+    this.profileService.fetchProfile(userId).subscribe({
+      next: (profile) => {
+        this.username = `${profile.firstName} ${profile.lastName}`;
+        this.photo = profile.photo;
+      },
+      error: (error) => {
+        console.error('Error fetching profile:', error);
+      }
+    })
+
+    this.notificationService.fetchNotificationsByUserId(userId).subscribe({
+      next: (notifications: UserNotification[]) => {
+        this.notifications = notifications;
+      },
+      error: (error: any) => {
+        console.error('Error fetching notifications:', error);
+      }
     })
   }
 

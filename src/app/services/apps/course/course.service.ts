@@ -1,6 +1,6 @@
 import { Injectable, signal } from '@angular/core';
-import { course } from 'src/app/pages/apps/courses/course';
-import { courseList } from 'src/app/pages/apps/courses/courseData';
+import {courseList} from "src/app/pages/apps/template/courses/courseData";
+import {course} from "src/app/pages/apps/template/courses/course";
 
 @Injectable({
   providedIn: 'root',

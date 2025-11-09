@@ -1,0 +1,60 @@
+<div>
+    <button class="back-btn mb-4" mat-icon-button (click)="goBack()">
+        <mat-icon>arrow_back</mat-icon>
+    </button>
+
+    <div class="title">
+        <h2>Información de {{ animal?.name }}</h2>
+    </div>
+
+    <div class="form-container">
+        <form class="field-grid">
+            <div class="field-row">
+                <mat-form-field appearance="outline">
+                    <mat-label>Especie</mat-label>
+                    <input matInput [value]="animal?.species" readonly />
+                </mat-form-field>
+            </div>
+
+            <div class="field-row">
+                <mat-form-field appearance="outline">
+                    <mat-label>Raza</mat-label>
+                    <input matInput [value]="animal?.breed" readonly />
+                </mat-form-field>
+            </div>
+
+            <div class="field-row">
+                <mat-form-field appearance="outline">
+                    <mat-label>Edad</mat-label>
+                    <input matInput [value]="animal?.age ? (animal?.age + ' año(s)') : '0 años'" readonly />
+                </mat-form-field>
+            </div>
+
+            <div class="field-row">
+                <mat-form-field appearance="outline">
+                    <mat-label>Género</mat-label>
+                    <input matInput [value]="animal?.gender ? 'Macho' : 'Hembra'" readonly />
+                </mat-form-field>
+            </div>
+            
+            <div class="field-row">
+                <mat-form-field appearance="outline">
+                    <mat-label>Peso</mat-label>
+                    <input matInput [value]="animal?.weight ? (animal?.weight + ' kg') : ''" readonly />
+                </mat-form-field>
+            </div>
+
+            <div class="field-row">
+                <mat-form-field appearance="outline">
+                    <mat-label>Salud</mat-label>
+                    <input matInput [value]="animalHealthStatus" readonly />
+                </mat-form-field>
+            </div>
+        </form>
+    </div>
+
+    <div class="button-container">
+        <button mat-flat-button color="primary" class="edit-button" (click)="edit()">Editar</button>
+        <button mat-button color="warn" class="delete-button" (click)="delete()">Eliminar</button>
+    </div>
+</div>

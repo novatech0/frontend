@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { TablesRoutes } from './tables.routing';
 
 // tables components
 import { AppBasicTableComponent } from './basic-table/basic-table.component';
@@ -18,6 +17,7 @@ import { AppSortableTableComponent } from './sortable-table/sortable-table.compo
 import { AppStickyColumnTableComponent } from './sticky-column-table/sticky-column-table.component';
 import { AppStickyHeaderFooterTableComponent } from './sticky-header-footer-table/sticky-header-footer-table.component';
 import { AppFilterableTableComponent } from './filterable-table/filterable-table.component';
+import {TablesRoutes} from "./tables.routes";
 
 @NgModule({
   imports: [
