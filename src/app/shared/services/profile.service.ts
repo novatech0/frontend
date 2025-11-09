@@ -95,16 +95,29 @@ export class ProfileService {
     country: string;
     birthDate: string; // yyyy-MM-dd
     description: string;
-    photo: string | null;
+    photo: string | null; // ignorado si no es archivo
     occupation: string | null;
     experience: number;
   }): Observable<Profile> {
     const urlEndpoint = `${this.environmentUrl}/${id}`;
-    return this.httpClient.put<any>(urlEndpoint, payload, {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      })
-    }).pipe(map(profile => this.mapToProfile(profile)));
+
+    const formData = new FormData();
+    formData.append('firstName', payload.firstName ?? '');
+    formData.append('lastName', payload.lastName ?? '');
+    formData.append('city', payload.city ?? '');
+    formData.append('country', payload.country ?? '');
+    formData.append('birthDate', payload.birthDate ?? '');
+    formData.append('description', payload.description ?? '');
+    if (payload.occupation !== undefined && payload.occupation !== null) {
+      formData.append('occupation', payload.occupation);
+    }
+    if (payload.experience !== undefined && payload.experience !== null) {
+      formData.append('experience', String(payload.experience));
+    }
+    // Nota: 'photo' no se adjunta aquí porque es una URL/string. Cuando se permita editar la foto se añadirá un File real.
+
+    return this.httpClient.put<any>(urlEndpoint, formData).pipe(
+      map(profile => this.mapToProfile(profile))
+    );
   }
 }
