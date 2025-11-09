@@ -39,6 +39,18 @@ export class ProfileService {
   }
 
   private mapToProfile(profile: any): Profile {
+    // Manejo robusto de fecha: si viene como 'YYYY-MM-DD', crear fecha local sin desfase
+    let birthDate: Date = new Date();
+    const bd = profile['birthDate'];
+    if (bd) {
+      if (typeof bd === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(bd)) {
+        const [y, m, d] = bd.split('-').map((v: string) => parseInt(v, 10));
+        birthDate = new Date(y, m - 1, d); // fecha local
+      } else {
+        birthDate = new Date(bd);
+      }
+    }
+
     return new Profile(
       profile['id'],
       profile['userId'],
@@ -46,7 +58,7 @@ export class ProfileService {
       profile['lastName'],
       profile['city'],
       profile['country'],
-      profile['birthDate'] ? new Date(profile['birthDate']) : new Date(),
+      birthDate,
       profile['description'],
       profile['photo'],
       profile['occupation'],

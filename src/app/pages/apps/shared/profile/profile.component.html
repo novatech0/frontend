@@ -46,16 +46,31 @@
                 <span class="text-secondary f-s-12">Fecha de nacimiento</span>
                 <div *ngIf="!editing()" class="f-w-600">{{ profile()?.birthDate | date:'yyyy-MM-dd' }}</div>
                 <mat-form-field *ngIf="editing()" appearance="outline" class="w-100">
-                  <input matInput type="date" formControlName="birthDate" />
+                  <input matInput [matDatepicker]="picker" formControlName="birthDate" />
+                  <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
                 </mat-form-field>
               </div>
-              <div class="col-sm-6">
-                <span class="text-secondary f-s-12">Experiencia</span>
-                <div *ngIf="!editing()" class="f-w-600">{{ profile()?.experience }} años</div>
-                <mat-form-field *ngIf="editing()" appearance="outline" class="w-100">
-                  <input matInput type="number" formControlName="experience" />
-                </mat-form-field>
-              </div>
+
+              <!-- Solo advisors -->
+              <ng-container *ngIf="isAdvisor">
+                <div class="col-sm-6">
+                  <span class="text-secondary f-s-12">Experiencia</span>
+                  <div *ngIf="!editing()" class="f-w-600">{{ profile()?.experience }} años</div>
+                  <mat-form-field *ngIf="editing()" appearance="outline" class="w-100">
+                    <input matInput type="number" formControlName="experience" />
+                  </mat-form-field>
+                </div>
+                <div class="col-sm-6">
+                  <span class="text-secondary f-s-12">Ocupación</span>
+                  <div *ngIf="!editing()">{{ profile()?.occupation }}</div>
+                  <mat-form-field *ngIf="editing()" appearance="outline" class="w-100">
+                    <input matInput formControlName="occupation" />
+                  </mat-form-field>
+                </div>
+              </ng-container>
+
+              <!-- Descripción para todos -->
               <div class="col-12">
                 <span class="text-secondary f-s-12">Descripción</span>
                 <div *ngIf="!editing()">{{ profile()?.description }}</div>
@@ -77,20 +92,29 @@
   <mat-card-content class="d-flex justify-content-center gap-8">
     <ng-container *ngIf="!editing(); else editButtons">
       <button mat-stroked-button (click)="onEdit()">
-        <i-tabler name="edit" class="icon-18 m-r-8"></i-tabler>
+        <mat-icon matSuffix class="d-none d-sm-flex m-r-8">
+          <i-tabler name="edit" class="icon-18 d-flex m-0"></i-tabler>
+        </mat-icon>
         Editar
       </button>
       <button mat-flat-button color="warn" class="text-white" (click)="onDelete()">
-        <i-tabler name="trash" class="icon-18 m-r-8"></i-tabler>
+        <mat-icon matSuffix class="d-none d-sm-flex m-r-8">
+          <i-tabler name="trash" class="icon-18 d-flex m-0"></i-tabler>
+        </mat-icon>
         Eliminar cuenta
       </button>
     </ng-container>
     <ng-template #editButtons>
       <button mat-flat-button color="primary" class="text-white" (click)="onSave()">
-        <i-tabler name="check" class="icon-18 m-r-8"></i-tabler>
+        <mat-icon matSuffix class="d-none d-sm-flex m-r-8">
+          <i-tabler name="check" class="icon-18 d-flex m-0"></i-tabler>
+        </mat-icon>
         Guardar
       </button>
       <button mat-stroked-button (click)="onCancel()">
+        <mat-icon matSuffix class="d-none d-sm-flex m-r-8">
+          <i-tabler name="x" class="icon-18 d-flex m-0"></i-tabler>
+        </mat-icon>
         Cancelar
       </button>
     </ng-template>

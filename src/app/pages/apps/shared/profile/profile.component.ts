@@ -7,12 +7,37 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 import { Profile } from 'src/app/shared/model/profile';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { SweetAlertService } from 'src/app/shared/services/sweet-alert.service';
+import { DateAdapter, MAT_DATE_FORMATS, NativeDateAdapter } from '@angular/material/core';
+
+// Adaptador para mostrar siempre yyyy-MM-dd en el input del datepicker
+export class YMDDateAdapter extends NativeDateAdapter {
+  override format(date: Date, displayFormat: any): string {
+    const y = date.getFullYear();
+    const m = String(date.getMonth() + 1).padStart(2, '0');
+    const d = String(date.getDate()).padStart(2, '0');
+    return `${y}-${m}-${d}`;
+  }
+}
+
+export const YMD_DATE_FORMATS = {
+  parse: { dateInput: { year: 'numeric', month: '2-digit', day: '2-digit' } },
+  display: {
+    dateInput: 'yyyy-MM-dd',
+    monthYearLabel: { year: 'numeric', month: 'short' },
+    dateA11yLabel: 'yyyy-MM-dd',
+    monthYearA11yLabel: { year: 'numeric', month: 'long' },
+  },
+};
 
 @Component({
   selector: 'app-profile',
   standalone: true,
   imports: [CommonModule, MaterialModule, TablerIconsModule, ReactiveFormsModule],
   templateUrl: './profile.component.html',
+  providers: [
+    { provide: DateAdapter, useClass: YMDDateAdapter },
+    { provide: MAT_DATE_FORMATS, useValue: YMD_DATE_FORMATS },
+  ]
 })
 export class AppProfileComponent implements OnInit {
   loading = signal<boolean>(true);
@@ -33,12 +58,15 @@ export class AppProfileComponent implements OnInit {
       lastName: ['', Validators.required],
       city: [''],
       country: [''],
-      birthDate: [''],
+      birthDate: [null], // usaremos Date aquí
       description: [''],
       occupation: [''],
       experience: [0]
     });
   }
+
+  get isAdvisor(): boolean { return this.authService.user.roles?.includes('ROLE_ADVISOR') ?? false; }
+  get isFarmer(): boolean { return this.authService.user.roles?.includes('ROLE_FARMER') ?? false; }
 
   ngOnInit(): void {
     const userId = this.authService.user.id;
@@ -72,7 +100,7 @@ export class AppProfileComponent implements OnInit {
       lastName: p.lastName,
       city: p.city,
       country: p.country,
-      birthDate: p.birthDate ? p.birthDate.toISOString().slice(0,10) : '',
+      birthDate: p.birthDate ?? null, // mantener Date para el datepicker
       description: p.description,
       occupation: p.occupation,
       experience: p.experience
@@ -84,10 +112,17 @@ export class AppProfileComponent implements OnInit {
   }
 
   onCancel(): void {
-    // restaurar valores del perfil
     const p = this.profile();
     if (p) this.patchForm(p);
     this.editing.set(false);
+  }
+
+  private toYMD(date: Date | null | undefined): string {
+    if (!date) return '';
+    const y = date.getFullYear();
+    const m = String(date.getMonth() + 1).padStart(2, '0');
+    const d = String(date.getDate()).padStart(2, '0');
+    return `${y}-${m}-${d}`;
   }
 
   onSave(): void {
@@ -98,16 +133,18 @@ export class AppProfileComponent implements OnInit {
     const p = this.profile();
     if (!p) return;
 
+    const birthDate: Date | null = this.form.value.birthDate ?? null;
+
     const payload = {
       firstName: this.form.value.firstName,
       lastName: this.form.value.lastName,
       city: this.form.value.city,
       country: this.form.value.country,
-      birthDate: this.form.value.birthDate,
+      birthDate: this.toYMD(birthDate), // enviar yyyy-MM-dd
       description: this.form.value.description,
       photo: p.photo ?? null,
-      occupation: this.form.value.occupation ?? null,
-      experience: Number(this.form.value.experience) ?? 0
+      occupation: this.isAdvisor ? (this.form.value.occupation ?? null) : p.occupation,
+      experience: this.isAdvisor ? (Number(this.form.value.experience) ?? 0) : p.experience
     };
 
     this.profileService.updateProfile(p.id, payload).subscribe({
