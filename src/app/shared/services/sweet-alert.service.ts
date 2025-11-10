@@ -26,6 +26,14 @@ export class SweetAlertService {
       'success');
   }
 
+  saved(message?: string) {
+    return Swal.fire({
+      icon: 'success',
+      title: 'Guardado',
+      text: message || 'Los cambios se han guardado correctamente.'
+    });
+  }
+
   hasServerError(value?: string) {
     Swal.fire({
       icon: 'error',

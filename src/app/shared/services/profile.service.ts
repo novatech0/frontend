@@ -39,6 +39,18 @@ export class ProfileService {
   }
 
   private mapToProfile(profile: any): Profile {
+    // Manejo robusto de fecha: si viene como 'YYYY-MM-DD', crear fecha local sin desfase
+    let birthDate: Date = new Date();
+    const bd = profile['birthDate'];
+    if (bd) {
+      if (typeof bd === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(bd)) {
+        const [y, m, d] = bd.split('-').map((v: string) => parseInt(v, 10));
+        birthDate = new Date(y, m - 1, d); // fecha local
+      } else {
+        birthDate = new Date(bd);
+      }
+    }
+
     return new Profile(
       profile['id'],
       profile['userId'],
@@ -46,7 +58,7 @@ export class ProfileService {
       profile['lastName'],
       profile['city'],
       profile['country'],
-      profile['birthDate'] ? new Date(profile['birthDate']) : new Date(),
+      birthDate,
       profile['description'],
       profile['photo'],
       profile['occupation'],
@@ -72,6 +84,41 @@ export class ProfileService {
     formData.append('photo', photo);
 
     return this.httpClient.post<any>(urlEndpoint, formData).pipe(
+      map(profile => this.mapToProfile(profile))
+    );
+  }
+
+  public updateProfile(id: number, payload: {
+    firstName: string;
+    lastName: string;
+    city: string;
+    country: string;
+    birthDate: string; // yyyy-MM-dd
+    description: string;
+    photo: string | null; // mantenido para compatibilidad, no usado si se pasa File
+    occupation: string | null;
+    experience: number;
+  }, photoFile?: File): Observable<Profile> {
+    const urlEndpoint = `${this.environmentUrl}/${id}`;
+
+    const formData = new FormData();
+    formData.append('firstName', payload.firstName ?? '');
+    formData.append('lastName', payload.lastName ?? '');
+    formData.append('city', payload.city ?? '');
+    formData.append('country', payload.country ?? '');
+    formData.append('birthDate', payload.birthDate ?? '');
+    formData.append('description', payload.description ?? '');
+    if (payload.occupation !== undefined && payload.occupation !== null) {
+      formData.append('occupation', payload.occupation);
+    }
+    if (payload.experience !== undefined && payload.experience !== null) {
+      formData.append('experience', String(payload.experience));
+    }
+    if (photoFile) {
+      formData.append('photo', photoFile);
+    }
+
+    return this.httpClient.put<any>(urlEndpoint, formData).pipe(
       map(profile => this.mapToProfile(profile))
     );
   }
