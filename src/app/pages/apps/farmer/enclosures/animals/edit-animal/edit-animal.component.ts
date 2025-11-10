@@ -13,8 +13,7 @@ import { Animal } from 'src/app/shared/model/animal';
     MaterialModule,
     CommonModule
   ],
-  templateUrl: './edit-animal.component.html',
-  styleUrl: './edit-animal.component.scss'
+  templateUrl: './edit-animal.component.html'
 })
 export class AppEditAnimalComponent implements OnInit {
   enclosureId: number = 0;

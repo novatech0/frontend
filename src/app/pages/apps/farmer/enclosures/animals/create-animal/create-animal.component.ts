@@ -15,8 +15,7 @@ import { ToastrService } from 'ngx-toastr';
     CommonModule,
     A11yModule
 ],
-  templateUrl: './create-animal.component.html',
-  styleUrl: './create-animal.component.scss'
+  templateUrl: './create-animal.component.html'
 })
 export class AppCreateAnimalComponent {
   enclosureId: number = 0;
