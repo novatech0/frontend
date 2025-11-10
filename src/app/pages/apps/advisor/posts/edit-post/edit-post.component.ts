@@ -11,11 +11,11 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatIcon } from '@angular/material/icon';
 import { ToastrService } from 'ngx-toastr';
+import {TablerIconsModule} from "angular-tabler-icons";
 
 @Component({
   selector: 'app-edit-post',
   templateUrl: './edit-post.component.html',
-  styleUrls: ['./edit-post.component.scss'],
   standalone: true,
   imports: [
     CommonModule,
@@ -26,7 +26,8 @@ import { ToastrService } from 'ngx-toastr';
     MatProgressSpinnerModule,
     MatSnackBarModule,
     ReactiveFormsModule,
-    MatIcon
+    MatIcon,
+    TablerIconsModule
   ],
 })
 export class EditPostComponent implements OnInit {

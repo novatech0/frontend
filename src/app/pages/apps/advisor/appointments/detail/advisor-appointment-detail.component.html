@@ -1,25 +1,35 @@
-<div *ngIf="!loading()">
-  <!-- Botón de volver usando plantilla -->
-  <mat-card class="cardWithShadow m-b-16">
-    <mat-card-content class="p-16">
-      <button mat-button (click)="goBack()" class="d-flex align-items-center">
-        <i-tabler name="arrow-left" class="icon-20 m-r-8"></i-tabler>
-        Volver
-      </button>
-    </mat-card-content>
-  </mat-card>
+<mat-card class="cardWithShadow">
+  <mat-card-content>
+    <div class="row justify-content-start">
+      <div class="d-flex align-items-center">
+        <button mat-flat-button color="primary" (click)="goBack()">
+          <mat-icon matSuffix class="d-none d-sm-flex">
+            <i-tabler name="arrow-left" class="icon-18 d-flex m-0"></i-tabler>
+          </mat-icon>
+          Volver
+        </button>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>
 
+@if (loading()) {
+  <div class="d-flex justify-content-center p-24">
+    <mat-progress-spinner mode="indeterminate" diameter="36"></mat-progress-spinner>
+  </div>
+}
+@else {
   <!-- Card principal del detail -->
   <mat-card class="cardWithShadow">
     <mat-card-content class="p-24">
       <div class="row">
         <!-- Columna izquierda: Foto y nombre del productor -->
         <div class="col-md-4 text-center m-b-24">
-          <img 
-            [src]="farmerPhoto()" 
-            class="rounded-circle border p-5" 
+          <img
+            [src]="farmerPhoto()"
+            class="rounded-circle border p-5"
             width="120"
-            [alt]="farmerName()" 
+            [alt]="farmerName()"
           />
           <h3 class="m-t-16 m-b-0">{{ farmerName() }}</h3>
         </div>
@@ -52,9 +62,11 @@
 
           <!-- Botones de acción -->
           <div class="d-flex gap-12">
-            <button mat-flat-button color="warn" (click)="openCancelModal()">
-              <i-tabler name="x" class="icon-18 m-r-8"></i-tabler>
-              Cancelar Cita
+            <button mat-flat-button color="primary" (click)="openCancelModal()">
+              <mat-icon matSuffix class="d-none d-sm-flex">
+                <i-tabler name="x" class="icon-18 d-flex m-0"></i-tabler>
+              </mat-icon>
+              Cancelar cita
             </button>
           </div>
 
@@ -66,12 +78,4 @@
       </div>
     </mat-card-content>
   </mat-card>
-</div>
-
-<!-- Loading -->
-<mat-card class="cardWithShadow" *ngIf="loading()">
-  <mat-card-content class="text-center p-y-32">
-    <mat-progress-spinner mode="indeterminate" diameter="36"></mat-progress-spinner>
-    <div class="m-t-16">Cargando...</div>
-  </mat-card-content>
-</mat-card>
+}

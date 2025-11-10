@@ -30,7 +30,8 @@
             {{ post.title }}
           </mat-card-title>
         </mat-card-header>
-        <img mat-card-image [src]="post.image" alt="{{ post.title }}" />
+        <img mat-card-image class="m-10" [src]="post.image" alt="{{ post.title }}" />
+
         <mat-card-content>
           <p>{{ post.description }}</p>
           <div class="button-container">
