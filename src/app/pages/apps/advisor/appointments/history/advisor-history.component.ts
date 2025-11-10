@@ -1,6 +1,6 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {Router, RouterLink} from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { AppointmentService } from 'src/app/services/apps/appointment/appointment.service';
 import { AvailableDateService } from 'src/app/services/apps/catalog/available-date.service';
 import { ProfileService } from 'src/app/shared/services/profile.service';
@@ -9,8 +9,10 @@ import { AppointmentDetailed } from 'src/app/pages/apps/farmer/appointment/appoi
 import { TimeFormatPipe } from 'src/app/pipes/time-format.pipe';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { AdvisorService } from 'src/app/services/apps/catalog/advisor.service';
-import {TablerIconsModule} from "angular-tabler-icons";
-import {MaterialModule} from "src/app/material.module";
+import { TablerIconsModule } from "angular-tabler-icons";
+import { MaterialModule } from "src/app/material.module";
+import { MatDialog } from '@angular/material/dialog';
+import { AdvisorReviewDialogComponent } from 'src/app/shared/components/advisor-review-dialog/advisor-review-dialog.component';
 
 interface EnrichedAppointment {
   id: number;
@@ -40,7 +42,8 @@ export class AdvisorHistoryComponent implements OnInit {
     private farmerService: FarmerService,
     private authService: AuthService,
     private advisorService: AdvisorService,
-    private router: Router
+    private router: Router,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -139,6 +142,16 @@ export class AdvisorHistoryComponent implements OnInit {
   }
 
   viewReview(appointmentId: number) {
-    this.router.navigate(['/apps/advisor/appointments/review', appointmentId]);
+    const dialogRef = this.dialog.open(AdvisorReviewDialogComponent, {
+      width: '500px',
+      autoFocus: false,
+      data: {
+        appointmentId: appointmentId
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(() => {
+      // Dialog cerrado
+    });
   }
 }

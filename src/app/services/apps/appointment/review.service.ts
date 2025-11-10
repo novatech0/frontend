@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import {environment} from "../../../../environments/environment";
 
@@ -19,33 +19,26 @@ export class ReviewService {
   constructor(private http: HttpClient) {}
 
   getReviewById(id: number): Observable<Review> {
-    return this.http.get<Review>(`${this.baseUrl}/${id}`, { headers: this.getAuthHeaders() });
+    return this.http.get<Review>(`${this.baseUrl}/${id}`);
   }
 
   // Obtener review por advisorId y farmerId usando query params
   getReviewByAdvisorAndFarmer(advisorId: number, farmerId: number): Observable<Review[]> {
-    return this.http.get<Review[]>(`${this.baseUrl}?advisorId=${advisorId}&farmerId=${farmerId}`, { headers: this.getAuthHeaders() });
+    return this.http.get<Review[]>(`${this.baseUrl}?advisorId=${advisorId}&farmerId=${farmerId}`);
   }
 
   // Obtener todas las reviews de un asesor
   getReviewsByAdvisorId(advisorId: number): Observable<Review[]> {
-    return this.http.get<Review[]>(`${this.baseUrl}?advisorId=${advisorId}`, { headers: this.getAuthHeaders() });
+    return this.http.get<Review[]>(`${this.baseUrl}?advisorId=${advisorId}`);
   }
 
   createReview(advisorId: number, rating: number, comment: string): Observable<Review> {
     const farmerId = this.getFarmerId();
-    return this.http.post<Review>(this.baseUrl, { advisorId, farmerId, rating, comment }, { headers: this.getAuthHeaders() });
+    return this.http.post<Review>(this.baseUrl, { advisorId, farmerId, rating, comment });
   }
 
   updateReview(id: number, rating: number, comment: string): Observable<Review> {
-    return this.http.put<Review>(`${this.baseUrl}/${id}`, { rating, comment }, { headers: this.getAuthHeaders() });
-  }
-
-  private getAuthHeaders(): HttpHeaders {
-    const token = localStorage.getItem('token');
-    return new HttpHeaders({
-      Authorization: `Bearer ${token}`
-    });
+    return this.http.put<Review>(`${this.baseUrl}/${id}`, { rating, comment });
   }
 
   private getFarmerId(): number {

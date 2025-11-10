@@ -7,13 +7,17 @@ import { AvailableDateService } from 'src/app/services/apps/catalog/available-da
 import { ProfileService } from 'src/app/shared/services/profile.service';
 import { FarmerService } from 'src/app/services/apps/catalog/farmer.service';
 import { AppointmentDetailed } from '../../../farmer/appointment/appointment-detailed';
+import { MatDialog } from '@angular/material/dialog';
+import { AppDeleteDialogComponent } from 'src/app/shared/components/delete-dialog/delete-dialog.component';
+import { MaterialModule } from 'src/app/material.module';
+import { TablerIconsModule } from 'angular-tabler-icons';
 
 @Component({
   selector: 'app-advisor-appointment-detail',
   standalone: true,
   templateUrl: './advisor-appointment-detail.component.html',
   styleUrls: ['./advisor-appointment-detail.component.scss'],
-  imports: [CommonModule, FormsModule]
+  imports: [CommonModule, FormsModule, MaterialModule, TablerIconsModule]
 })
 export class AdvisorAppointmentDetailComponent implements OnInit {
   appointmentId!: number;
@@ -28,10 +32,8 @@ export class AdvisorAppointmentDetailComponent implements OnInit {
   loading = signal(true);
 
   // Modal de cancelación
-  showCancelModal = signal(false);
   cancelLoading = signal(false);
-  cancelError = signal('');
-  cancelReason = '';
+  errorMessage = signal('');
 
   constructor(
     private route: ActivatedRoute,
@@ -39,7 +41,8 @@ export class AdvisorAppointmentDetailComponent implements OnInit {
     private appointmentService: AppointmentService,
     private availableDateService: AvailableDateService,
     private profileService: ProfileService,
-    private farmerService: FarmerService
+    private farmerService: FarmerService,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -97,31 +100,38 @@ export class AdvisorAppointmentDetailComponent implements OnInit {
   }
 
   openCancelModal() {
-    this.showCancelModal.set(true);
+    const appointment = this.appointment();
+    if (!appointment) return;
+    
+    const dialogRef = this.dialog.open(AppDeleteDialogComponent, {
+      width: '400px',
+      autoFocus: false,
+      data: {
+        id: appointment.id,
+        name: `cita con ${this.farmerName()}`,
+        type: 'cita'
+      }
+    });
+
+    dialogRef.afterClosed().subscribe((confirmed) => {
+      if (confirmed) {
+        this.cancelAppointment();
+      }
+    });
   }
 
-  closeCancelModal() {
-    this.showCancelModal.set(false);
-    this.cancelReason = '';
-  }
-
-  confirmCancel() {
-    if (!this.cancelReason.trim()) {
-      return;
-    }
-
+  private cancelAppointment() {
     this.cancelLoading.set(true);
-    this.cancelError.set('');
+    this.errorMessage.set('');
 
-    this.appointmentService.cancelAppointment(this.appointmentId, this.cancelReason).subscribe({
+    this.appointmentService.cancelAppointment(this.appointmentId, 'Cancelado por el asesor').subscribe({
       next: () => {
         this.cancelLoading.set(false);
-        this.closeCancelModal();
         this.router.navigate(['/apps/advisor/appointments']);
       },
       error: (err) => {
         this.cancelLoading.set(false);
-        this.cancelError.set('Error al cancelar la cita. Por favor intenta nuevamente.');
+        this.errorMessage.set('Error al cancelar la cita. Por favor intenta nuevamente.');
         console.error('Error al cancelar cita:', err);
       }
     });

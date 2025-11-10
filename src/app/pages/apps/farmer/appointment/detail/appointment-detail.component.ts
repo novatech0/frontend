@@ -8,7 +8,9 @@ import { AdvisorService } from 'src/app/services/apps/catalog/advisor.service';
 import { TimeFormatPipe } from '../../../../../pipes/filter.pipe';
 import type { AppointmentDetailed } from 'src/app/pages/apps/farmer/appointment/appointment-detailed';
 import { MaterialModule } from 'src/app/material.module';
-  import {TablerIconsModule} from "angular-tabler-icons";
+import { TablerIconsModule } from "angular-tabler-icons";
+import { MatDialog } from '@angular/material/dialog';
+import { AppDeleteDialogComponent } from 'src/app/shared/components/delete-dialog/delete-dialog.component';
 
 @Component({
   selector: 'app-appointment-detail',
@@ -43,11 +45,9 @@ export class AppointmentDetailComponent implements OnInit {
   appointment?: AppointmentDetailed;
   loading = true;
   error = false;
+  errorMessage = '';
   formattedDate = '';
   formattedTime = '';
-  showCancelModal = false;
-  cancelReason = '';
-  cancelError = '';
   cancelLoading = false;
 
   constructor(
@@ -55,7 +55,8 @@ export class AppointmentDetailComponent implements OnInit {
     private router: Router,
     private appointmentService: AppointmentService,
     private availableDateService: AvailableDateService,
-    private advisorService: AdvisorService
+    private advisorService: AdvisorService,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -103,31 +104,37 @@ export class AppointmentDetailComponent implements OnInit {
   }
 
   openCancelModal() {
-    this.cancelReason = '';
-    this.cancelError = '';
-    this.showCancelModal = true;
-  }
-  closeCancelModal() {
-    this.showCancelModal = false;
-    this.cancelReason = '';
-    this.cancelError = '';
-  }
-  confirmCancel() {
-    if (!this.cancelReason.trim()) {
-      this.cancelError = 'Por favor, ingresa el motivo.';
-      return;
-    }
     if (!this.appointment) return;
+    
+    const dialogRef = this.dialog.open(AppDeleteDialogComponent, {
+      width: '400px',
+      autoFocus: false,
+      data: {
+        id: this.appointment.id,
+        name: `cita con ${this.appointment.advisorName}`,
+        type: 'cita'
+      }
+    });
+
+    dialogRef.afterClosed().subscribe((confirmed) => {
+      if (confirmed) {
+        this.cancelAppointment();
+      }
+    });
+  }
+
+  private cancelAppointment() {
+    if (!this.appointment) return;
+    
     this.cancelLoading = true;
-    this.appointmentService.cancelAppointment(this.appointment.id, this.cancelReason).subscribe({
+    this.appointmentService.cancelAppointment(this.appointment.id, 'Cancelado por el usuario').subscribe({
       next: () => {
         this.cancelLoading = false;
-        this.showCancelModal = false;
         this.router.navigate(['/apps/farmer/appointments']);
       },
       error: () => {
         this.cancelLoading = false;
-        this.cancelError = 'No se pudo cancelar la cita. Intenta de nuevo.';
+        this.errorMessage = 'No se pudo cancelar la cita. Intenta de nuevo.';
       }
     });
   }

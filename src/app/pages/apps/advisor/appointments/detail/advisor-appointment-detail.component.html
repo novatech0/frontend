@@ -1,68 +1,77 @@
-<div class="appointment-detail-page" *ngIf="!loading()">
-  <!-- Botón de volver (flecha) -->
-  <button class="back-arrow" (click)="goBack()" aria-label="Volver">
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M19 12H5M5 12L12 19M5 12L12 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-    </svg>
-  </button>
-
-  <!-- Contenedor principal -->
-  <div class="detail-wrapper">
-    <!-- Sección izquierda: Foto y nombre del productor -->
-    <div class="farmer-profile">
-      <img [src]="farmerPhoto()" class="farmer-avatar" [alt]="farmerName()" />
-      <h2 class="farmer-name">{{ farmerName() }}</h2>
-    </div>
-
-    <!-- Sección derecha: Información de la cita -->
-    <div class="appointment-info">
-      <!-- Fecha programada -->
-      <div class="info-field">
-        <label class="field-label">Fecha programada</label>
-        <div class="field-value">
-          {{ scheduledDate() | date: 'd \'de\' MMMM \'de\' yyyy' : '' : 'es-ES' }}, {{ startTime() }} - {{ endTime() }}
-        </div>
-      </div>
-
-      <!-- Link de videoconferencia -->
-      <div class="info-field">
-        <label class="field-label">Link de la videoconferencia</label>
-        <a [href]="meetingUrl()" target="_blank" class="field-value field-link">
-          {{ meetingUrl() }}
-        </a>
-      </div>
-
-      <!-- Comentario del usuario -->
-      <div class="info-field">
-        <label class="field-label">Comentario brindado por el usuario</label>
-        <div class="field-value field-comment">
-          {{ message() }}
-        </div>
-      </div>
-
-      <!-- Botón cancelar -->
-      <button class="cancel-button" (click)="openCancelModal()">
-        Cancelar Cita
+<div *ngIf="!loading()">
+  <!-- Botón de volver usando plantilla -->
+  <mat-card class="cardWithShadow m-b-16">
+    <mat-card-content class="p-16">
+      <button mat-button (click)="goBack()" class="d-flex align-items-center">
+        <i-tabler name="arrow-left" class="icon-20 m-r-8"></i-tabler>
+        Volver
       </button>
-    </div>
-  </div>
-</div>
+    </mat-card-content>
+  </mat-card>
 
-<!-- Modal de cancelación -->
-<div class="cancel-modal" *ngIf="showCancelModal()">
-  <div class="modal-content">
-    <button class="close-btn" (click)="closeCancelModal()" aria-label="Cerrar">&#10005;</button>
-    <h3>¿Seguro que deseas cancelar tu cita?</h3>
-    <p>Por favor, ingresa el motivo por el cual cancelarás la cita</p>
-    <textarea [(ngModel)]="cancelReason" placeholder="Ingresa tu mensaje..." [disabled]="cancelLoading()"></textarea>
-    <div class="error" *ngIf="cancelError()">{{ cancelError() }}</div>
-    <button class="cancel-btn" (click)="confirmCancel()" [disabled]="cancelLoading()">
-      {{ cancelLoading() ? 'Cancelando...' : 'Cancelar Cita' }}
-    </button>
-  </div>
+  <!-- Card principal del detail -->
+  <mat-card class="cardWithShadow">
+    <mat-card-content class="p-24">
+      <div class="row">
+        <!-- Columna izquierda: Foto y nombre del productor -->
+        <div class="col-md-4 text-center m-b-24">
+          <img 
+            [src]="farmerPhoto()" 
+            class="rounded-circle border p-5" 
+            width="120"
+            [alt]="farmerName()" 
+          />
+          <h3 class="m-t-16 m-b-0">{{ farmerName() }}</h3>
+        </div>
+
+        <!-- Columna derecha: Información de la cita -->
+        <div class="col-md-8">
+          <!-- Fecha programada -->
+          <div class="m-b-20">
+            <h5 class="text-muted f-s-14 m-b-8">Fecha programada</h5>
+            <p class="m-b-0 f-s-16">
+              {{ scheduledDate() | date: 'd \'de\' MMMM \'de\' yyyy' : '' : 'es-ES' }}, {{ startTime() }} - {{ endTime() }}
+            </p>
+          </div>
+
+          <!-- Link de videoconferencia -->
+          <div class="m-b-20">
+            <h5 class="text-muted f-s-14 m-b-8">Link de la videoconferencia</h5>
+            <a [href]="meetingUrl()" target="_blank" class="text-primary f-s-16">
+              {{ meetingUrl() }}
+            </a>
+          </div>
+
+          <!-- Comentario del usuario -->
+          <div class="m-b-24">
+            <h5 class="text-muted f-s-14 m-b-8">Comentario brindado por el usuario</h5>
+            <p class="m-b-0 f-s-16">
+              {{ message() }}
+            </p>
+          </div>
+
+          <!-- Botones de acción -->
+          <div class="d-flex gap-12">
+            <button mat-flat-button color="warn" (click)="openCancelModal()">
+              <i-tabler name="x" class="icon-18 m-r-8"></i-tabler>
+              Cancelar Cita
+            </button>
+          </div>
+
+          <!-- Mensaje de error -->
+          <div class="alert alert-danger m-t-16" *ngIf="errorMessage()">
+            {{ errorMessage() }}
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
 </div>
 
 <!-- Loading -->
-<div class="loading-state" *ngIf="loading()">
-  <p>Cargando...</p>
-</div>
+<mat-card class="cardWithShadow" *ngIf="loading()">
+  <mat-card-content class="text-center p-y-32">
+    <mat-progress-spinner mode="indeterminate" diameter="36"></mat-progress-spinner>
+    <div class="m-t-16">Cargando...</div>
+  </mat-card-content>
+</mat-card>

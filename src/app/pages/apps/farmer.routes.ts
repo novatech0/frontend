@@ -7,7 +7,6 @@ import {AppBookAppointmentComponent} from "./farmer/catalog/book-appointment/boo
 import { AppEnclosuresComponent } from './farmer/enclosures/enclosures.component';
 import {AppAppointmentsComponent} from "./farmer/appointment/appointments.component";
 import {AppAppointmentsHistoryComponent} from "./farmer/appointment/history/appointments-history.component";
-import {ReviewComponent} from "./farmer/appointment/review/review.component";
 import {AppointmentDetailComponent} from "./farmer/appointment/detail/appointment-detail.component";
 import { AppAnimalsComponent } from './farmer/enclosures/animals/animals.component';
 import { AppAnimalDetailComponent } from './farmer/enclosures/animals/animal-detail/animal-detail.component';
@@ -73,17 +72,6 @@ export const FarmerRoutes: Routes = [
         }
       },
       {
-        path: 'appointments/review/:id',
-        component: ReviewComponent,
-        data: {
-          title: 'Evaluar cita',
-          urls: [
-            { title: 'History', url: '/apps/farmer/appointments/history' },
-            { title: 'Review' },
-          ],
-        }
-      },
-      {
         path: 'appointments/:id',
         component: AppointmentDetailComponent,
         data: {
@@ -91,17 +79,6 @@ export const FarmerRoutes: Routes = [
           urls: [
             { title: 'Appointments', url: '/apps/farmer/appointments' },
             { title: 'Appointment Detail' },
-          ],
-        }
-      },
-      {
-        path: 'review/:advisorId',
-        component: ReviewComponent,
-        data: {
-          title: 'Reseñas del asesor',
-          urls: [
-            { title: 'Appointments', url: '/apps/farmer/appointments' },
-            { title: 'Advisor Reviews' },
           ],
         }
       },

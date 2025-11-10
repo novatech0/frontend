@@ -1,68 +1,85 @@
-<div class="appointment-detail-page" *ngIf="!loading && appointment; else loadingOrError">
-  <!-- Botón de volver (flecha) -->
-  <button class="back-arrow" (click)="goBack()" aria-label="Volver">
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M19 12H5M5 12L12 19M5 12L12 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-    </svg>
-  </button>
-
-  <!-- Contenedor principal -->
-  <div class="detail-wrapper">
-    <!-- Sección izquierda: Foto y nombre del asesor -->
-    <div class="advisor-profile">
-      <img [src]="appointment.advisorPhoto || 'assets/images/profile/user-1.jpg'" class="advisor-avatar" alt="Foto del asesor" />
-      <h2 class="advisor-name">{{ appointment.advisorName }}</h2>
-    </div>
-
-    <!-- Sección derecha: Información de la cita -->
-    <div class="appointment-info">
-      <!-- Fecha programada -->
-      <div class="info-field">
-        <label class="field-label">Fecha programada</label>
-        <div class="field-value">
-          {{ formattedDate }}{{ formattedTime ? ', ' + formattedTime : '' }}
-        </div>
-      </div>
-
-      <!-- Link de videoconferencia -->
-      <div class="info-field">
-        <label class="field-label">Link de la videoconferencia</label>
-        <a [href]="appointment.meetingUrl" target="_blank" class="field-value field-link">
-          {{ appointment.meetingUrl }}
-        </a>
-      </div>
-
-      <!-- Comentario -->
-      <div class="info-field">
-        <label class="field-label">Comentario brindado por ti</label>
-        <div class="field-value field-comment">
-          {{ appointment.message }}
-        </div>
-      </div>
-
-      <!-- Botón cancelar -->
-      <button class="cancel-button" (click)="openCancelModal()">
-        Cancelar Cita
+<div *ngIf="!loading && appointment; else loadingOrError">
+  <!-- Botón de volver usando plantilla -->
+  <mat-card class="cardWithShadow m-b-16">
+    <mat-card-content class="p-16">
+      <button mat-button (click)="goBack()" class="d-flex align-items-center">
+        <i-tabler name="arrow-left" class="icon-20 m-r-8"></i-tabler>
+        Volver
       </button>
-    </div>
-  </div>
-</div>
+    </mat-card-content>
+  </mat-card>
 
-<!-- Modal de cancelación -->
-<div class="cancel-modal" *ngIf="showCancelModal">
-  <div class="modal-content">
-    <button class="close-btn" (click)="closeCancelModal()" aria-label="Cerrar">&#10005;</button>
-    <h3>¿Seguro que deseas cancelar tu cita?</h3>
-    <p>Por favor, ingresa el motivo por el cual cancelarás la cita</p>
-    <textarea [(ngModel)]="cancelReason" placeholder="Ingresa tu mensaje..." [disabled]="cancelLoading"></textarea>
-    <div class="error" *ngIf="cancelError">{{ cancelError }}</div>
-    <button class="cancel-btn" (click)="confirmCancel()" [disabled]="cancelLoading">
-      {{ cancelLoading ? 'Cancelando...' : 'Cancelar Cita' }}
-    </button>
-  </div>
+  <!-- Card principal del detail -->
+  <mat-card class="cardWithShadow">
+    <mat-card-content class="p-24">
+      <div class="row">
+        <!-- Columna izquierda: Foto y nombre del asesor -->
+        <div class="col-md-4 text-center m-b-24">
+          <img 
+            [src]="appointment.advisorPhoto || 'assets/images/profile/user-1.jpg'" 
+            class="rounded-circle border p-5" 
+            width="120"
+            alt="Foto del asesor" 
+          />
+          <h3 class="m-t-16 m-b-0">{{ appointment.advisorName }}</h3>
+        </div>
+
+        <!-- Columna derecha: Información de la cita -->
+        <div class="col-md-8">
+          <!-- Fecha programada -->
+          <div class="m-b-20">
+            <h5 class="text-muted f-s-14 m-b-8">Fecha programada</h5>
+            <p class="m-b-0 f-s-16">
+              {{ formattedDate }}{{ formattedTime ? ', ' + formattedTime : '' }}
+            </p>
+          </div>
+
+          <!-- Link de videoconferencia -->
+          <div class="m-b-20">
+            <h5 class="text-muted f-s-14 m-b-8">Link de la videoconferencia</h5>
+            <a [href]="appointment.meetingUrl" target="_blank" class="text-primary f-s-16">
+              {{ appointment.meetingUrl }}
+            </a>
+          </div>
+
+          <!-- Comentario -->
+          <div class="m-b-24">
+            <h5 class="text-muted f-s-14 m-b-8">Comentario brindado por ti</h5>
+            <p class="m-b-0 f-s-16">
+              {{ appointment.message }}
+            </p>
+          </div>
+
+          <!-- Botones de acción -->
+          <div class="d-flex gap-12">
+            <button mat-flat-button color="warn" (click)="openCancelModal()">
+              <i-tabler name="x" class="icon-18 m-r-8"></i-tabler>
+              Cancelar Cita
+            </button>
+          </div>
+
+          <!-- Mensaje de error -->
+          <div class="alert alert-danger m-t-16" *ngIf="errorMessage">
+            {{ errorMessage }}
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
 </div>
 
 <ng-template #loadingOrError>
-  <div class="loading-error" *ngIf="loading">Cargando...</div>
-  <div class="loading-error" *ngIf="error">No se pudo cargar la cita.</div>
+  <mat-card class="cardWithShadow" *ngIf="loading">
+    <mat-card-content class="text-center p-y-32">
+      <mat-progress-spinner mode="indeterminate" diameter="36"></mat-progress-spinner>
+      <div class="m-t-16">Cargando...</div>
+    </mat-card-content>
+  </mat-card>
+  
+  <mat-card class="cardWithShadow" *ngIf="error">
+    <mat-card-content class="text-center p-y-32">
+      <i-tabler name="alert-triangle" class="icon-48 text-warning m-b-16"></i-tabler>
+      <div class="f-s-16 text-dark">No se pudo cargar la cita.</div>
+    </mat-card-content>
+  </mat-card>
 </ng-template>
