@@ -1,9 +1,8 @@
 import {ChangeDetectionStrategy, Component, OnInit, signal} from '@angular/core';
-import {AvailableDateService} from "../../../../services/apps/appointment/available-date.service";
-import {AuthService} from "../../../../shared/services/auth.service";
-import {Route} from "@angular/router";
-import {AdvisorService} from "../../../../services/apps/catalog/advisor.service";
-import {AvailableDate} from "../../../../shared/model/available-date";
+import {AvailableDateService} from "src/app/services/apps/appointment/available-date.service";
+import {AuthService} from "src/app/shared/services/auth.service";
+import {AdvisorService} from "src/app/services/apps/catalog/advisor.service";
+import {AvailableDate} from "src/app/shared/model/available-date";
 import {TablerIconsModule} from "angular-tabler-icons";
 import { MaterialModule } from 'src/app/material.module';
 import {ToastrService} from "ngx-toastr";
