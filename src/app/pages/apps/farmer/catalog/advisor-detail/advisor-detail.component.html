@@ -30,7 +30,7 @@
         <button
           mat-flat-button
           class="text-white"
-          [routerLink]="['/apps/farmer/catalog', advisor.advisorId, 'book']"
+          (click)="goToBookingPage()"
         >
           Contactar
         </button>

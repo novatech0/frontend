@@ -1,4 +1,19 @@
 <mat-card class="cardWithShadow">
+  <mat-card-content>
+    <div class="row justify-content-start">
+      <div class="d-flex align-items-center">
+        <button mat-flat-button color="primary" (click)="goBack()">
+          <mat-icon matSuffix class="d-none d-sm-flex">
+            <i-tabler name="arrow-left" class="icon-18 d-flex m-0"></i-tabler>
+          </mat-icon>
+          Volver
+        </button>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>
+
+<mat-card class="cardWithShadow">
   <mat-card-title>
     <div class="text-center w-100 m-t-30 m-b-30">
       <h2>Crear nuevo animal</h2>
