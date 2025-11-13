@@ -1,7 +1,7 @@
 import { Component, Output, EventEmitter, Input } from '@angular/core';
 import { CoreService } from 'src/app/services/core.service';
 import { MatDialog } from '@angular/material/dialog';
-import { navItems } from '../../vertical/sidebar/sidebar-data';
+import { navItems } from '../../vertical/sidebar/sidebar-data-template';
 import { TranslateService } from '@ngx-translate/core';
 import { RouterModule } from '@angular/router';
 import { TablerIconsModule } from 'angular-tabler-icons';
@@ -249,7 +249,7 @@ export class AppHorizontalHeaderComponent {
     {
       id: 3,
       title: 'Register Now',
-      link: '/authentication/side-register',
+      link: '/authentication/signup',
     },
     {
       id: 4,

@@ -1,6 +1,7 @@
 import { Injectable, signal } from '@angular/core';
-import { InvoiceList } from 'src/app/pages/apps/invoice/invoice';
-import { invoceLists } from 'src/app/pages/apps/invoice/invoiceData';
+
+import {invoceLists} from "src/app/pages/apps/template/invoice/invoiceData";
+import {InvoiceList} from "src/app/pages/apps/template/invoice/invoice";
 
 @Injectable({
   providedIn: 'root',

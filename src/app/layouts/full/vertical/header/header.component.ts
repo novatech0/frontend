@@ -7,22 +7,18 @@ import {
 } from '@angular/core';
 import { CoreService } from 'src/app/services/core.service';
 import { MatDialog } from '@angular/material/dialog';
-import { navItems } from '../sidebar/sidebar-data';
+import { navItems } from '../sidebar/sidebar-data-template';
 import { TranslateService } from '@ngx-translate/core';
 import { TablerIconsModule } from 'angular-tabler-icons';
 import { MaterialModule } from 'src/app/material.module';
-import { RouterModule } from '@angular/router';
+import {Router, RouterModule} from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NgScrollbarModule } from 'ngx-scrollbar';
 import { AppSettings } from 'src/app/config';
-
-interface notifications {
-  id: number;
-  img: string;
-  title: string;
-  subtitle: string;
-}
+import { AuthService } from "src/app/shared/services/auth.service";
+import { UserNotification } from "src/app/shared/model/userNotification";
+import {NotificationService} from "../../../../shared/services/notification.service";
 
 interface profiledd {
   id: number;
@@ -65,7 +61,11 @@ export class HeaderComponent {
   @Output() toggleMobileFilterNav = new EventEmitter<void>();
   @Output() toggleCollapsed = new EventEmitter<void>();
 
+  @Input() username = "Usuario";
+  @Input() role = "Rol";
+  @Input() photo = "/assets/images/profile/user-1.jpg";
   showFiller = false;
+  @Input() notifications: UserNotification[] = [];
 
   public selectedLanguage: any = {
     language: 'English',
@@ -74,6 +74,8 @@ export class HeaderComponent {
     icon: '/assets/images/flag/icon-flag-en.svg',
   };
 
+
+  /*
   public languages: any[] = [
     {
       language: 'English',
@@ -97,14 +99,16 @@ export class HeaderComponent {
       icon: '/assets/images/flag/icon-flag-de.svg',
     },
   ];
+  */
 
   @Output() optionsChange = new EventEmitter<AppSettings>();
 
   constructor(
     private settings: CoreService,
-    private vsidenav: CoreService,
+    private authService: AuthService,
     public dialog: MatDialog,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private router: Router
   ) {
     translate.setDefaultLang('en');
   }
@@ -133,60 +137,25 @@ export class HeaderComponent {
     this.selectedLanguage = lang;
   }
 
-  notifications: notifications[] = [
-    {
-      id: 1,
-      img: '/assets/images/profile/user-1.jpg',
-      title: 'Roman Joined thes Team!',
-      subtitle: 'Congratulate him',
-    },
-    {
-      id: 2,
-      img: '/assets/images/profile/user-2.jpg',
-      title: 'New message received',
-      subtitle: 'Salma sent you new message',
-    },
-    {
-      id: 3,
-      img: '/assets/images/profile/user-3.jpg',
-      title: 'New Payment received',
-      subtitle: 'Check your earnings',
-    },
-    {
-      id: 4,
-      img: '/assets/images/profile/user-4.jpg',
-      title: 'Jolly completed tasks',
-      subtitle: 'Assign her new tasks',
-    },
-    {
-      id: 5,
-      img: '/assets/images/profile/user-5.jpg',
-      title: 'Roman Joined the Team!',
-      subtitle: 'Congratulatse him',
-    },
-  ];
+  logout() {
+    this.authService.logout();
+    this.router.navigate(['/authentication/login']);
+  }
 
   profiledd: profiledd[] = [
     {
       id: 1,
       img: '/assets/images/svgs/icon-account.svg',
-      title: 'My Profile',
-      subtitle: 'Account Settings',
-      link: '/',
+      title: 'Mi Perfil',
+      subtitle: 'Configuración de la cuenta',
+      link: 'apps//profile',
     },
     {
       id: 2,
       img: '/assets/images/svgs/icon-inbox.svg',
-      title: 'My Inbox',
-      subtitle: 'Messages & Email',
-      link: '/apps/email/inbox',
-    },
-    {
-      id: 3,
-      img: '/assets/images/svgs/icon-tasks.svg',
-      title: 'My Tasks',
-      subtitle: 'To-do and Daily Tasks',
-      link: '/apps/taskboard',
+      title: 'Mi Inbox',
+      subtitle: 'Notificaciones',
+      link: '/apps/notifications',
     },
   ];
 
@@ -263,7 +232,7 @@ export class HeaderComponent {
     {
       id: 3,
       title: 'Register Now',
-      link: '/authentication/side-register',
+      link: '/authentication/signup',
     },
     {
       id: 4,

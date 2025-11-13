@@ -36,8 +36,8 @@ export class AuthService {
     return null;
   }
 
-  login(user: User): Observable<any> {
-    const urlEndpoint = `${this.environmentUrl}/login`;
+  signin(user: User): Observable<any> {
+    const urlEndpoint = `${this.environmentUrl}/sign-in`;
     let data = JSON.stringify({ "username": user.username, "password": user.password })
     return this.httpClient.post<any>(urlEndpoint, data, {
       headers: new HttpHeaders({
@@ -45,6 +45,10 @@ export class AuthService {
         'Accept': 'application/json',
       })
     });
+  }
+
+  login(user: User): Observable<any> {
+    return this.signin(user);
   }
 
   signup(user: User): Observable<any> {
@@ -58,12 +62,18 @@ export class AuthService {
     });
   }
 
-  saveUser(token: any, ipAddress: string): void {
+  saveUser(id: number, token: any): void {
     let payload = this.getPayloadToken(token);
 
     this._user = new User(0,'','',[]);
-    this._user.username = payload.user.username;
-    this._user.roles = payload.user.roles;
+    this._user.id = id;
+    this._user.username = payload.sub;
+    this._user.roles = payload.roles;
+    // Si el JWT contiene advisorId, lo guardamos
+    if (payload.advisorId) {
+      this._user.advisorId = payload.advisorId;
+      localStorage.setItem('advisorId', String(payload.advisorId));
+    }
 
     localStorage.setItem("user", JSON.stringify(this._user));
   }
@@ -83,7 +93,7 @@ export class AuthService {
 
   isAuthenticated(): boolean {
     let payload = this.getPayloadToken(this.token);
-    if (payload != null && payload.user.username && payload.user.username.length > 0) {
+    if (payload != null && payload.sub && payload.sub.length > 0) {
       return true;
     }
     return false;
@@ -105,10 +115,10 @@ export class AuthService {
   }
 
   hasRole(role: string): boolean {
-    if (this.user.roles.includes(role)) {
-      return true;
+    if (this.user.roles == null) {
+      return false;
     }
-    return false;
+    return this.user.roles.includes(role);
   }
 
 }

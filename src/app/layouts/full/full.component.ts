@@ -6,7 +6,7 @@ import { CoreService } from 'src/app/services/core.service';
 import { AppSettings } from 'src/app/config';
 import { filter } from 'rxjs/operators';
 import { NavigationEnd, Router } from '@angular/router';
-import { navItems } from './vertical/sidebar/sidebar-data';
+import { navItems } from './vertical/sidebar/sidebar-data-template';
 import { NavService } from '../../services/nav.service';
 import { AppNavItemComponent } from './vertical/sidebar/nav-item/nav-item.component';
 import { RouterModule } from '@angular/router';
@@ -20,6 +20,12 @@ import { AppHorizontalHeaderComponent } from './horizontal/header/header.compone
 import { AppHorizontalSidebarComponent } from './horizontal/sidebar/sidebar.component';
 import { AppBreadcrumbComponent } from './shared/breadcrumb/breadcrumb.component';
 import { CustomizerComponent } from './shared/customizer/customizer.component';
+import {AuthService} from "../../shared/services/auth.service";
+import {navItemsFarmer} from "./vertical/sidebar/sidebar-data-farmer";
+import {navItemsAdvisor} from "./vertical/sidebar/sidebar-data-advisor";
+import {ProfileService} from "../../shared/services/profile.service";
+import {UserNotification} from "../../shared/model/userNotification";
+import {NotificationService} from "../../shared/services/notification.service";
 
 const MOBILE_VIEW = 'screen and (max-width: 768px)';
 const TABLET_VIEW = 'screen and (min-width: 769px) and (max-width: 1024px)';
@@ -158,7 +164,7 @@ export class FullComponent implements OnInit {
     {
       id: 3,
       title: 'Register Now',
-      link: '/authentication/side-register',
+      link: '/authentication/signup',
     },
     {
       id: 4,
@@ -192,7 +198,10 @@ export class FullComponent implements OnInit {
     private mediaMatcher: MediaMatcher,
     private router: Router,
     private breakpointObserver: BreakpointObserver,
-    private navService: NavService
+    private navService: NavService,
+    private authService: AuthService,
+    private profileService: ProfileService,
+    private notificationService: NotificationService,
   ) {
     this.htmlElement = document.querySelector('html')!;
     this.layoutChangesSubscription = this.breakpointObserver
@@ -219,7 +228,45 @@ export class FullComponent implements OnInit {
       });
   }
 
-  ngOnInit(): void {}
+  username = "Usuario";
+  role = "Rol";
+  photo = "/assets/images/profile/user-1.jpg";
+  notifications: UserNotification[] = [];
+
+  ngOnInit(): void {
+    const user = this.authService.user;
+    const roles = user.roles || [];
+    const userId = user.id || 0;
+
+    if (roles.includes('ROLE_FARMER')) {
+      this.navItems = navItemsFarmer;
+      this.role = "Productor agrícola";
+    }
+
+    if (roles.includes('ROLE_ADVISOR')) {
+      this.navItems = navItemsAdvisor;
+      this.role = "Asesor especializado"
+    }
+
+    this.profileService.fetchProfile(userId).subscribe({
+      next: (profile) => {
+        this.username = `${profile.firstName} ${profile.lastName}`;
+        this.photo = profile.photo;
+      },
+      error: (error) => {
+        console.error('Error fetching profile:', error);
+      }
+    })
+
+    this.notificationService.fetchNotificationsByUserId(userId).subscribe({
+      next: (notifications: UserNotification[]) => {
+        this.notifications = notifications;
+      },
+      error: (error: any) => {
+        console.error('Error fetching notifications:', error);
+      }
+    })
+  }
 
   ngOnDestroy() {
     this.layoutChangesSubscription.unsubscribe();
@@ -271,5 +318,10 @@ export class FullComponent implements OnInit {
 
     // Add the selected theme class
     this.htmlElement.classList.add(options.activeTheme);
+  }
+
+  logout() {
+    this.authService.logout();
+    this.router.navigate(['/authentication/login']);
   }
 }

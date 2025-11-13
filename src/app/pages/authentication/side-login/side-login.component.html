@@ -1,7 +1,9 @@
 <div class="blank-layout-container justify-content-center">
   <div class="position-relative row w-100 h-100">
     <div class="col-lg-7 col-xl-8 bg-gredient p-0">
-
+      <div class="p-24 h-100">
+        <app-branding></app-branding>
+      </div>
     </div>
     <div class="col-lg-5 col-xl-4 p-0">
       <div
@@ -24,9 +26,9 @@
                 @if(f['uname'].touched && f['uname'].invalid) {
                 <mat-hint class="m-b-16 error-msg">
                   @if(f['uname'].errors && f['uname'].errors['required']) {
-                  <div class="text-error">Name is required.</div>
-                  } @if(f['uname'].errors && f['uname'].errors['minlength']) {
-                  <div class="text-error">Name should be 6 character.</div>
+                  <div class="text-error">Usuario es requerido.</div>
+                  } @if(f['uname'].errors && f['uname'].errors['email']) {
+                  <div class="text-error">El usuario debe ser un email válido.</div>
                   }
                 </mat-hint>
                 }
@@ -46,7 +48,7 @@
                 <mat-hint class="m-b-16 error-msg">
                   @if( f['password'].errors && f['password'].errors['required'])
                   {
-                  <div class="text-error">Password is required.</div>
+                  <div class="text-error">Contraseña es requerida.</div>
                   }
                 </mat-hint>
                 }
@@ -55,11 +57,6 @@
               <div class="d-flex align-items-center m-b-12">
                 <mat-checkbox color="primary"
                   >Recordar este dispositivo</mat-checkbox
-                >
-                <a
-                  [routerLink]="['/authentication/side-forgot-pwd']"
-                  class="text-primary f-w-600 text-decoration-none m-l-auto f-s-14"
-                  >Olvidé mi contraseña</a
                 >
               </div>
               <button
@@ -75,7 +72,7 @@
             <span class="d-block f-w-500 d-block m-t-24"
               >¿No tienes una cuenta?
               <a
-                [routerLink]="['/authentication/side-register']"
+                [routerLink]="['/authentication/signup']"
                 class="text-decoration-none text-primary f-w-500 f-s-14"
               >
                 Regístrate</a

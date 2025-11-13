@@ -309,11 +309,6 @@ export const navItems: NavItem[] = [
                 iconName: 'point',
                 route: '/authentication/login',
               },
-              {
-                displayName: 'Boxed Login',
-                iconName: 'point',
-                route: '/authentication/boxed-login',
-              },
             ],
           },
           {
@@ -324,12 +319,7 @@ export const navItems: NavItem[] = [
               {
                 displayName: 'Login 1',
                 iconName: 'point',
-                route: '/authentication/side-register',
-              },
-              {
-                displayName: 'Boxed Login',
-                iconName: 'point',
-                route: '/authentication/boxed-register',
+                route: '/authentication/signup',
               },
             ],
           },
@@ -343,11 +333,6 @@ export const navItems: NavItem[] = [
                 iconName: 'point',
                 route: '/authentication/side-forgot-pwd',
               },
-              {
-                displayName: 'Boxed Forgot Password',
-                iconName: 'point',
-                route: '/authentication/boxed-forgot-pwd',
-              },
             ],
           },
           {
@@ -359,11 +344,6 @@ export const navItems: NavItem[] = [
                 displayName: 'Side Two Steps',
                 iconName: 'point',
                 route: '/authentication/side-two-steps',
-              },
-              {
-                displayName: 'Boxed Two Steps',
-                iconName: 'point',
-                route: '/authentication/boxed-two-steps',
               },
             ],
           },

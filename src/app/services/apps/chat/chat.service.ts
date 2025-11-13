@@ -1,6 +1,6 @@
 import { Injectable, signal } from '@angular/core';
-import { messages } from 'src/app/pages/apps/chat/chatData';
-import { Message } from 'src/app/pages/apps/chat/chat';
+import { messages } from 'src/app/pages/apps/template/chat/chatData';
+import { Message } from 'src/app/pages/apps/template/chat/chat';
 
 @Injectable({
   providedIn: 'root',

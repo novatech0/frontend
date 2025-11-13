@@ -1,6 +1,6 @@
 import { Injectable, signal } from '@angular/core';
-import { Note } from 'src/app/pages/apps/notes/note';
-import { notes } from 'src/app/pages/apps/notes/notesData';
+import { Note } from 'src/app/pages/apps/template/notes/note';
+import { notes } from 'src/app/pages/apps/template/notes/notesData';
 
 @Injectable({
   providedIn: 'root',
