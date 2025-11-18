@@ -11,7 +11,7 @@
   right: 24px;
   width: 500px;
   height: 700px;
-  background: #fff;
+  background: var(--mat-sys-background);
   border-radius: 12px;
   box-shadow: 0 4px 16px rgba(0,0,0,0.15);
   display: flex;
@@ -22,7 +22,6 @@
 .chat-header {
   padding: 12px 16px;
   font-weight: 600;
-  border-bottom: 1px solid #eee;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -30,7 +29,6 @@
 
 .chat-footer {
   padding: 12px;
-  border-top: 1px solid #eee;
   display: flex;
   gap: 8px;
   align-items: center;
@@ -57,12 +55,10 @@
 }
 
 .ai {
-  background: #eef2ff;
   align-self: flex-start;
 }
 
 .user {
-  background: #d1fae5;
   align-self: flex-end;
 }
 

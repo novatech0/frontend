@@ -86,8 +86,9 @@
       </div>
     }
   </div>
-  <div class="chat-box" *ngIf="chatOpen">
-    <div class="chat-header">
+  <div class="chat-box"
+       *ngIf="chatOpen">
+    <div class="chat-header b-b-1">
       <span>Chat con IA</span>
       <button mat-icon-button (click)="chatOpen = false">
         <mat-icon>close</mat-icon>
@@ -97,8 +98,7 @@
       <div
         *ngFor="let msg of messages"
         class="bubble"
-        [ngClass]="msg.from"
-      >
+        [ngClass]="{ 'bg-light-primary ai': msg.from === 'ai', 'bg-light-secondary user': msg.from == 'user' }">
         <div>{{ msg.text }}</div>
         <div *ngIf="msg.advisorId" class="recommend-card">
           <button
@@ -116,7 +116,7 @@
         <span class="typing-dot"></span>
       </div>
     </div>
-    <div class="chat-footer">
+    <div class="chat-footer b-t-1">
       <mat-form-field appearance="outline" class="w-100 hide-hint">
         <textarea
           matInput
