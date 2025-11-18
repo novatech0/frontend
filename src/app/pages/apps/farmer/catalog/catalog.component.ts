@@ -8,9 +8,12 @@ import { AdvisorService } from "src/app/services/apps/catalog/advisor.service";
 import { RouterLink } from "@angular/router";
 import { AvailableDateService } from "../../../../services/apps/catalog/available-date.service";
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
+import {AiService} from "../../../../services/apps/catalog/ai.service";
+import {finalize} from "rxjs";
 
 @Component({
   templateUrl: './catalog.component.html',
+  styleUrls: ['./catalog.component.scss'],
   imports: [
     MaterialModule,
     FormsModule,
@@ -20,19 +23,120 @@ import { MatDatepickerInputEvent } from '@angular/material/datepicker';
     RouterLink,
   ],
 })
+
 export class AppCatalogComponent implements OnInit {
   private originalAdvisors: Advisor[] = [];
   advisors = signal<Advisor[]>([]);
   searchText = signal<string>('');
   selectedDate: Date | null = null;
+  chatOpen = false;
+  loading = false;
+  message: string = "";
+  messages = [
+    new ChatMessage(
+      'ai',
+      '¡Hola! Te ayudaré a encontrar el asesor ideal. Cuéntame qué necesitas.',
+      null
+    )
+  ];
 
   constructor(
     private advisorService: AdvisorService,
-    private availableDatesService: AvailableDateService
+    private availableDatesService: AvailableDateService,
+    private aiService: AiService
   ) {}
 
   ngOnInit(): void {
     this.loadAdvisors();
+  }
+
+  sendMessage() {
+    if (!this.message.trim()) return;
+
+    this.messages.push(
+      new ChatMessage('user', this.message, null)
+    );
+
+    const userMsg = this.message;
+    this.message = '';
+    this.loading = true;
+
+    switch (userMsg.toLowerCase().trim()) {
+      case 'hola':
+        this.messages.push(
+          new ChatMessage(
+            'ai',
+            '¡Hola! Por favor describe cómo quieres tu asesoría (tema, duración, estilo, preferencias). Con esa información te mostraré el asesor más adecuado a tus necesidades.',
+            null
+          )
+        );
+        this.loading = false;
+        return;
+
+      case 'gracias':
+      case 'muchas gracias':
+        this.messages.push(
+          new ChatMessage(
+            'ai',
+            '¡De nada! Estoy aquí para ayudarte cuando lo necesites.',
+            null
+          )
+        );
+        this.loading = false;
+        return;
+      case 'adios':
+      case 'adiós':
+        this.messages.push(
+          new ChatMessage(
+            'ai',
+            '¡Hasta luego! Si necesitas más ayuda, no dudes en volver.',
+            null
+          )
+        );
+        this.loading = false;
+        return;
+
+      case 'que':
+      case 'qué':
+        this.messages.push(
+          new ChatMessage(
+            'ai',
+            'SO',
+            null
+          )
+        );
+        this.loading = false;
+        return;
+
+      default:
+        this.aiService.sendMessage(userMsg)
+          .pipe(finalize(() => this.loading = false))
+          .subscribe({
+            next: (answer) => {
+              const text = answer.response ?? 'No se obtuvo respuesta del servicio.';
+              const advisorId = answer.advisorId ?? null;
+
+              this.messages.push(
+                new ChatMessage('ai', text, advisorId)
+              );
+            },
+            error: (err) => {
+              console.error('Error from AI service:', err);
+              this.messages.push(
+                new ChatMessage(
+                  'ai',
+                  'Lo siento, hubo un error al procesar tu solicitud.',
+                  null
+                )
+              );
+            }
+          });
+        return;
+    }
+  }
+
+  toggleChat() {
+    this.chatOpen = !this.chatOpen;
   }
 
   private loadAdvisors(): void {
@@ -77,5 +181,17 @@ export class AppCatalogComponent implements OnInit {
     else {
       this.advisors.set(filtered);
     }
+  }
+}
+
+class ChatMessage {
+  from: string;
+  text: string;
+  advisorId: number | null;
+
+  constructor(from: string, text: string, advisorId: number | null = null) {
+    this.from = from;
+    this.text = text;
+    this.advisorId = advisorId;
   }
 }
