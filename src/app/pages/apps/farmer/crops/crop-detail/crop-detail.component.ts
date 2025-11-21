@@ -2,18 +2,23 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import { MaterialModule } from 'src/app/material.module';
 import { TablerIconsModule } from 'angular-tabler-icons';
-import {NgIf} from "@angular/common";
+import {NgIf, NgStyle} from "@angular/common";
 import { MatDialog } from '@angular/material/dialog';
 import {Crop} from "../crop";
-import {CropService} from "../../../../../services/apps/crops/crop.service";
+import {CropService} from "src/app/services/apps/crops/crop.service";
+import {HumidityChartComponent} from "src/app/components/crops/humidity-chart/humidity-chart.component";
+import {TemperatureChartComponent} from "src/app/components/crops/temperature-chart/temperature-chart.component";
+import {finalize} from "rxjs";
 
 @Component({
   selector: 'app-crop-detail-page',
-  imports: [MaterialModule, TablerIconsModule, NgIf],
+  imports: [MaterialModule, TablerIconsModule, NgIf, HumidityChartComponent, NgStyle, TemperatureChartComponent],
   templateUrl: './crop-detail.component.html'
 })
 export class AppCropDetailComponent implements OnInit {
   crop: Crop;
+  isLoading: boolean = false;
+
   constructor(public router: Router,
               public activatedRoute: ActivatedRoute,
               public cropService: CropService,
@@ -29,20 +34,16 @@ export class AppCropDetailComponent implements OnInit {
   }
 
   private loadCrop(cropId: number): void {
-    this.cropService.getCropById(cropId).subscribe({
+    this.isLoading = true;
+    this.cropService.getCropById(cropId).pipe(
+      finalize(() => { this.isLoading = false; })
+    ).subscribe({
       next: (data) => {
         this.crop = data;
       },
       error: (err) => {
         console.error('Error cargando Crop:', err);
-      }
+      },
     });
-  }
-
-  getHumidityStroke(value: number): string {
-    // Asegura que el valor esté entre 0 y 100
-    const percentage = Math.max(0, Math.min(100, value));
-    // Devuelve 'progreso, resto' (resto = 100 - progreso)
-    return `${percentage}, ${100 - percentage}`;
   }
 }
