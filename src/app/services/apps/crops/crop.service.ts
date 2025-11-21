@@ -21,6 +21,16 @@ export class CropService {
     }).pipe(map(list => (list ?? []).map(dto => Crop.fromDto(dto))));
   }
 
+  public getCropById(id: number): Observable<Crop> {
+    const url = `${this.environmentUrl}/${id}`;
+    return this.http.get<any>(url, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      })
+    }).pipe(map(dto => Crop.fromDto(dto)));
+  }
+
   public createCrop(payload: Omit<Crop, 'id'>): Observable<Crop> {
     return this.http.post<any>(this.environmentUrl, JSON.stringify(payload), {
       headers: new HttpHeaders({

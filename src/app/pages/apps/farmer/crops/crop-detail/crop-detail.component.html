@@ -1,0 +1,110 @@
+<div class="row" *ngIf="crop">
+
+  <!-- HUMEDAD -->
+  <div class="col-md-6 m-b-16">
+    <mat-card class="cardWithShadow p-16">
+      <mat-card-content>
+        <div class="row align-items-center">
+          <!-- Icono -->
+          <div class="col-4 text-center">
+            <mat-icon>water_drop</mat-icon>
+            <p class="m-t-8 f-w-600">Humedad</p>
+          </div>
+          <!-- Lectura -->
+          <div class="col-4 text-center">
+            <p class="f-s-20">{{ crop.humidity }}%</p>
+            <mat-card-subtitle class="f-s-14">Actual</mat-card-subtitle>
+          </div>
+          <!-- Estado -->
+          <div class="col-4 text-center">
+            <p class="f-w-600" *ngIf="crop.humidity < crop.humidityMinThreshold">Muy seco</p>
+            <p class="f-w-600" *ngIf="crop.humidity >= crop.humidityMinThreshold">Normal</p>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+    <mat-card class="cardWithShadow p-16">
+      <mat-card-content>
+        <div class="row align-items-center">
+          <!-- Icono -->
+          <div class="col-4 text-center">
+            <mat-icon>thermostat</mat-icon>
+            <p class="m-t-8 f-w-600">Temperatura</p>
+          </div>
+          <!-- Lectura -->
+          <div class="col-4 text-center">
+            <p class="f-s-20">{{ crop.temperature }}°C</p>
+            <mat-card-subtitle class="f-s-14">Actual</mat-card-subtitle>
+          </div>
+          <!-- Estado -->
+          <div class="col-4 text-center">
+            <p class="f-w-600" *ngIf="crop.temperature > crop.temperatureMaxThreshold">Muy caliente</p>
+            <p class="f-w-600" *ngIf="crop.temperature <= crop.temperatureMaxThreshold">Normal</p>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div class="col-md-6 m-b-16">
+
+    <!-- TANQUE -->
+    <mat-card class="cardWithShadow p-16">
+      <mat-card-content>
+        <div class="row align-items-center">
+          <!-- Icono -->
+          <div class="col-4 text-center">
+            <mat-icon>inventory_2</mat-icon>
+            <p class="m-t-8 f-w-600">Tanque</p>
+          </div>
+
+          <!-- Valor -->
+          <div class="col-4 text-center">
+            <p class="f-s-20">{{ crop.tankCurrentVolume }} L</p>
+            <mat-card-subtitle class="f-s-14">Actual</mat-card-subtitle>
+          </div>
+
+          <!-- Estado -->
+          <div class="col-4 text-center">
+            <p class="f-w-600">
+              {{ crop.tankCurrentVolume }}/{{ crop.tankMaxVolume }} L
+            </p>
+            <mat-card-subtitle class="f-s-14">
+              Capacidad
+            </mat-card-subtitle>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- RIEGO -->
+    <mat-card class="cardWithShadow p-16 m-t-16">
+      <mat-card-content>
+        <div class="row align-items-center">
+          <!-- Icono -->
+          <div class="col-4 text-center">
+            <mat-icon>water</mat-icon>
+            <p class="m-t-8 f-w-600">Riego</p>
+          </div>
+
+          <!-- Estado -->
+          <div class="col-8 text-center">
+            <p class="f-s-20 f-w-600" *ngIf="crop.isIrrigating">Regando</p>
+            <p class="f-s-20 f-w-600" *ngIf="!crop.isIrrigating">Inactivo</p>
+            <mat-card-subtitle class="f-s-14">
+              Estado del riego
+            </mat-card-subtitle>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+<div class="row" *ngIf="!crop">
+  <div class="col-12">
+    <mat-card class="cardWithShadow">
+      <mat-card-content>
+        <mat-card-title>Cultivo no encontrado.</mat-card-title>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
