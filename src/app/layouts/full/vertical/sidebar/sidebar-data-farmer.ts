@@ -23,6 +23,11 @@ export const navItemsFarmer: NavItem[] = [
     route: '/apps/farmer/enclosures',
   },
   {
+    displayName: 'Mis Cultivos',
+    iconName: 'plant',
+    route: '/apps/farmer/crops',
+  },
+  {
     navCap: 'Posts',
   },
   {
