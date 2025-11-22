@@ -18,9 +18,18 @@
       <div class="col-12 m-b-20">
         <mat-form-field class="w-100" appearance="outline">
           <mat-label>Volumen máximo del tanque (L)</mat-label>
-          <input type="number" min="0" matInput formControlName="tankMaxVolume" required />
+          <input type="number" min="1" matInput formControlName="tankMaxVolume" required />
           <mat-hint class="f-w-300">Capacidad total de agua del tanque en litros</mat-hint>
           <mat-error *ngIf="form.controls.tankMaxVolume.invalid">Número inválido</mat-error>
+        </mat-form-field>
+      </div>
+      <!-- Altura del tanque-->
+      <div class="col-12 m-b-20">
+        <mat-form-field class="w-100" appearance="outline">
+          <mat-label>Altura del tanque (cm)</mat-label>
+          <input type="number" min="1" matInput formControlName="tankHeight" required />
+          <mat-hint class="f-w-300">Altura del tanque en centímetros</mat-hint>
+          <mat-error *ngIf="form.controls.tankHeight.invalid">Número inválido</mat-error>
         </mat-form-field>
       </div>
 

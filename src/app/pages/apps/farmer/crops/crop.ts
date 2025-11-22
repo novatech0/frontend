@@ -5,6 +5,7 @@ export class Crop {
     public temperature: number,
     public humidity: number,
     public tankMaxVolume: number,
+    public tankHeight: number,
     public tankCurrentVolume: number,
     public temperatureMaxThreshold: number,
     public humidityMinThreshold: number,
@@ -17,10 +18,11 @@ export class Crop {
     const temperature = dto.temperature ?? 0;
     const humidity = dto.humidity ?? 0;
     const tankMaxVolume = dto.tankMaxVolume ?? 0;
+    const tankHeight = dto.tankHeight ?? 0;
     const tankCurrentVolume = dto.tankCurrentVolume ?? 0;
     const temperatureMaxThreshold = dto.temperatureMaxThreshold ?? 0;
     const humidityMinThreshold = dto.humidityMinThreshold ?? 0;
     const isIrrigating = dto.isIrrigating ?? false;
-    return new Crop(id, name, temperature, humidity, tankMaxVolume, tankCurrentVolume, temperatureMaxThreshold, humidityMinThreshold, isIrrigating);
+    return new Crop(id, name, temperature, humidity, tankMaxVolume, tankHeight, tankCurrentVolume, temperatureMaxThreshold, humidityMinThreshold, isIrrigating);
   }
 }

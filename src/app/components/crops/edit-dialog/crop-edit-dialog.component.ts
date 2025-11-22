@@ -16,8 +16,13 @@ export class AppCropEditDialogComponent {
     name: new FormControl(this.data?.name ?? '', [Validators.required]),
 
     tankMaxVolume: new FormControl<number | null>(
-      this.data?.tankMaxVolume ?? 0,
-      [Validators.required, Validators.min(0)]
+      this.data?.tankMaxVolume ?? 1,
+      [Validators.required, Validators.min(1)]
+    ),
+
+    tankHeight: new FormControl<number | null>(
+      this.data?.tankHeight ?? 1,
+      [Validators.required, Validators.min(1)]
     ),
 
     temperatureMaxThreshold: new FormControl<number | null>(
@@ -48,6 +53,7 @@ export class AppCropEditDialogComponent {
     this.dialogRef.close({
       name: v.name?.trim() ?? '',
       tankMaxVolume: Number(v.tankMaxVolume ?? 0),
+      tankHeight: Number(v.tankHeight ?? 0),
       temperatureMaxThreshold: Number(v.temperatureMaxThreshold ?? 0),
       humidityMinThreshold: Number(v.humidityMinThreshold ?? 0),
     });

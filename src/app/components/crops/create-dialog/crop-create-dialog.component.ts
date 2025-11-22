@@ -19,6 +19,11 @@ export class AppCropCreateDialogComponent {
       Validators.min(1)
     ]),
 
+    tankHeight: new FormControl<number | null>(0, [
+      Validators.required,
+      Validators.min(1)
+    ]),
+
     temperatureMaxThreshold: new FormControl<number | null>(0, [
       Validators.required,
       Validators.min(0)
