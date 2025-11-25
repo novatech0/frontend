@@ -15,6 +15,7 @@ import {Crop} from "./crop";
 import {AppCropTableComponent} from "../../../../components/crops/table/crop-table.component";
 import {AppCropCreateDialogComponent} from "../../../../components/crops/create-dialog/crop-create-dialog.component";
 import {AppCropEditDialogComponent} from "../../../../components/crops/edit-dialog/crop-edit-dialog.component";
+import {CropDto} from "./cropDto";
 
 @Component({
   selector: 'app-crops',
@@ -68,7 +69,7 @@ export class AppCropsComponent implements OnInit {
       disableClose: true,
     });
 
-    ref.afterClosed().subscribe((result?: Partial<Crop>) => {
+    ref.afterClosed().subscribe((result?: CropDto) => {
       if (!result) return;
 
       const payload = {
@@ -80,7 +81,6 @@ export class AppCropsComponent implements OnInit {
         tankCurrentVolume: Number(result.tankCurrentVolume ?? 0),
         temperatureMaxThreshold: Number(result.temperatureMaxThreshold ?? 0),
         humidityMinThreshold: Number(result.humidityMinThreshold ?? 0),
-        isIrrigating: Boolean(result.isIrrigating ?? false)
       };
 
       this.cropService.createCrop(payload).subscribe({
@@ -111,11 +111,10 @@ export class AppCropsComponent implements OnInit {
       disableClose: true,
     });
 
-    ref.afterClosed().subscribe((result?: Partial<Crop>) => {
+    ref.afterClosed().subscribe((result?: CropDto) => {
       if (!result) return;
 
-      const payload: Crop = {
-        id: row.id,
+      const payload: CropDto = {
         name: result.name ?? row.name,
         temperature: result.temperature ?? row.temperature,
         humidity: result.humidity ?? row.humidity,
@@ -124,7 +123,6 @@ export class AppCropsComponent implements OnInit {
         tankCurrentVolume: result.tankCurrentVolume ?? row.tankCurrentVolume,
         temperatureMaxThreshold: result.temperatureMaxThreshold ?? row.temperatureMaxThreshold,
         humidityMinThreshold: result.humidityMinThreshold ?? row.humidityMinThreshold,
-        isIrrigating: result.isIrrigating ?? row.isIrrigating
       };
 
       this.cropService.updateCrop(row.id, payload).subscribe({

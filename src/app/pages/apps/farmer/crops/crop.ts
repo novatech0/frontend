@@ -9,8 +9,11 @@ export class Crop {
     public tankCurrentVolume: number,
     public temperatureMaxThreshold: number,
     public humidityMinThreshold: number,
-    public isIrrigating: boolean
   ){}
+
+  public get isIrrigating(): boolean {
+    return this.humidity < this.humidityMinThreshold && this.temperature > this.temperatureMaxThreshold;
+  }
 
   static fromDto(dto: any): Crop {
     const id = dto.id ?? 0;
@@ -22,7 +25,6 @@ export class Crop {
     const tankCurrentVolume = dto.tankCurrentVolume ?? 0;
     const temperatureMaxThreshold = dto.temperatureMaxThreshold ?? 0;
     const humidityMinThreshold = dto.humidityMinThreshold ?? 0;
-    const isIrrigating = dto.isIrrigating ?? false;
-    return new Crop(id, name, temperature, humidity, tankMaxVolume, tankHeight, tankCurrentVolume, temperatureMaxThreshold, humidityMinThreshold, isIrrigating);
+    return new Crop(id, name, temperature, humidity, tankMaxVolume, tankHeight, tankCurrentVolume, temperatureMaxThreshold, humidityMinThreshold);
   }
 }

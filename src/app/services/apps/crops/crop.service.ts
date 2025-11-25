@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { map } from 'rxjs/operators';
 import { Crop } from "../../../pages/apps/farmer/crops/crop";
+import {CropDto} from "../../../pages/apps/farmer/crops/cropDto";
 
 @Injectable({ providedIn: 'root' })
 export class CropService {
@@ -31,7 +32,7 @@ export class CropService {
     }).pipe(map(dto => Crop.fromDto(dto)));
   }
 
-  public createCrop(payload: Omit<Crop, 'id'>): Observable<Crop> {
+  public createCrop(payload: CropDto): Observable<Crop> {
     return this.http.post<any>(this.environmentUrl, JSON.stringify(payload), {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -40,7 +41,7 @@ export class CropService {
     }).pipe(map(dto => Crop.fromDto(dto)));
   }
 
-  public updateCrop(id: number, payload: Crop): Observable<Crop> {
+  public updateCrop(id: number, payload: CropDto): Observable<Crop> {
     const url = `${this.environmentUrl}/${id}`;
     return this.http.put<any>(url, JSON.stringify(payload), {
       headers: new HttpHeaders({
