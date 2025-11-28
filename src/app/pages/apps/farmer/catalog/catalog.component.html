@@ -86,6 +86,65 @@
       </div>
     }
   </div>
+  <div class="chat-box"
+       *ngIf="chatOpen">
+    <div class="chat-header b-b-1">
+      <span>Chat con IA</span>
+      <button mat-icon-button (click)="chatOpen = false">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    <div class="chat-body">
+      <div
+        *ngFor="let msg of messages"
+        class="bubble"
+        [ngClass]="{ 'bg-light-primary ai': msg.from === 'ai', 'bg-light-secondary user': msg.from == 'user' }">
+        <div>{{ msg.text }}</div>
+        <div *ngIf="msg.advisorId" class="recommend-card">
+          <button
+            mat-stroked-button
+            color="primary"
+            [routerLink]="['/apps/farmer/catalog/', msg.advisorId]"
+          >
+            Ver asesor recomendado
+          </button>
+        </div>
+      </div>
+      <div *ngIf="loading" class="bubble ai typing">
+        <span class="typing-dot"></span>
+        <span class="typing-dot"></span>
+        <span class="typing-dot"></span>
+      </div>
+    </div>
+    <div class="chat-footer b-t-1">
+      <mat-form-field appearance="outline" class="w-100 hide-hint">
+        <textarea
+          matInput
+          cdkTextareaAutosize
+          cdkAutosizeMaxRows="3"
+          rows="1"
+          [disabled]="loading"
+          [(ngModel)]="message"
+          placeholder="Describe tu asesoría ideal..."
+          (keydown.enter)="sendMessage()"
+        ></textarea>
+        <button
+          [disabled]="loading"
+          mat-icon-button
+          matSuffix
+          (click)="sendMessage()">
+          <mat-icon matSuffix>
+            <i-tabler name="send" class="icon-20 d-flex m-t-2"></i-tabler>
+          </mat-icon>
+        </button>
+      </mat-form-field>
+    </div>
+  </div>
+  <button mat-fab color="primary" class="fab-fixed d-none d-sm-flex" (click)="toggleChat()">
+    <mat-icon>
+      <i-tabler name="message" class="icon-24 d-flex m-0"></i-tabler>
+    </mat-icon>
+  </button>
 }
 
 
