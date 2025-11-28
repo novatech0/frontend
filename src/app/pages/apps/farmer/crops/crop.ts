@@ -1,6 +1,7 @@
 export class Crop {
   constructor(
     public id: number,
+    public farmerId: number,
     public name: string,
     public temperature: number,
     public humidity: number,
@@ -17,6 +18,7 @@ export class Crop {
 
   static fromDto(dto: any): Crop {
     const id = dto.id ?? 0;
+    const farmerId = dto.farmerId ?? 0;
     const name = dto.name ?? '';
     const temperature = dto.temperature ?? 0;
     const humidity = dto.humidity ?? 0;
@@ -25,6 +27,6 @@ export class Crop {
     const tankCurrentVolume = dto.tankCurrentVolume ?? 0;
     const temperatureMaxThreshold = dto.temperatureMaxThreshold ?? 0;
     const humidityMinThreshold = dto.humidityMinThreshold ?? 0;
-    return new Crop(id, name, temperature, humidity, tankMaxVolume, tankHeight, tankCurrentVolume, temperatureMaxThreshold, humidityMinThreshold);
+    return new Crop(id, farmerId, name, temperature, humidity, tankMaxVolume, tankHeight, tankCurrentVolume, temperatureMaxThreshold, humidityMinThreshold);
   }
 }

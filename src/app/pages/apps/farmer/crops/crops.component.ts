@@ -74,6 +74,7 @@ export class AppCropsComponent implements OnInit {
 
       const payload = {
         name: result.name?.trim() ?? '',
+        farmerId: this.farmerId ?? 0,
         temperature: Number(result.temperature ?? 0),
         humidity: Number(result.humidity ?? 0),
         tankMaxVolume: Number(result.tankMaxVolume ?? 0),
@@ -116,6 +117,7 @@ export class AppCropsComponent implements OnInit {
 
       const payload: CropDto = {
         name: result.name ?? row.name,
+        farmerId: row.farmerId,
         temperature: result.temperature ?? row.temperature,
         humidity: result.humidity ?? row.humidity,
         tankMaxVolume: result.tankMaxVolume ?? row.tankMaxVolume,

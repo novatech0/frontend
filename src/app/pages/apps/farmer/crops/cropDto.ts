@@ -1,4 +1,5 @@
 export interface CropDto {
+  farmerId: number;
   name: string;
   temperature: number;
   humidity: number;
