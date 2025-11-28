@@ -12,6 +12,8 @@ import { AppAnimalsComponent } from './farmer/enclosures/animals/animals.compone
 import { AppAnimalDetailComponent } from './farmer/enclosures/animals/animal-detail/animal-detail.component';
 import { AppCreateAnimalComponent } from './farmer/enclosures/animals/create-animal/create-animal.component';
 import { AppEditAnimalComponent } from './farmer/enclosures/animals/edit-animal/edit-animal.component';
+import {AppCropsComponent} from "./farmer/crops/crops.component";
+import {AppCropDetailComponent} from "./farmer/crops/crop-detail/crop-detail.component";
 
 
 export const FarmerRoutes: Routes = [
@@ -135,6 +137,27 @@ export const FarmerRoutes: Routes = [
             { title: 'Edit Animal' },
           ],
         },
+      },
+      {
+        path: 'crops',
+        component: AppCropsComponent,
+        data: {
+          title: 'Mis cultivos',
+          urls: [
+            { title: 'Crops', url: '/apps/farmer/crops' },
+          ],
+        },
+      },
+      {
+        path: 'crops/:cropId',
+        component: AppCropDetailComponent,
+        data: {
+          title: 'Detalle del cultivo',
+          urls: [
+            { title: 'Crops', url: '/apps/farmer/crops' },
+            { title: 'Crop Detail' },
+          ]
+        }
       },
       {
         path: 'posts',

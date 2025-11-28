@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Enclosure } from 'src/app/shared/model/enclosure';
 import { map } from 'rxjs/operators';
+import {Enclosure} from "../../../shared/model/enclosure";
 
 @Injectable({ providedIn: 'root' })
 export class EnclosureService {
