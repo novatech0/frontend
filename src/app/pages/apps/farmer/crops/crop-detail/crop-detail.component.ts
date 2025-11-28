@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import { MaterialModule } from 'src/app/material.module';
 import { TablerIconsModule } from 'angular-tabler-icons';
-import {NgIf, NgStyle} from "@angular/common";
+import {DecimalPipe, NgIf, NgStyle} from "@angular/common";
 import { MatDialog } from '@angular/material/dialog';
 import {Crop} from "../crop";
 import {CropService} from "src/app/services/apps/crops/crop.service";
@@ -12,7 +12,7 @@ import {finalize} from "rxjs";
 
 @Component({
   selector: 'app-crop-detail-page',
-  imports: [MaterialModule, TablerIconsModule, NgIf, HumidityChartComponent, NgStyle, TemperatureChartComponent],
+  imports: [MaterialModule, TablerIconsModule, NgIf, HumidityChartComponent, NgStyle, TemperatureChartComponent, DecimalPipe],
   templateUrl: './crop-detail.component.html'
 })
 export class AppCropDetailComponent implements OnInit {
