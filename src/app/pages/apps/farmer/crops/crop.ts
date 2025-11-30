@@ -13,7 +13,8 @@ export class Crop {
   ){}
 
   public get isIrrigating(): boolean {
-    return this.humidity <= this.humidityMinThreshold || this.temperature >= this.temperatureMaxThreshold;
+    return (this.humidity <= this.humidityMinThreshold || this.temperature >= this.temperatureMaxThreshold)
+      && (this.tankCurrentVolume / this.tankMaxVolume * 100 > 5);
   }
 
   static fromDto(dto: any): Crop {
